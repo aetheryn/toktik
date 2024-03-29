@@ -4,6 +4,7 @@ function App() {
   return (
     <div>
       <h2>GA SEI</h2>
+      <h2>Hello</h2>
     </div>
   );
 }
