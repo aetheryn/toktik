@@ -1,4 +1,7 @@
 const Auth = require("../models/auth");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const { v4: uuidv4 } = require("uuid");
 
 // seed logins
 
@@ -39,13 +42,14 @@ const getAllUsers = async (req, res) => {
 
 const register = async (req, res) => {
   try {
-    const auth = Auth.findOne({ username: req.body.username });
+    const auth = await Auth.findOne({ username: req.body.username });
     if (auth) {
       return res
         .status(400)
         .json({ status: "error", msg: "username already exists" });
     }
     const hash = await bcrypt.hash(req.body.password, 12);
+
     await Auth.create({
       username: req.body.username,
       hash,
@@ -120,4 +124,4 @@ const refresh = async (req, res) => {
     res.status(400).json({ status: "error", msg: "Refresh failed" });
   }
 };
-module.exports = { getAllUsers, register, login, refresh };
+module.exports = { getAllUsers, register, login, refresh, seedUsers };

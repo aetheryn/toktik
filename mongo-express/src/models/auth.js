@@ -5,11 +5,8 @@ const authSchema = new mongoose.Schema(
     username: { type: String, require: true },
     hash: { type: String, require: true },
     role: { type: String, default: "user" },
-    following: { type: Array },
-    followers: { type: Array },
-    likes: { type: Array },
   },
-  { timestamps }
+  { timestamps: true }
 );
 
 module.exports = mongoose.model("Auth", authSchema);
