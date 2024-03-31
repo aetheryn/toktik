@@ -1,33 +1,32 @@
-import React from "react";
+import { React, useState } from "react";
 import { Link } from "react-router-dom";
+import styles from "./Navbar.module.css";
 
 const Navbar = () => {
   return (
-    <header style={{ backgroundColor: "black" }}>
-      <div
-        className="row"
-        style={{ paddingTop: "20px", paddingBottom: "20px" }}
-      >
-        <Link
-          className="col"
-          style={{ color: "white", paddingLeft: "50px" }}
-          to="/main"
-        >
-          Logo
-        </Link>
+    <header className={styles.navbar}>
+      <div className={`row ${styles.container}`}>
+        <div className={`col ${styles.logo}`}>
+          <Link to="/main">Logo</Link>
+        </div>
 
-        <div className="col" style={{ paddingRight: "50px" }}>
-          <Link style={{ float: "right", marginLeft: "10px" }} to="/profile">
-            Profile
-          </Link>
+        <div className={`col ${styles.navigation}`}>
+          <div className={styles.dropdown}>
+            <button className={styles.navlinks}>Profile</button>
 
-          <Link style={{ float: "right", marginLeft: "10px" }} to="/dm">
-            DM
-          </Link>
+            <div className={styles.dropdownlinks}>
+              <Link to="/profile"> Profile </Link>
+              <Link to="/auth"> Logout </Link>
+            </div>
+          </div>
 
-          <Link style={{ float: "right", marginLeft: "10px" }} to="/upload">
-            Upload
-          </Link>
+          <button className={styles.navlinks}>
+            <Link to="/dm">DM</Link>
+          </button>
+
+          <button className={styles.navlinks}>
+            <Link to="/upload">Upload</Link>
+          </button>
         </div>
       </div>
     </header>

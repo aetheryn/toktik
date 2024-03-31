@@ -1,0 +1,69 @@
+.navbar {
+  background-color: black;
+  height: 70px;
+}
+
+/* .container {
+  padding-top: 20px;
+} */
+
+.logo {
+  display: grid;
+  height: 70px;
+  padding-left: 50px;
+  align-items: center;
+}
+
+.logo > a {
+  color: white;
+  text-decoration: none;
+}
+
+.navigation {
+  padding-right: 50px;
+}
+
+.navlinks {
+  color: white;
+  text-decoration: none;
+  float: right;
+  margin-left: 10px;
+  border: transparent;
+  background-color: transparent;
+  height: 70px;
+}
+
+.navlinks > a {
+  color: white;
+  text-decoration: none;
+}
+
+.dropdownlinks {
+  display: none;
+  /* position: absolute; */
+  /* float: right; */
+}
+
+.dropdownlinks > a {
+  float: none;
+  display: grid;
+  color: white;
+  height: 100%;
+  align-items: center;
+  padding: 5px;
+  text-decoration: none;
+}
+
+.dropdownlinks > a:hover {
+  background-color: #c60060;
+}
+
+.dropdown:hover .dropdownlinks {
+  display: grid;
+  position: fixed;
+  top: 70px;
+  right: 20px;
+  height: 80px;
+  width: 120px;
+  background-color: #2f2f2f;
+}
