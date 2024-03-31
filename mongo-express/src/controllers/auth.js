@@ -42,14 +42,18 @@ const getAllUsers = async (req, res) => {
 
 const register = async (req, res) => {
   try {
+    // validate to check if username exists or not
     const auth = await Auth.findOne({ username: req.body.username });
     if (auth) {
       return res
         .status(400)
         .json({ status: "error", msg: "username already exists" });
     }
+
+    // to hash password
     const hash = await bcrypt.hash(req.body.password, 12);
 
+    // to create into DB
     await Auth.create({
       username: req.body.username,
       hash,
@@ -65,33 +69,41 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   try {
+    // to find username
     const auth = await Auth.findOne({ username: req.body.username });
+
+    // if username is taken, reject
     if (!auth) {
       return res
         .status(400)
         .json({ status: "error", msg: "Username does not exist!" });
     }
 
+    // compare password to hash
     const passwordVerification = await bcrypt.compare(
       req.body.password,
       auth.hash
     );
 
+    // if password is wrong, reject
     if (!passwordVerification) {
       console.log("You have entered the wrong password!");
       return res.status(400).json({ status: "error", msg: "Wrong password" });
     }
 
+    // adding values into claims to encrypt into JWT
     const claims = {
       email: auth.email,
       role: auth.role,
     };
 
+    // encrypting things above into JWT payload
     const access = jwt.sign(claims, process.env.ACCESS_SECRET, {
       expiresIn: "60m",
       jwtid: uuidv4(),
     });
 
+    // generating refresh token
     const refresh = jwt.sign(claims, process.env.REFRESH_SECRET, {
       expiresIn: "30d",
       jwtid: uuidv4(),
