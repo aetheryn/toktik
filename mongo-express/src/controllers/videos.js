@@ -23,6 +23,30 @@ const seedVideo = async (req, res) => {
         id: 1,
         created_at: 2025 - 11 - 12,
       },
+      {
+        title: "This DOG",
+        description: "i LOVE my dog",
+        duration: 300, // Number indicated in seconds
+        url: "https://via.placeholder.com/150",
+        reported: true,
+        likes: ["user1", "user2", "user3", "user4"], // Array of strings
+        comments: [
+          {
+            id: 1,
+            username: "user1",
+            content: "this video sucks boo",
+            created_at: 2025 - 11 - 11,
+          },
+          {
+            id: 2,
+            username: "user2",
+            content: "i agree this video is bad boo",
+            created_at: 2025 - 11 - 11,
+          },
+        ],
+        id: 2,
+        created_at: 2025 - 11 - 12,
+      },
     ]);
     res.json({ status: "ok", msg: "seeding successful" });
   } catch (error) {
