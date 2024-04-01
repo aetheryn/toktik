@@ -6,17 +6,43 @@ const LoginPage = () => {
     <div className={styles.container}>
       <div className={styles.loginContainer}>
         <div id="heading title">
-          <h1>TokTik</h1>
+          <h1 className={styles.toktikTitle}>TokTik</h1>
         </div>
         {/* username password 1 Login button 1  */}
-        <div id="buttons seperate login usrename and password">
+        <div
+          className={styles.inputContainer}
+          id="buttons seperate login username and password"
+        >
           <div id="username + password div">
-            <div id="username"></div>
-            <div id="password"></div>
+            <div id="username">
+              <input
+                className={styles.userInput}
+                type="text"
+                placeholder="username"
+              />
+            </div>
+
+            <div id="password">
+              <input
+                className={styles.userInput}
+                type="password"
+                placeholder="password"
+              />
+            </div>
           </div>
           <div id="login">
-            <button type="submit">Login</button>
+            <button className={styles.loginBtn} type="submit">
+              Login
+            </button>
           </div>
+        </div>
+        <div id="sign up text">
+          <p className={styles.signUp}>
+            New to TokTik?
+            <a href="register">
+              <span className={styles.signUpText}> Sign up now!</span>
+            </a>
+          </p>
         </div>
       </div>
     </div>

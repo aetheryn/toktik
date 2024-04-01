@@ -1,18 +1,51 @@
-* {
-  overflow: hidden;
-}
-
-.container {
-  background: #383838;
-  width: 100vw;
-  height: 100vh;
-}
-
 .loginContainer {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  margin: 5vh 25vw 0vh 25vw;
-  height: 35rem;
+  margin: 8vh 35vw 10vh 35vw;
+  height: calc(80vh - 70px);
+  width: calc();
+  background-color: black;
+  border-radius: 50px;
+  justify-content: space-evenly;
+}
+
+.toktikTitle {
+  display: flex;
+  font-size: 7em;
+  color: white;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  font-size: 2rem;
+}
+
+.userInput {
+  border-radius: 50px;
+  border-color: black;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: black;
+}
+
+.loginBtn {
+  width: 100%;
+  border-radius: 50px;
+  border-color: #ea284e;
+  color: whitesmoke;
+  background-color: #ea284e;
+}
+
+.signUp {
+  font-size: 1.2rem;
+}
+
+.signUp > a {
+  text-decoration: none;
+  font-weight: bold;
+}
+.signUpText {
+  color: #ea284e;
 }
