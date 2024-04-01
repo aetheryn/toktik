@@ -1,10 +1,10 @@
-const VideosModel = require("../models/Videos");
+const { Videos } = require("../models/Videos");
 
 const seedVideo = async (req, res) => {
   try {
-    await VideosModel.deleteMany({});
+    await Videos.deleteMany({});
 
-    await VideosModel.create([
+    await Videos.create([
       {
         title: "This CAT",
         description: "i love my cat",
