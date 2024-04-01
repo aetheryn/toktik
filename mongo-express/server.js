@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/auth", auth);
-// app.use("/videos", video);
+app.use("/videos", video);
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
