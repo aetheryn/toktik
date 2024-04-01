@@ -1,0 +1,18 @@
+* {
+  overflow: hidden;
+}
+
+.container {
+  background: #383838;
+  width: 100vw;
+  height: 100vh;
+}
+
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 5vh 25vw 0vh 25vw;
+  height: 35rem;
+}
