@@ -7,6 +7,13 @@ const {
   deleteVideo,
   getSpecificVideo,
 } = require("../controllers/videos");
+const {
+  validateIdInParam,
+  validateAddVideoData,
+  validateUpdateVideoData,
+  validateIdInBody,
+} = require("../validators/videos");
+const { errorCheck } = require("../validators/errorCheck");
 
 const router = express.Router();
 
@@ -14,12 +21,18 @@ router.get("/seed", seedVideo);
 
 router.get("/", getVideos);
 
-router.put("/", addVideos);
+router.put("/", validateAddVideoData, errorCheck, addVideos);
 
-router.patch("/:id", updateVideo);
+router.patch(
+  "/:id",
+  validateIdInParam,
+  validateUpdateVideoData,
+  errorCheck,
+  updateVideo
+);
 
-router.delete("/:id", deleteVideo);
+router.delete("/:id", validateIdInParam, errorCheck, deleteVideo);
 
-router.post("/", getSpecificVideo);
+router.post("/", validateIdInBody, errorCheck, getSpecificVideo);
 
 module.exports = router;
