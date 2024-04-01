@@ -55,4 +55,14 @@ const seedVideo = async (req, res) => {
   }
 };
 
-module.exports = { seedVideo };
+const getVideos = async (req, res) => {
+  try {
+    const allVideos = await Videos.find();
+    res.json(allVideos);
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "can't get videos" });
+  }
+};
+
+module.exports = { seedVideo, getVideos };

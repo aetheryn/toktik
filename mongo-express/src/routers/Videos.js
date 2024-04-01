@@ -1,8 +1,10 @@
 const express = require("express");
-const { seedVideo } = require("../controllers/videos");
+const { seedVideo, getVideos } = require("../controllers/videos");
 
 const router = express.Router();
 
-router.get("/", seedVideo);
+router.get("/seed", seedVideo);
+
+router.get("/", getVideos);
 
 module.exports = router;
