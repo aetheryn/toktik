@@ -89,4 +89,18 @@ const addVideos = async (req, res) => {
   }
 };
 
-module.exports = { seedVideo, getVideos, addVideos };
+const updateVideo = async (req, res) => {
+  try {
+    const updatedVideo = {};
+    if ("title" in req.body) updatedVideo.title = req.body.title;
+    if ("description" in req.body)
+      updatedVideo.description = req.body.description;
+    await Videos.findByIdAndUpdate(req.params.id, updatedVideo);
+    res.json({ status: "ok", msg: "video updated" });
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "failed to update video" });
+  }
+};
+
+module.exports = { seedVideo, getVideos, addVideos, updateVideo };
