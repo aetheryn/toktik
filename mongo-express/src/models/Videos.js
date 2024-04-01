@@ -17,6 +17,12 @@ const VideosSchema = new mongoose.Schema({
   comments: [CommentsSchema],
   id: { type: Number, require: true },
   created_at: { type: Date, require: true, default: Date.now },
+  uploaded_by_user: {
+    type: String,
+    require: true,
+    minLength: 1,
+    maxLength: 16,
+  },
 });
 
 const Videos = mongoose.model("Videos", VideosSchema);
