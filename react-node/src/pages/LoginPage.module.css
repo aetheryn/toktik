@@ -2,9 +2,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 8vh 35vw 10vh 35vw;
+  margin: 10vh 35vw 10vh 35vw;
   height: calc(80vh - 70px);
-  width: calc();
   background-color: black;
   border-radius: 50px;
   justify-content: space-evenly;
@@ -12,7 +11,7 @@
 
 .toktikTitle {
   display: flex;
-  font-size: 7em;
+  font-size: 7rem;
   color: white;
   font-weight: bold;
 }
@@ -37,10 +36,13 @@
   border-color: #ea284e;
   color: whitesmoke;
   background-color: #ea284e;
+  margin-top: 3rem;
 }
 
 .signUp {
   font-size: 1.2rem;
+  text-align: center;
+  margin-top: 1rem;
 }
 
 .signUp > a {

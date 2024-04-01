@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import styles from "./LoginPage.module.css";
 import useFetch from "../hooks/useFetch";
+import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
   const fetchData = useFetch();
+  const navigate = useNavigate();
 
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -18,6 +20,7 @@ const RegisterPage = () => {
     if (res.ok) {
       console.log("Registration successful!");
       console.log("res");
+      navigate("/login");
     }
   };
 
@@ -60,14 +63,14 @@ const RegisterPage = () => {
               Sign up
             </button>
           </div>
-        </div>
-        <div id="sign up text">
-          <p className={styles.signUp}>
-            Already a Toktiker?
-            <a href="login">
-              <span className={styles.signUpText}> Login now!</span>
-            </a>
-          </p>
+          <div id="sign up text">
+            <p className={styles.signUp}>
+              Already a Toktiker?
+              <a href="login">
+                <span className={styles.signUpText}> Login now!</span>
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </div>

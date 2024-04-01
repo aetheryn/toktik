@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import styles from "./LoginPage.module.css";
 import useFetch from "../hooks/useFetch";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const fetchData = useFetch();
+  const navigate = useNavigate();
 
   // useStates for login details
 
@@ -20,6 +22,7 @@ const LoginPage = () => {
     if (res.ok) {
       console.log("fetch is working");
       console.log(res);
+      navigate("/main");
     }
   };
 
@@ -58,14 +61,14 @@ const LoginPage = () => {
               Login
             </button>
           </div>
-        </div>
-        <div id="sign up text">
-          <p className={styles.signUp}>
-            New to TokTik?
-            <a href="register">
-              <span className={styles.signUpText}> Sign up now!</span>
-            </a>
-          </p>
+          <div id="sign up text">
+            <p className={styles.signUp}>
+              New to TokTik?
+              <a href="register">
+                <span className={styles.signUpText}> Sign up now!</span>
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </div>
