@@ -103,4 +103,14 @@ const updateVideo = async (req, res) => {
   }
 };
 
-module.exports = { seedVideo, getVideos, addVideos, updateVideo };
+const deleteVideo = async (req, res) => {
+  try {
+    await Videos.findByIdAndDelete(req.params.id);
+    res.json({ status: "ok", msg: "video deleted" });
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "failed to delete video" });
+  }
+};
+
+module.exports = { seedVideo, getVideos, addVideos, updateVideo, deleteVideo };
