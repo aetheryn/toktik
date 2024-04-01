@@ -1,7 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./LoginPage.module.css";
+import useFetch from "../hooks/useFetch";
 
 const LoginPage = () => {
+  const fetchData = useFetch();
+
+  // useStates for login details
+
+  const [username, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+
+  const login = async () => {
+    const res = await fetchData(
+      "/auth/login",
+      "POST",
+      { username, password },
+      undefined
+    );
+    if (res.ok) {
+      console.log("fetch is working");
+      console.log(res);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.loginContainer}>
@@ -19,6 +40,7 @@ const LoginPage = () => {
                 className={styles.userInput}
                 type="text"
                 placeholder="username"
+                onChange={(e) => setUserName(e.target.value)}
               />
             </div>
 
@@ -27,11 +49,12 @@ const LoginPage = () => {
                 className={styles.userInput}
                 type="password"
                 placeholder="password"
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
           </div>
           <div id="login">
-            <button className={styles.loginBtn} type="submit">
+            <button className={styles.loginBtn} type="submit" onClick={login}>
               Login
             </button>
           </div>
