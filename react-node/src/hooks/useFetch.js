@@ -1,16 +1,16 @@
-const Fetch = () => {
-  fetchData = async (endpoint, method, body, token) => {
+const useFetch = () => {
+  const fetchData = async (endpoint, method, body, token) => {
     const res = await fetch(import.meta.env.VITE_SERVER + endpoint, {
       method,
       headers: {
         "Content-Type": "application/json",
-        Authorization: token,
+        Authorization: "Bearer " + token,
       },
       body: JSON.stringify(body),
     });
     const data = await res.json();
 
-    const returnValue = {};
+    let returnValue = {};
     if (res.ok) {
       if (data.status === "error") {
         returnValue = { ok: false, data: data.message };
@@ -18,9 +18,9 @@ const Fetch = () => {
         return (returnValue = { ok: true, data });
       }
     }
+    return returnValue;
   };
-
-  return returnValue;
+  return fetchData;
 };
 
-export default Fetch;
+export default useFetch;

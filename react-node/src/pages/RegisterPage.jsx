@@ -3,26 +3,24 @@ import styles from "./LoginPage.module.css";
 import useFetch from "../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
 
-const LoginPage = () => {
+const RegisterPage = () => {
   const fetchData = useFetch();
   const navigate = useNavigate();
-
-  // useStates for login details
 
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
-  const login = async () => {
+  const register = async () => {
     const res = await fetchData(
-      "/auth/login",
-      "POST",
+      "/auth/register",
+      "PUT",
       { username, password },
       undefined
     );
     if (res.ok) {
-      console.log("fetch is working");
-      console.log(res);
-      navigate("/main");
+      console.log("Registration successful!");
+      console.log("res");
+      navigate("/login");
     }
   };
 
@@ -57,15 +55,19 @@ const LoginPage = () => {
             </div>
           </div>
           <div id="login">
-            <button className={styles.loginBtn} type="submit" onClick={login}>
-              Login
+            <button
+              className={styles.loginBtn}
+              type="submit"
+              onClick={register}
+            >
+              Sign up
             </button>
           </div>
           <div id="sign up text">
             <p className={styles.signUp}>
-              New to TokTik?
-              <a href="register">
-                <span className={styles.signUpText}> Sign up now!</span>
+              Already a Toktiker?
+              <a href="login">
+                <span className={styles.signUpText}> Login now!</span>
               </a>
             </p>
           </div>
@@ -75,4 +77,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

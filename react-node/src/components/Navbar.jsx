@@ -7,7 +7,7 @@ const Navbar = () => {
     <header className={styles.navbar}>
       <div className={`row ${styles.container}`}>
         <div className={`col ${styles.logo}`}>
-          <Link to="/main">Logo</Link>
+          <Link to="/main">Toktik LOGO</Link>
         </div>
 
         <div className={`col ${styles.navigation}`}>
@@ -16,7 +16,7 @@ const Navbar = () => {
 
             <div className={styles.dropdownlinks}>
               <Link to="/profile"> Profile </Link>
-              <Link to="/auth"> Logout </Link>
+              <Link to="/login"> Logout </Link>
             </div>
           </div>
 
