@@ -5,6 +5,7 @@ const {
   addVideos,
   updateVideo,
   deleteVideo,
+  getSpecificVideo,
 } = require("../controllers/videos");
 
 const router = express.Router();
@@ -18,5 +19,7 @@ router.put("/", addVideos);
 router.patch("/:id", updateVideo);
 
 router.delete("/:id", deleteVideo);
+
+router.post("/", getSpecificVideo);
 
 module.exports = router;

@@ -113,4 +113,21 @@ const deleteVideo = async (req, res) => {
   }
 };
 
-module.exports = { seedVideo, getVideos, addVideos, updateVideo, deleteVideo };
+const getSpecificVideo = async (req, res) => {
+  try {
+    const video = await Videos.findById(req.body.id);
+    res.json(video);
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "unable to get video" });
+  }
+};
+
+module.exports = {
+  seedVideo,
+  getVideos,
+  addVideos,
+  updateVideo,
+  deleteVideo,
+  getSpecificVideo,
+};
