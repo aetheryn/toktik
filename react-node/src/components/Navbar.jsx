@@ -16,7 +16,7 @@ const Navbar = () => {
 
             <div className={styles.dropdownlinks}>
               <Link to="/profile"> Profile </Link>
-              <Link to="/auth"> Logout </Link>
+              <Link to="/login"> Logout </Link>
             </div>
           </div>
 
