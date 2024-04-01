@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const auth = require("./src/routers/auth");
 const video = require("./src/routers/videos");
+const messages = require("./src/routers/messages");
 
 const cors = require("cors");
 const helmet = require("helmet");
@@ -28,6 +29,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/auth", auth);
 app.use("/videos", video);
+app.use("/messages", messages);
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
