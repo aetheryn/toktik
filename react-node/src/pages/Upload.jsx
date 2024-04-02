@@ -34,7 +34,7 @@ const Upload = () => {
           <input
             onChange={(e) => setFile(e.target.files[0])}
             type="file"
-            accept="image/*"
+            accept="image/*,video/*"
           ></input>
           <input
             value={caption}
