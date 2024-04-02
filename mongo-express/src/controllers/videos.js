@@ -130,6 +130,7 @@ const uploadVideo = async (req, res) => {
     console.log("req.body", req.body);
     console.log("req.file", req.file);
     req.file.buffer;
+    res.json({});
   } catch (error) {
     console.error(error.message);
     res.status(400).json({ status: "error", msg: "failed to upload video" });

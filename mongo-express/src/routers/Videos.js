@@ -38,6 +38,6 @@ router.delete("/:id", validateIdInParam, errorCheck, deleteVideo);
 
 router.post("/", validateIdInBody, errorCheck, getSpecificVideo);
 
-router.post("/videos/videoupload", uploadSingleVideo, uploadVideo);
+router.post("/videoupload", uploadSingleVideo, uploadVideo);
 
 module.exports = router;
