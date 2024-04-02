@@ -15,7 +15,7 @@ const Profile = () => {
             alt=""
           />
         </div>
-        <h1>{userCtx.username}</h1>
+        <h1>{`@${userCtx.username}`}</h1>
         <div className={styles.profileStats}>
           <div className="following">
             <h4>1</h4>
