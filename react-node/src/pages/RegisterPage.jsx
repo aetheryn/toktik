@@ -19,7 +19,7 @@ const RegisterPage = () => {
     );
     if (res.ok) {
       console.log("Registration successful!");
-      console.log("res");
+      console.log(res);
       navigate("/login");
     }
   };
