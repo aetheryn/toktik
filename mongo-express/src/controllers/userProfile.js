@@ -37,12 +37,9 @@ const getProfileById = async (req, res) => {
 const addProfileData = async (req, res) => {
   try {
     const tempArr = {};
-
     // Need to check for validation if there's any udpate to the specific field
     if ("following" in req.body) tempArr.following = req.body.following;
-
     if ("followers" in req.body) tempArr.followers = req.body.followers;
-
     if ("liked_videos" in req.body)
       tempArr.liked_videos = req.body.liked_videos;
 
@@ -51,6 +48,31 @@ const addProfileData = async (req, res) => {
       { $push: tempArr }
     );
 
+    console.log(req.body);
+    res.json({ status: "ok", msg: "Added data :) " });
+
+    // if put the same data
+  } catch (error) {
+    console.log("Error adding data");
+    res.status(400).json({ status: "error", msg: "Error adding data" });
+  }
+};
+
+const removeProfileData = async (req, res) => {
+  try {
+    const tempArr = {};
+    // Need to check for validation if there's any udpate to the specific field
+    if ("following" in req.body) tempArr.following = req.body.following;
+    if ("followers" in req.body) tempArr.followers = req.body.followers;
+    if ("liked_videos" in req.body)
+      tempArr.liked_videos = req.body.liked_videos;
+
+    await UserProfile.findOneAndUpdate(
+      { username: req.params.username },
+      { $pull: tempArr }
+    );
+
+    console.log(req.body);
     res.json({ status: "ok", msg: "Added data :) " });
 
     // if put the same data
@@ -64,4 +86,9 @@ const addProfileData = async (req, res) => {
 
 // delete UserProfile ( delete specific things in user profile -- unlike videos / remove following etc )
 
-module.exports = { getAllUserProfile, getProfileById, addProfileData };
+module.exports = {
+  getAllUserProfile,
+  getProfileById,
+  addProfileData,
+  removeProfileData,
+};

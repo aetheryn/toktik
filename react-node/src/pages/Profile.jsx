@@ -14,7 +14,9 @@ const Profile = () => {
   const [followers, setFollowers] = useState();
   const [likes, setLikes] = useState();
   const [showModal, setShowModal] = useState(false);
-  const [newFollow, setNewFollow] = useState("");
+  const [follow, setFollow] = useState("");
+  const [unfollow, setUnfollow] = useState("");
+  const [followStatus, setFollowStatus] = useState(false);
 
   // DO NOTE THAT ALL THE PROFILES, IT IS NOT USERCTX.USERNAME - IT SHOULD BE WHOEVER WE CLICKED ON - USERCTX.USERNAME IS FOR DEV PURPOSES
   const getProfileStatInfo = async () => {
@@ -30,24 +32,48 @@ const Profile = () => {
       setFollowers(res.data.followers);
       setLikes(res.data.liked_videos);
       console.log(followers);
+
+      if (followers.includes(userCtx.username)) {
+        setFollowStatus(true);
+      }
     }
   };
 
-  const addDataToProfile = async () => {
+  const followProfile = async () => {
     const res = await fetchData("/users/" + userCtx.username, "PUT", {
-      followers: newFollow,
+      followers: follow,
     });
 
     if (res.ok) {
       getProfileStatInfo();
-      console.log(followers);
+      setFollowStatus(true);
+      console.log("user followed");
     }
   };
 
-  const followProfile = () => {
-    setNewFollow(userCtx.username);
-    console.log(newFollow);
-    addDataToProfile();
+  const handleFollow = () => {
+    console.log(followers);
+    if (!followers.includes(userCtx.username)) {
+      setFollow(userCtx.username);
+      followProfile();
+    }
+  };
+
+  const unfollowProfile = async () => {
+    const res = await fetchData("/users/rm/" + userCtx.username, "PUT", {
+      followers: unfollow,
+    });
+
+    if (res.ok) {
+      getProfileStatInfo();
+      setFollowStatus(false);
+      console.log("user unfollowed");
+    }
+  };
+
+  const handleUnfollow = () => {
+    setUnfollow(userCtx.username);
+    unfollowProfile();
   };
 
   useEffect(() => {
@@ -80,11 +106,23 @@ const Profile = () => {
           </div>
         </div>
         <div className={styles.profileButtons}>
-          <div className="followBtn">
-            <button className={styles.button} onClick={() => followProfile()}>
-              Follow
-            </button>
-          </div>
+          {!followStatus ? (
+            <div className="followBtn">
+              <button className={styles.button} onClick={() => handleFollow()}>
+                Follow
+              </button>
+            </div>
+          ) : (
+            <div className="unfollowBtn">
+              <button
+                className={styles.button}
+                onClick={() => handleUnfollow()}
+              >
+                Unfollow
+              </button>
+            </div>
+          )}
+
           <div className="messageBtn">
             <button className={styles.button} onClick={() => navigate("/dm")}>
               Message
