@@ -4,6 +4,7 @@ const express = require("express");
 const auth = require("./src/routers/auth");
 const video = require("./src/routers/videos");
 const messages = require("./src/routers/messages");
+const userProfile = require("./src/routers/userProfile");
 
 const cors = require("cors");
 const helmet = require("helmet");
@@ -30,6 +31,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/auth", auth);
 app.use("/videos", video);
 app.use("/messages", messages);
+app.use("/users", userProfile);
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
