@@ -2,17 +2,17 @@ import React, { useContext, useEffect, useState } from "react";
 import styles from "./Profile.module.css";
 import UserContext from "../context/user";
 import useFetch from "../hooks/useFetch";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const userCtx = useContext(UserContext); // used for only display username
   const fetchData = useFetch();
+  const navigate = useNavigate();
 
-  const [followingCount, setFollowingCount] = useState(0);
-  const [following, setFollowing] = useState([]);
+  const [following, setFollowing] = useState();
   const [followers, setFollowers] = useState();
-  const [followersCount, setFollowersCount] = useState(0);
   const [likes, setLikes] = useState();
-  const [likesCount, setLikesCount] = useState(0);
+  const [showModal, setShowModal] = useState(false);
 
   const getProfileStatInfo = async () => {
     const res = await fetchData(
@@ -64,7 +64,9 @@ const Profile = () => {
             <button className={styles.button}>Follow</button>
           </div>
           <div className="messageBtn">
-            <button className={styles.button}>Message</button>
+            <button className={styles.button} onClick={() => navigate("/dm")}>
+              Message
+            </button>
           </div>
         </div>
         <div className="profileDescription">
