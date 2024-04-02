@@ -7,7 +7,7 @@ const {
   updateVideo,
   deleteVideo,
   getSpecificVideo,
-  uploadVideo,
+  uploadFile,
 } = require("../controllers/videos");
 const {
   validateIdInParam,
@@ -16,7 +16,7 @@ const {
   validateIdInBody,
 } = require("../validators/videos");
 const { errorCheck } = require("../validators/errorCheck");
-const { uploadSingleVideo } = require("../middleware/videos");
+const { uploadSingleFile } = require("../middleware/videos");
 
 const router = express.Router();
 
@@ -38,6 +38,6 @@ router.delete("/:id", validateIdInParam, errorCheck, deleteVideo);
 
 router.post("/", validateIdInBody, errorCheck, getSpecificVideo);
 
-router.post("/videoupload", uploadSingleVideo, uploadVideo);
+router.post("/videoupload", uploadSingleFile, uploadFile);
 
 module.exports = router;

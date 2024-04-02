@@ -150,7 +150,7 @@ const getSpecificVideo = async (req, res) => {
   }
 };
 
-const uploadVideo = async (req, res) => {
+const uploadFile = async (req, res) => {
   try {
     // const file = req.file;
     // const caption = req.body.caption;
@@ -208,5 +208,5 @@ module.exports = {
   updateVideo,
   deleteVideo,
   getSpecificVideo,
-  uploadVideo,
+  uploadFile,
 };
