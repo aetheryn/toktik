@@ -22,7 +22,7 @@ const Profile = () => {
             <h4>1</h4>
             <h3>followers</h3>
           </div>
-          <div className={styles.likes}>
+          <div className="likes">
             <h4>1</h4>
             <h3>likes</h3>
           </div>
