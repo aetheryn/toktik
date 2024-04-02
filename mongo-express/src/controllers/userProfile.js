@@ -16,9 +16,16 @@ const getAllUserProfile = async (req, res) => {
 
 // get UserProfile by ID (method: POST? ) // pass it through params
 const getProfileById = async (req, res) => {
-  const profileID = await UserProfile.findOne({
-    username: req.params.username,
-  });
+  try {
+    const profileID = await UserProfile.findOne({
+      username: req.params.username,
+    });
+  } catch (error) {
+    console.log("Error getting specificed user");
+    res
+      .status(400)
+      .json({ status: "error", msg: "Error fetching specific user profile" });
+  }
 };
 
 // put UserProfile ( add data in ) (Add data in specific thing - when called from front-end it will findByIdAndUpdate)
