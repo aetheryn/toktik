@@ -12,13 +12,16 @@ const Profile = () => {
   const [following, setFollowing] = useState();
   const [followers, setFollowers] = useState();
   const [likes, setLikes] = useState();
-  const [showModal, setShowModal] = useState(false);
+
   const [follow, setFollow] = useState("");
   const [unfollow, setUnfollow] = useState("");
-  const [followStatus, setFollowStatus] = useState(false);
+  const [followStatus, setFollowStatus] = useState();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   // DO NOTE THAT ALL THE PROFILES, IT IS NOT USERCTX.USERNAME - IT SHOULD BE WHOEVER WE CLICKED ON - USERCTX.USERNAME IS FOR DEV PURPOSES
   const getProfileStatInfo = async () => {
+    setIsLoading(true);
     const res = await fetchData(
       "/users/user/" + userCtx.username,
       "POST",
@@ -31,6 +34,7 @@ const Profile = () => {
       setFollowers(res.data.followers);
       setLikes(res.data.liked_videos);
       console.log(followers);
+      setIsLoading(false);
     }
   };
 
@@ -71,7 +75,16 @@ const Profile = () => {
 
   useEffect(() => {
     getProfileStatInfo();
-  }, [setFollowing, setFollowers, setLikes, setFollowStatus]);
+  }, []);
+
+  !isLoading ??
+    useEffect(() => {
+      if (followers.includes(userCtx.username)) {
+        setFollowStatus(true);
+      } else {
+        setFollowStatus(false);
+      }
+    }, []);
 
   return (
     <div className={styles.container}>

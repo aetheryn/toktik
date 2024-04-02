@@ -13,6 +13,7 @@ function App() {
   const [accessToken, setAccessToken] = useState("");
   const [role, setRole] = useState("");
   const [username, setUsername] = useState("");
+  const [profilePic, setProfilePic] = useState("");
 
   return (
     <>
@@ -25,6 +26,8 @@ function App() {
           setRole,
           username,
           setUsername,
+          profilePic,
+          setProfilePic,
         }}
       >
         <Routes>
