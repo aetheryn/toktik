@@ -12,15 +12,13 @@ const Upload = () => {
     formData.append("caption", caption);
 
     try {
-      const response = await fetch("http://127.0.0.1:5001/videos/videoupload", {
+      const res = await fetch("http://127.0.0.1:5001/videos/videoupload", {
         method: "POST",
         body: formData,
       });
-
-      if (!response.ok) {
+      if (!res.ok) {
         throw new Error("Network response was not ok");
       }
-
       const data = await response.json();
       console.log(data);
     } catch (error) {
