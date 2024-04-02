@@ -3,6 +3,7 @@ import styles from "./Profile.module.css";
 import UserContext from "../context/user";
 import useFetch from "../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
+import user from "../context/user";
 
 const Profile = () => {
   const userCtx = useContext(UserContext); // used for only display username
@@ -13,7 +14,9 @@ const Profile = () => {
   const [followers, setFollowers] = useState();
   const [likes, setLikes] = useState();
   const [showModal, setShowModal] = useState(false);
+  const [newFollow, setNewFollow] = useState("");
 
+  // DO NOTE THAT ALL THE PROFILES, IT IS NOT USERCTX.USERNAME - IT SHOULD BE WHOEVER WE CLICKED ON - USERCTX.USERNAME IS FOR DEV PURPOSES
   const getProfileStatInfo = async () => {
     const res = await fetchData(
       "/users/user/" + userCtx.username,
@@ -28,6 +31,23 @@ const Profile = () => {
       setLikes(res.data.liked_videos);
       console.log(followers);
     }
+  };
+
+  const addDataToProfile = async () => {
+    const res = await fetchData("/users/" + userCtx.username, "PUT", {
+      followers: newFollow,
+    });
+
+    if (res.ok) {
+      getProfileStatInfo();
+      console.log(followers);
+    }
+  };
+
+  const followProfile = () => {
+    setNewFollow(userCtx.username);
+    console.log(newFollow);
+    addDataToProfile();
   };
 
   useEffect(() => {
@@ -61,7 +81,9 @@ const Profile = () => {
         </div>
         <div className={styles.profileButtons}>
           <div className="followBtn">
-            <button className={styles.button}>Follow</button>
+            <button className={styles.button} onClick={() => followProfile()}>
+              Follow
+            </button>
           </div>
           <div className="messageBtn">
             <button className={styles.button} onClick={() => navigate("/dm")}>
