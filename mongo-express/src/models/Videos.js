@@ -23,6 +23,8 @@ const VideosSchema = new mongoose.Schema({
     minLength: 1,
     maxLength: 16,
   },
+  imageName: { type: String, require: true },
+  caption: { type: String, require: true },
 });
 
 const Videos = mongoose.model("Videos", VideosSchema);

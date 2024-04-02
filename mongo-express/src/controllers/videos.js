@@ -146,9 +146,10 @@ const uploadVideo = async (req, res) => {
     console.log("req.file", req.file);
     req.file.buffer;
 
+    const imageName = req.file.originalname;
     const params = {
       Bucket: bucketName,
-      Key: req.file.originalname,
+      Key: imageName,
       Body: req.file.buffer,
       ContentType: req.file.mimetype,
     };
@@ -156,7 +157,32 @@ const uploadVideo = async (req, res) => {
     const command = new PutObjectCommand(params);
     await s3.send(command);
 
-    res.json({});
+    const upload = {
+      // tentative hard coded stuff to test
+      title: "RUBBISH",
+      description: "i love to eat RUBBISH",
+      duration: 150,
+      url: "https://via.placeholder.com/150",
+      reported: false,
+      likes: ["user1", "user2", "user3"],
+      comments: [
+        {
+          id: 1,
+          username: "user1",
+          content: "this video sucks boo",
+          created_at: 2025 - 11 - 11,
+        },
+      ],
+      id: 1,
+      created_at: 2025 - 11 - 12,
+      uploaded_by_user: "user11",
+
+      imageName: imageName,
+      caption: req.body.caption,
+    };
+    await Videos.create(upload);
+
+    res.json(upload);
   } catch (error) {
     console.error(error.message);
     res.status(400).json({ status: "error", msg: "failed to upload video" });
