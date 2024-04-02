@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
+import UserinDM from "./UserinDM";
 
-const Container = () => {
+const DMList = (props) => {
   return (
     <div
       className="centered"
@@ -10,19 +11,32 @@ const Container = () => {
         height: "640px",
         width: "360px",
         borderRadius: "30px",
+        alignContent: "flex-start",
+        paddingTop: "10px",
       }}
     >
-      <h1
-        style={{
-          fontSize: "1em",
-          alignSelf: "flex-start",
-          marginTop: "30px",
-        }}
-      >
-        Direct Messages
-      </h1>
+      <div className="row" style={{ height: "70px", alignContent: "center" }}>
+        <h1
+          style={{
+            fontSize: "1em",
+          }}
+        >
+          Direct Messages
+        </h1>
+      </div>
+
+      {props.usersInDMs.map((user) => {
+        return (
+          <li
+            className="row"
+            style={{ height: "70px", alignContent: "center" }}
+          >
+            <UserinDM user={user}></UserinDM>
+          </li>
+        );
+      })}
     </div>
   );
 };
 
-export default Container;
+export default DMList;
