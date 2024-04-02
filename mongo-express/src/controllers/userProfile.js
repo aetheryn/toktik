@@ -51,6 +51,8 @@ const addProfileData = async (req, res) => {
     );
 
     res.json({ status: "ok", msg: "Added data :) " });
+
+    // if put the same data
   } catch (error) {
     console.log("Error adding data");
     res.status(400).json({ status: "error", msg: "Error adding data" });
