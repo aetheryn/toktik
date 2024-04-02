@@ -1,9 +1,38 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./Profile.module.css";
 import UserContext from "../context/user";
+import useFetch from "../hooks/useFetch";
 
 const Profile = () => {
-  const userCtx = useContext(UserContext);
+  const userCtx = useContext(UserContext); // used for only display username
+  const fetchData = useFetch();
+
+  const [followingCount, setFollowingCount] = useState(0);
+  const [following, setFollowing] = useState([]);
+  const [followers, setFollowers] = useState();
+  const [followersCount, setFollowersCount] = useState(0);
+  const [likes, setLikes] = useState();
+  const [likesCount, setLikesCount] = useState(0);
+
+  const getProfileStatInfo = async () => {
+    const res = await fetchData(
+      "/users/user/" + userCtx.username,
+      "POST",
+      undefined,
+      undefined
+    );
+
+    if (res.ok) {
+      setFollowing(res.data.following);
+      setFollowers(res.data.followers);
+      setLikes(res.data.liked_videos);
+      console.log(followers);
+    }
+  };
+
+  useEffect(() => {
+    getProfileStatInfo();
+  }, [setFollowing, setFollowers, setLikes]);
 
   return (
     <div className={styles.container}>
@@ -18,15 +47,15 @@ const Profile = () => {
         <h1>{`@${userCtx.username}`}</h1>
         <div className={styles.profileStats}>
           <div className="following">
-            <h4>1</h4>
+            <h4>{following ? following.length : 0}</h4>
             <h3>following</h3>
           </div>
           <div className="followers">
-            <h4>1</h4>
+            <h4>{followers ? followers.length : 0}</h4>
             <h3>followers</h3>
           </div>
           <div className="likes">
-            <h4>1</h4>
+            <h4>{likes ? likes.length : 0}</h4>
             <h3>likes</h3>
           </div>
         </div>

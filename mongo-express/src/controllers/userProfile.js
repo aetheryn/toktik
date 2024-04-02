@@ -21,7 +21,8 @@ const getProfileById = async (req, res) => {
   try {
     const profileID = await UserProfile.findOne({
       username: req.params.username,
-    }).select("username following followers liked_videos");
+    }).select("followers following liked_videos");
+
     res.json(profileID);
   } catch (error) {
     console.log("Error getting specific user");
