@@ -123,6 +123,17 @@ const getSpecificVideo = async (req, res) => {
   }
 };
 
+const uploadVideo = async (req, res) => {
+  try {
+    const file = req.file;
+    const caption = req.body.caption;
+    res.json({ file, caption });
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "failed to upload video" });
+  }
+};
+
 module.exports = {
   seedVideo,
   getVideos,
@@ -130,4 +141,5 @@ module.exports = {
   updateVideo,
   deleteVideo,
   getSpecificVideo,
+  uploadVideo,
 };
