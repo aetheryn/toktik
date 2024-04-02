@@ -4,7 +4,9 @@ const UserProfile = require("../models/auth");
 
 const getAllUserProfile = async (req, res) => {
   try {
-    const profiles = await UserProfile.find().select("username");
+    const profiles = await UserProfile.find().select(
+      "username following followers liked_videos"
+    );
     res.json(profiles);
   } catch (error) {
     console.log("Error getting all profile names");
@@ -19,9 +21,10 @@ const getProfileById = async (req, res) => {
   try {
     const profileID = await UserProfile.findOne({
       username: req.params.username,
-    });
+    }).select("username following followers liked_videos");
+    res.json(profileID);
   } catch (error) {
-    console.log("Error getting specificed user");
+    console.log("Error getting specific user");
     res
       .status(400)
       .json({ status: "error", msg: "Error fetching specific user profile" });
