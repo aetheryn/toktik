@@ -171,24 +171,16 @@ const uploadFile = async (req, res) => {
 
     const upload = {
       // tentative hard coded stuff to test
-      title: "CAT SLAPPING BABIES",
-      description: "yee haw",
-      duration: 150,
+      title: req.body.title,
+      description: req.body.description,
+      duration: req.body.duration,
       url: "",
       reported: false,
-      likes: ["user1", "user2", "user3"],
-      comments: [
-        {
-          id: 1,
-          username: "user1",
-          content: "this video sucks boo",
-          created_at: 2025 - 11 - 11,
-        },
-      ],
-      id: 1,
-      created_at: 2025 - 11 - 12,
-      uploaded_by_user: "user11",
-
+      likes: req.body.likes,
+      comments: req.body.comments,
+      id: req.body.id,
+      created_at: req.body.created_at,
+      uploaded_by_user: req.body.uploaded_by_user,
       imageName: imageName,
       caption: req.body.caption,
     };
