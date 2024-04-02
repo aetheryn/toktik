@@ -1,0 +1,45 @@
+.container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.profileContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profilePicture {
+  border-radius: 50%;
+  border-style: solid;
+  border-color: whitesmoke;
+  border-width: thick;
+}
+
+.profileStats {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.profileButtons {
+  display: flex;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  gap: 2rem;
+}
+
+.button {
+  color: whitesmoke;
+  background-color: #ea284e;
+  border-color: #ea284e;
+  border-radius: 15px;
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 0 3rem;
+  text-align: center;
+  width: 235.38px;
+}

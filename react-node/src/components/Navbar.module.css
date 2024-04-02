@@ -10,13 +10,17 @@
 .logo {
   display: grid;
   height: 70px;
-  padding-left: 50px;
+  padding-left: 20px;
   align-items: center;
 }
 
 .logo > a {
   color: white;
   text-decoration: none;
+}
+
+.toktiklogo {
+  height: 70px;
 }
 
 .navigation {

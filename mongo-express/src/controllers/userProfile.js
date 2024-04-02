@@ -4,7 +4,9 @@ const UserProfile = require("../models/auth");
 
 const getAllUserProfile = async (req, res) => {
   try {
-    const profiles = await UserProfile.find().select("username");
+    const profiles = await UserProfile.find().select(
+      "username following followers liked_videos"
+    );
     res.json(profiles);
   } catch (error) {
     console.log("Error getting all profile names");
@@ -19,9 +21,11 @@ const getProfileById = async (req, res) => {
   try {
     const profileID = await UserProfile.findOne({
       username: req.params.username,
-    });
+    }).select("followers following liked_videos");
+
+    res.json(profileID);
   } catch (error) {
-    console.log("Error getting specificed user");
+    console.log("Error getting specific user");
     res
       .status(400)
       .json({ status: "error", msg: "Error fetching specific user profile" });
@@ -29,9 +33,62 @@ const getProfileById = async (req, res) => {
 };
 
 // put UserProfile ( add data in ) (Add data in specific thing - when called from front-end it will findByIdAndUpdate)
+// will need to add data in both current user + target user - - either updateMany or have another function when update to add data
+const addProfileData = async (req, res) => {
+  try {
+    const tempArr = {};
+    // Need to check for validation if there's any udpate to the specific field
+    if ("following" in req.body) tempArr.following = req.body.following;
+    if ("followers" in req.body) tempArr.followers = req.body.followers;
+    if ("liked_videos" in req.body)
+      tempArr.liked_videos = req.body.liked_videos;
+
+    await UserProfile.findOneAndUpdate(
+      { username: req.params.username },
+      { $push: tempArr }
+    );
+
+    console.log(req.body);
+    res.json({ status: "ok", msg: "Added data :) " });
+
+    // if put the same data
+  } catch (error) {
+    console.log("Error adding data");
+    res.status(400).json({ status: "error", msg: "Error adding data" });
+  }
+};
+
+const removeProfileData = async (req, res) => {
+  try {
+    const tempArr = {};
+    // Need to check for validation if there's any udpate to the specific field
+    if ("following" in req.body) tempArr.following = req.body.following;
+    if ("followers" in req.body) tempArr.followers = req.body.followers;
+    if ("liked_videos" in req.body)
+      tempArr.liked_videos = req.body.liked_videos;
+
+    await UserProfile.findOneAndUpdate(
+      { username: req.params.username },
+      { $pull: tempArr }
+    );
+
+    console.log(req.body);
+    res.json({ status: "ok", msg: "Added data :) " });
+
+    // if put the same data
+  } catch (error) {
+    console.log("Error adding data");
+    res.status(400).json({ status: "error", msg: "Error adding data" });
+  }
+};
 
 // patch UserProfile ( update data ) (Is there a need to edit? Don't really need to right because most of the actions are single actions - not mass updating)
 
 // delete UserProfile ( delete specific things in user profile -- unlike videos / remove following etc )
 
-module.exports = { getAllUserProfile, getProfileById };
+module.exports = {
+  getAllUserProfile,
+  getProfileById,
+  addProfileData,
+  removeProfileData,
+};

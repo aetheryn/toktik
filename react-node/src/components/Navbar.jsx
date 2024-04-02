@@ -7,7 +7,13 @@ const Navbar = () => {
     <header className={styles.navbar}>
       <div className={`row ${styles.container}`}>
         <div className={`col ${styles.logo}`}>
-          <Link to="/main">Toktik LOGO</Link>
+          <Link to="/main">
+            <img
+              className={styles.toktiklogo}
+              src="https://fontmeme.com/permalink/240402/d3d95be2d8e76c275d690618dd82def0.png"
+              alt=""
+            />
+          </Link>
         </div>
 
         <div className={`col ${styles.navigation}`}>
@@ -20,12 +26,16 @@ const Navbar = () => {
             </div>
           </div>
 
-          <button className={styles.navlinks}>
-            <Link to="/dm">DM</Link>
+          <button type="" className={styles.navlinks}>
+            <Link to="/dm">
+              <span class="material-symbols-outlined">mail</span>
+            </Link>
           </button>
 
           <button className={styles.navlinks}>
-            <Link to="/upload">Upload</Link>
+            <Link to="/upload">
+              <span class="material-symbols-outlined">add</span>
+            </Link>
           </button>
         </div>
       </div>
