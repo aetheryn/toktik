@@ -1,6 +1,11 @@
 const { Videos } = require("../models/Videos");
 
-const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
+const {
+  S3Client,
+  PutObjectCommand,
+  GetObjectCommand,
+} = require("@aws-sdk/client-s3");
+const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 
 const bucketName = process.env.BUCKET_NAME;
 const bucketRegion = process.env.BUCKET_REGION;
@@ -75,6 +80,13 @@ const seedVideo = async (req, res) => {
 const getVideos = async (req, res) => {
   try {
     const allVideos = await Videos.find();
+    for (const video of allVideos) {
+      const getObjectParams = { Bucket: bucketName, Key: video.imageName };
+      const command = new GetObjectCommand(getObjectParams);
+      const url = await getSignedUrl(s3, command, { expiresIn: 3600 });
+      video.url = url;
+    }
+
     res.json(allVideos);
   } catch (error) {
     console.error(error.message);
@@ -159,10 +171,10 @@ const uploadVideo = async (req, res) => {
 
     const upload = {
       // tentative hard coded stuff to test
-      title: "RUBBISH",
-      description: "i love to eat RUBBISH",
+      title: "CAT SLAPPING BABIES",
+      description: "yee haw",
       duration: 150,
-      url: "https://via.placeholder.com/150",
+      url: "",
       reported: false,
       likes: ["user1", "user2", "user3"],
       comments: [
