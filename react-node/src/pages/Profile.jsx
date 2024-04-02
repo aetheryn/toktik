@@ -37,6 +37,7 @@ const Profile = () => {
   const followProfile = async () => {
     const res = await fetchData("/users/" + userCtx.username, "PUT", {
       followers: follow,
+      following: userCtx.username,
     });
 
     if (res.ok) {
@@ -54,6 +55,7 @@ const Profile = () => {
   const unfollowProfile = async () => {
     const res = await fetchData("/users/rm/" + userCtx.username, "PUT", {
       followers: unfollow,
+      following: userCtx.username,
     });
 
     if (res.ok) {
