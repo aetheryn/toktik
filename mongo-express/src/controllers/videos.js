@@ -125,9 +125,11 @@ const getSpecificVideo = async (req, res) => {
 
 const uploadVideo = async (req, res) => {
   try {
-    const file = req.file;
-    const caption = req.body.caption;
-    res.json({ file, caption });
+    // const file = req.file;
+    // const caption = req.body.caption;
+    console.log("req.body", req.body);
+    console.log("req.file", req.file);
+    req.file.buffer;
   } catch (error) {
     console.error(error.message);
     res.status(400).json({ status: "error", msg: "failed to upload video" });
