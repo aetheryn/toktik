@@ -32,9 +32,33 @@ const getProfileById = async (req, res) => {
 };
 
 // put UserProfile ( add data in ) (Add data in specific thing - when called from front-end it will findByIdAndUpdate)
+// will need to add data in both current user + target user - - either updateMany or have another function when update to add data
+const addProfileData = async (req, res) => {
+  try {
+    const tempArr = {};
+
+    // Need to check for validation if there's any udpate to the specific field
+    if ("following" in req.body) tempArr.following = req.body.following;
+
+    if ("followers" in req.body) tempArr.followers = req.body.followers;
+
+    if ("liked_videos" in req.body)
+      tempArr.liked_videos = req.body.liked_videos;
+
+    await UserProfile.findOneAndUpdate(
+      { username: req.params.username },
+      { $push: tempArr }
+    );
+
+    res.json({ status: "ok", msg: "Added data :) " });
+  } catch (error) {
+    console.log("Error adding data");
+    res.status(400).json({ status: "error", msg: "Error adding data" });
+  }
+};
 
 // patch UserProfile ( update data ) (Is there a need to edit? Don't really need to right because most of the actions are single actions - not mass updating)
 
 // delete UserProfile ( delete specific things in user profile -- unlike videos / remove following etc )
 
-module.exports = { getAllUserProfile, getProfileById };
+module.exports = { getAllUserProfile, getProfileById, addProfileData };
