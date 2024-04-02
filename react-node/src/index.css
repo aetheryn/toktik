@@ -21,3 +21,7 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.row {
+  --bs-gutter-x: 0;
+}
