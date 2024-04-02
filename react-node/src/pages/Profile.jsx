@@ -3,7 +3,6 @@ import styles from "./Profile.module.css";
 import UserContext from "../context/user";
 import useFetch from "../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
-import user from "../context/user";
 
 const Profile = () => {
   const userCtx = useContext(UserContext); // used for only display username
@@ -32,10 +31,6 @@ const Profile = () => {
       setFollowers(res.data.followers);
       setLikes(res.data.liked_videos);
       console.log(followers);
-
-      if (followers.includes(userCtx.username)) {
-        setFollowStatus(true);
-      }
     }
   };
 
@@ -46,17 +41,14 @@ const Profile = () => {
 
     if (res.ok) {
       getProfileStatInfo();
-      setFollowStatus(true);
       console.log("user followed");
     }
   };
 
   const handleFollow = () => {
-    console.log(followers);
-    if (!followers.includes(userCtx.username)) {
-      setFollow(userCtx.username);
-      followProfile();
-    }
+    setFollow(userCtx.username);
+    followProfile();
+    setFollowStatus(true);
   };
 
   const unfollowProfile = async () => {
@@ -66,19 +58,18 @@ const Profile = () => {
 
     if (res.ok) {
       getProfileStatInfo();
-      setFollowStatus(false);
-      console.log("user unfollowed");
     }
   };
 
   const handleUnfollow = () => {
     setUnfollow(userCtx.username);
     unfollowProfile();
+    setFollowStatus(false);
   };
 
   useEffect(() => {
     getProfileStatInfo();
-  }, [setFollowing, setFollowers, setLikes]);
+  }, [setFollowing, setFollowers, setLikes, setFollowStatus]);
 
   return (
     <div className={styles.container}>
