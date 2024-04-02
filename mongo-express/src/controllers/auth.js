@@ -93,7 +93,7 @@ const login = async (req, res) => {
 
     // adding values into claims to encrypt into JWT
     const claims = {
-      email: auth.email,
+      username: auth.username,
       role: auth.role,
     };
 
@@ -121,7 +121,7 @@ const refresh = async (req, res) => {
     const decoded = jwt.verify(req.body.refresh, process.env.REFRESH_SECRET);
 
     const claims = {
-      email: decoded.email,
+      username: decoded.username,
       role: decoded.role,
     };
 

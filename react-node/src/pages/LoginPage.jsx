@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./LoginPage.module.css";
 import useFetch from "../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+import UserContext from "../context/user";
 
 const LoginPage = () => {
   const fetchData = useFetch();
   const navigate = useNavigate();
 
   // useStates for login details
-
+  const userCtx = useContext(UserContext);
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
@@ -20,8 +22,12 @@ const LoginPage = () => {
       undefined
     );
     if (res.ok) {
-      console.log("fetch is working");
-      console.log(res);
+      userCtx.setAccessToken(res.data.access);
+
+      const decoded = jwtDecode(res.data.access);
+      userCtx.setRole(decoded.role);
+      userCtx.setUsername(decoded.username);
+
       navigate("/main");
     }
   };

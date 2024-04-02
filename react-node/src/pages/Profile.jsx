@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./Profile.module.css";
+import UserContext from "../context/user";
 
 const Profile = () => {
+  const userCtx = useContext(UserContext);
+
   return (
     <div className={styles.container}>
       <div className={styles.profileContainer}>
@@ -12,7 +15,7 @@ const Profile = () => {
             alt=""
           />
         </div>
-        <h1>@username</h1>
+        <h1>{userCtx.username}</h1>
         <div className={styles.profileStats}>
           <div className="following">
             <h4>1</h4>
