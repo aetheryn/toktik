@@ -1,19 +1,17 @@
 import React from "react";
 
-const Chat = () => {
+const Chat = (props) => {
   return (
     <div
-      className="centered"
       style={{
-        display: "block",
-        backgroundColor: "black",
-        height: "640px",
-        borderRadius: "30px",
+        display: "flexbox",
+        position: "absolute",
+        height: "100%",
+        weight: "100%",
       }}
     >
-      <div className="row" style={{ padding: "30px", paddingLeft: "50px" }}>
+      <div className="row">
         <div
-          className="col-1"
           style={{
             backgroundColor: "#c60060",
             borderRadius: "50px",
@@ -21,27 +19,17 @@ const Chat = () => {
             width: "50px",
           }}
         ></div>
-
-        <div
-          className="col-11"
-          style={{
-            textAlign: "left",
-            fontWeight: "700",
-            alignContent: "center",
-          }}
-        >
-          Name
-        </div>
+        <div style={{ fontWeight: "700" }}>{props.user}</div>
       </div>
 
+      <h1>{props.selectedUser}'s chat.</h1>
       <div>
-        <h1
-          style={{
-            fontSize: "1em",
-          }}
+        <div
+          style={{ overflow: "hidden", textAlign: "left", paddingLeft: "20px" }}
         >
-          Direct Messages
-        </h1>
+          {/* <div style={{ fontWeight: "700" }}>{props.user}</div>
+          <div style={{ fontSize: "x-small" }}>Last text message</div> */}
+        </div>
       </div>
     </div>
   );
