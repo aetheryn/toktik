@@ -9,19 +9,16 @@ const Profile = () => {
   const fetchData = useFetch();
   const navigate = useNavigate();
 
-  const [following, setFollowing] = useState();
+  const [following, setFollowing] = useState([]);
   const [followers, setFollowers] = useState([]);
-  const [likes, setLikes] = useState();
+  const [likes, setLikes] = useState([]);
 
   const [follow, setFollow] = useState("");
   const [unfollow, setUnfollow] = useState("");
   const [followStatus, setFollowStatus] = useState(false);
 
-  const [isLoading, setIsLoading] = useState(false);
-
   // DO NOTE THAT ALL THE PROFILES, IT IS NOT USERCTX.USERNAME - IT SHOULD BE WHOEVER WE CLICKED ON - USERCTX.USERNAME IS FOR DEV PURPOSES
   const getProfileStatInfo = async () => {
-    setIsLoading(true);
     const res = await fetchData(
       "/users/user/" + userCtx.username,
       "POST",
@@ -33,12 +30,6 @@ const Profile = () => {
       setFollowing(res.data.following);
       setFollowers(res.data.followers);
       setLikes(res.data.liked_videos);
-      setIsLoading(false);
-
-      // if (followers.includes(userCtx.username)) {
-      //   console.log(1);
-      //   setFollowStatus(true);
-      // }
     }
   };
 
@@ -64,7 +55,9 @@ const Profile = () => {
     if (res.ok) {
       getProfileStatInfo();
       setFollowStatus(true);
+      console.log("Hi");
     } else {
+      console.log(follow);
       alert("Unable to follow profile");
     }
   };
