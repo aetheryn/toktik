@@ -5,7 +5,7 @@ const UserProfile = require("../models/auth");
 const getAllUserProfile = async (req, res) => {
   try {
     const profiles = await UserProfile.find().select(
-      "username following followers liked_videos"
+      "username following followers liked_videos profilePicture"
     );
     res.json(profiles);
   } catch (error) {
@@ -21,7 +21,7 @@ const getProfileById = async (req, res) => {
   try {
     const profileID = await UserProfile.findOne({
       username: req.params.username,
-    }).select("followers following liked_videos");
+    }).select("profilePicture followers following liked_videos");
 
     res.json(profileID);
   } catch (error) {
@@ -42,7 +42,8 @@ const addProfileData = async (req, res) => {
     if ("followers" in req.body) tempArr.followers = req.body.followers;
     if ("liked_videos" in req.body)
       tempArr.liked_videos = req.body.liked_videos;
-
+    if ("profilePicture" in req.body)
+      tempArr.profilePicture = req.body.profilePicture;
     await UserProfile.findOneAndUpdate(
       { username: req.params.username },
       { $push: tempArr }

@@ -12,6 +12,7 @@ const Profile = () => {
   const [following, setFollowing] = useState([]);
   const [followers, setFollowers] = useState([]);
   const [likes, setLikes] = useState([]);
+  const [profilePicture, setProfilePicture] = useState("");
 
   const [follow, setFollow] = useState("");
   const [unfollow, setUnfollow] = useState("");
@@ -30,6 +31,8 @@ const Profile = () => {
       setFollowing(res.data.following);
       setFollowers(res.data.followers);
       setLikes(res.data.liked_videos);
+      setProfilePicture(res.data.profilePicture);
+      console.log(res.data);
     }
   };
 
@@ -109,7 +112,11 @@ const Profile = () => {
         <div>
           <img
             className={styles.profilePicture}
-            src="https://i.pravatar.cc/150?img=3"
+            src={
+              profilePicture
+                ? profilePicture
+                : "https://i.pravatar.cc/150?img=6"
+            }
             alt=""
           />
         </div>
