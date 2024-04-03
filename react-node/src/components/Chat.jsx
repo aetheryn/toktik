@@ -18,8 +18,9 @@ const Chat = (props) => {
   };
 
   useEffect(() => {
+    console.log(props.allMessages);
     findMessages(props.allMessages);
-  }, []);
+  }, [props.selectedUser]);
 
   return (
     <div
@@ -61,10 +62,18 @@ const Chat = (props) => {
           style={{ overflow: "hidden", textAlign: "left", paddingLeft: "20px" }}
         >
           {messageThread.map((message) => {
-            if (message.receiver_id == props.selectedUser) {
-              return <div>This is my received message: {message.content} </div>;
+            if (message.sender_id == props.selectedUser) {
+              return (
+                <div>
+                  {props.selectedUser}: {message.content}{" "}
+                </div>
+              );
             } else {
-              return <div>This is my sent message: {message.content} </div>;
+              return (
+                <div>
+                  {props.loggedInUser}: {message.content}{" "}
+                </div>
+              );
             }
           })}
         </div>
