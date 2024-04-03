@@ -12,7 +12,7 @@ const Upload = () => {
     formData.append("caption", caption);
 
     try {
-      const res = await fetch("http://127.0.0.1:5001/videos/videoupload", {
+      const res = await fetch("http://127.0.0.1:6001/videos/videoupload", {
         method: "POST",
         body: formData,
       });

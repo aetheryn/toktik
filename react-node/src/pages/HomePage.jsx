@@ -5,7 +5,7 @@ const HomePage = () => {
 
   const getVideos = async () => {
     try {
-      const res = await fetch("http://127.0.0.1:5001/videos");
+      const res = await fetch("http://127.0.0.1:6001/videos");
       if (res.ok) {
         const data = await res.json();
         console.log(data);
