@@ -23,11 +23,9 @@ const LoginPage = () => {
     );
     if (res.ok) {
       userCtx.setAccessToken(res.data.access);
-
       const decoded = jwtDecode(res.data.access);
       userCtx.setRole(decoded.role);
       userCtx.setUsername(decoded.username);
-
       navigate("/main");
     }
   };

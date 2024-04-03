@@ -17,7 +17,6 @@ function App() {
 
   return (
     <>
-      <Navbar></Navbar>
       <UserContext.Provider
         value={{
           accessToken,
@@ -30,6 +29,7 @@ function App() {
           setProfilePic,
         }}
       >
+        <Navbar></Navbar>
         <Routes>
           <Route path="/" element={<Navigate replace to="/main" />} />
           <Route path="main" element={<HomePage></HomePage>} />

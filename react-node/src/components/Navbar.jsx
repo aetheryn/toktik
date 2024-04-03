@@ -1,8 +1,12 @@
-import { React, useState } from "react";
+import { React, useContext } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Navbar.module.css";
+import UserContext from "../context/user";
 
 const Navbar = () => {
+  const userCtx = useContext(UserContext);
+  console.log(userCtx.accessToken);
+
   return (
     <header className={styles.navbar}>
       <div className={`row ${styles.container}`}>
@@ -16,28 +20,38 @@ const Navbar = () => {
           </Link>
         </div>
 
-        <div className={`col ${styles.navigation}`}>
-          <div className={styles.dropdown}>
-            <button className={styles.navlinks}>Profile</button>
-
-            <div className={styles.dropdownlinks}>
-              <Link to="/profile"> Profile </Link>
-              <Link to="/login"> Logout </Link>
+        {userCtx.accessToken.length > 0 ? (
+          <div className={`col ${styles.navigation}`}>
+            (
+            <div className={styles.dropdown}>
+              <button className={styles.navlinks}>Profile</button>(
+              <div className={styles.dropdownlinks}>
+                <Link to="/profile"> Profile </Link>
+                <Link to="/login"> Logout </Link>
+              </div>
+              )
             </div>
+            ) (
+            <button type="" className={styles.navlinks}>
+              <Link to="/dm">
+                <span className="material-symbols-outlined">mail</span>
+              </Link>
+            </button>
+            ) (
+            <button className={styles.navlinks}>
+              <Link to="/upload">
+                <span className="material-symbols-outlined">add</span>
+              </Link>
+            </button>
+            )
           </div>
-
-          <button type="" className={styles.navlinks}>
-            <Link to="/dm">
-              <span className="material-symbols-outlined">mail</span>
-            </Link>
-          </button>
-
-          <button className={styles.navlinks}>
-            <Link to="/upload">
-              <span className="material-symbols-outlined">add</span>
-            </Link>
-          </button>
-        </div>
+        ) : (
+          <div className={styles.navigation}>
+            <button className={styles.navlinks}>
+              <Link to="/login">Login / Signup</Link>
+            </button>
+          </div>
+        )}
       </div>
     </header>
   );
