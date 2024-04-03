@@ -35,15 +35,23 @@ const Navbar = () => {
               </div>
             </div>
 
-            <button type="" className={styles.navlinks}>
+            <button className={styles.navlinks}>
               <Link to="/dm">
-                <span className={`material-symbols-outlined`}>mail</span>
+                <span
+                  className={`material-symbols-outlined ${styles.userIcon}`}
+                >
+                  mail
+                </span>
               </Link>
             </button>
 
             <button className={styles.navlinks}>
               <Link to="/upload">
-                <span className={`material-symbols-outlined`}>add</span>
+                <span
+                  className={`material-symbols-outlined ${styles.userIcon}`}
+                >
+                  add
+                </span>
               </Link>
             </button>
           </div>
@@ -59,7 +67,12 @@ const Navbar = () => {
               </Link>
             </button>
             <button className={styles.navlinks}>
-              <Link to="/login">Login / Signup</Link>
+              <Link
+                style={{ fontSize: 18, marginRight: 15, marginTop: 100 }}
+                to="/login"
+              >
+                Login / Signup
+              </Link>
             </button>
           </div>
         )}

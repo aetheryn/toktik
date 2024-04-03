@@ -42,21 +42,27 @@
   text-decoration: none;
 }
 
+.guestProfilePic {
+  float: right;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 5px;
+  scale: 1.5;
+  border: transparent;
+  background-color: transparent;
+}
+
+.userIcon {
+  scale: 1.4;
+  margin-top: 5px;
+  margin-right: 15px;
+}
 .userProfilePic {
   border-radius: 50%;
   height: 55px;
   border-color: whitesmoke;
   border-style: solid;
   border-width: 3px;
-}
-
-.guestProfilePic {
-  float: right;
-  margin-top: 10px;
-  margin-left: 10px;
-  scale: 1.4;
-  border: transparent;
-  background-color: transparent;
 }
 
 .dropdownlinks {
