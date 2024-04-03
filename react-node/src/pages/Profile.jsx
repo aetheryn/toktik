@@ -31,8 +31,8 @@ const Profile = () => {
       setFollowing(res.data.following);
       setFollowers(res.data.followers);
       setLikes(res.data.liked_videos);
+      // profile pic is the pic of the user they are viewing, not the users actual pic - for placeholder purposes
       setProfilePicture(res.data.profilePicture);
-      console.log(res.data);
     }
   };
 

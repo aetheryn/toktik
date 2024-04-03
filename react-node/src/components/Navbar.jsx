@@ -22,7 +22,13 @@ const Navbar = () => {
         {userCtx.accessToken.length > 0 ? (
           <div className={`col ${styles.navigation}`}>
             <div className={styles.dropdown}>
-              <button className={styles.navlinks}>Profile</button>
+              <button className={styles.navlinks}>
+                <img
+                  className={styles.userProfilePic}
+                  src={userCtx.profilePic}
+                />
+              </button>
+
               <div className={styles.dropdownlinks}>
                 <Link to="/profile"> Profile </Link>
                 <Link to="/login"> Logout </Link>
