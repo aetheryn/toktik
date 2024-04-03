@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import useFetch from "../hooks/useFetch";
 
 const Chat = (props) => {
   const [messageThread, setMessageThread] = useState([]);
+  const messageRef = useRef();
+  const newMessage = useFetch();
 
   const getConversation = (messages) => {
     const convArray = [];
@@ -21,6 +24,42 @@ const Chat = (props) => {
     console.log(props.allMessages);
     getConversation(props.allMessages);
   }, [props.selectedUser]);
+
+  useEffect(() => {
+    console.log(props.allMessages);
+    getConversation(props.allMessages);
+  }, [props.allMessages]);
+
+  const createMessage = async () => {
+    try {
+      const response = await newMessage(
+        `/messages`,
+        "PUT",
+        {
+          receiverId: props.selectedUser,
+          senderId: props.loggedInUser,
+          content: messageRef.current.value,
+        },
+        undefined
+      );
+
+      console.log(response);
+      if (response.ok) {
+        props.getAllMessages();
+        messageRef.current.value = "";
+      }
+    } catch (error) {
+      if (error.name !== "AbortError") {
+        console.error(error.message);
+      }
+    }
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key == "Enter") {
+      createMessage();
+    }
+  };
 
   return (
     <div
@@ -89,6 +128,8 @@ const Chat = (props) => {
         }}
       >
         <input
+          ref={messageRef}
+          onKeyDown={handleKeyDown}
           style={{
             width: "80%",
             padding: "5px",
@@ -99,6 +140,7 @@ const Chat = (props) => {
           }}
         ></input>
         <button
+          onClick={() => createMessage()}
           style={{
             margin: "2px",
             padding: "5px",
@@ -107,8 +149,7 @@ const Chat = (props) => {
             borderWidth: "0px",
           }}
         >
-          {" "}
-          Submit{" "}
+          Submit
         </button>
       </div>
     </div>
