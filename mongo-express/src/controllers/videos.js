@@ -43,6 +43,8 @@ const seedVideo = async (req, res) => {
         id: 1,
         created_at: 2025 - 11 - 12,
         uploaded_by_user: "user11",
+        imageName: "ahhhhh",
+        caption: "potato",
       },
       {
         title: "This DOG",
@@ -68,6 +70,8 @@ const seedVideo = async (req, res) => {
         id: 2,
         created_at: 2025 - 11 - 12,
         uploaded_by_user: "user69",
+        imageName: "yes",
+        caption: "nani",
       },
     ]);
     res.json({ status: "ok", msg: "seeding successful" });
