@@ -9,19 +9,16 @@ const Profile = () => {
   const fetchData = useFetch();
   const navigate = useNavigate();
 
-  const [following, setFollowing] = useState();
-  const [followers, setFollowers] = useState();
-  const [likes, setLikes] = useState();
+  const [following, setFollowing] = useState([]);
+  const [followers, setFollowers] = useState([]);
+  const [likes, setLikes] = useState([]);
 
   const [follow, setFollow] = useState("");
   const [unfollow, setUnfollow] = useState("");
-  const [followStatus, setFollowStatus] = useState();
-
-  const [isLoading, setIsLoading] = useState(false);
+  const [followStatus, setFollowStatus] = useState(false);
 
   // DO NOTE THAT ALL THE PROFILES, IT IS NOT USERCTX.USERNAME - IT SHOULD BE WHOEVER WE CLICKED ON - USERCTX.USERNAME IS FOR DEV PURPOSES
   const getProfileStatInfo = async () => {
-    setIsLoading(true);
     const res = await fetchData(
       "/users/user/" + userCtx.username,
       "POST",
@@ -33,44 +30,65 @@ const Profile = () => {
       setFollowing(res.data.following);
       setFollowers(res.data.followers);
       setLikes(res.data.liked_videos);
-      console.log(followers);
-      setIsLoading(false);
     }
   };
 
+  useEffect(() => {
+    if (followers.includes(userCtx.username)) {
+      console.log(1);
+      setFollowStatus(true);
+    }
+    console.log(followers);
+  }, [followers]);
+
   const followProfile = async () => {
-    const res = await fetchData("/users/" + userCtx.username, "PUT", {
-      followers: follow,
-      following: userCtx.username,
-    });
+    const res = await fetchData(
+      "/users/" + userCtx.username,
+      "PUT",
+      {
+        followers: follow,
+        following: userCtx.username,
+      },
+      undefined
+    );
 
     if (res.ok) {
       getProfileStatInfo();
-      console.log("user followed");
+      setFollowStatus(true);
+      console.log("Hi");
+    } else {
+      console.log(follow);
+      alert("Unable to follow profile");
     }
   };
 
   const handleFollow = () => {
     setFollow(userCtx.username);
     followProfile();
-    setFollowStatus(true);
   };
 
   const unfollowProfile = async () => {
-    const res = await fetchData("/users/rm/" + userCtx.username, "PUT", {
-      followers: unfollow,
-      following: userCtx.username,
-    });
+    const res = await fetchData(
+      "/users/rm/" + userCtx.username,
+      "PUT",
+      {
+        followers: unfollow,
+        following: userCtx.username,
+      },
+      undefined
+    );
 
     if (res.ok) {
       getProfileStatInfo();
+      setFollowStatus(false);
+    } else {
+      alert("Unable to unfollow them >: ) ");
     }
   };
 
   const handleUnfollow = () => {
     setUnfollow(userCtx.username);
     unfollowProfile();
-    setFollowStatus(false);
   };
 
   useEffect(() => {
@@ -103,19 +121,20 @@ const Profile = () => {
           </div>
         </div>
         <div className={styles.profileButtons}>
-          {!followStatus ? (
-            <div className="followBtn">
-              <button className={styles.button} onClick={() => handleFollow()}>
-                Follow
-              </button>
-            </div>
-          ) : (
+          {/* {followStatus ? <button>unfollow</button> : <button>follow</button>} */}
+          {followStatus ? (
             <div className="unfollowBtn">
               <button
                 className={styles.button}
                 onClick={() => handleUnfollow()}
               >
                 Unfollow
+              </button>
+            </div>
+          ) : (
+            <div className="followBtn">
+              <button className={styles.button} onClick={() => handleFollow()}>
+                Follow
               </button>
             </div>
           )}

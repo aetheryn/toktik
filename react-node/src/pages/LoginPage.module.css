@@ -23,7 +23,7 @@
 }
 
 .userInput {
-  border-radius: 50px;
+  border-radius: 15px;
   border-color: black;
   text-align: center;
   margin-bottom: 1rem;
@@ -32,7 +32,7 @@
 
 .loginBtn {
   width: 100%;
-  border-radius: 50px;
+  border-radius: 15px;
   border-color: #ea284e;
   color: whitesmoke;
   background-color: #ea284e;

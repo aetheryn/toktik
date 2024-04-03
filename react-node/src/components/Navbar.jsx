@@ -28,13 +28,13 @@ const Navbar = () => {
 
           <button type="" className={styles.navlinks}>
             <Link to="/dm">
-              <span className="material-symbols-outlined">mail</span>
+              <span class="material-symbols-outlined">mail</span>
             </Link>
           </button>
 
           <button className={styles.navlinks}>
             <Link to="/upload">
-              <span className="material-symbols-outlined">add</span>
+              <span class="material-symbols-outlined">add</span>
             </Link>
           </button>
         </div>
