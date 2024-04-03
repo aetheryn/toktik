@@ -103,6 +103,7 @@ const DirectMessage = () => {
           height: "640px",
           borderRadius: "30px",
           display: "block",
+          position: "relative",
           marginLeft: "10px",
           width: "830px",
         }}

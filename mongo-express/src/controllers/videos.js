@@ -89,8 +89,8 @@ const getVideos = async (req, res) => {
       const command = new GetObjectCommand(getObjectParams);
       const url = await getSignedUrl(s3, command, { expiresIn: 3600 });
       video.url = url;
+      await Videos.updateOne({ _id: video._id }, { url: video.url });
     }
-
     res.json(allVideos);
   } catch (error) {
     console.error(error.message);
