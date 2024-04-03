@@ -208,11 +208,13 @@ const Profile = () => {
           ) : (
             <form onSubmit={(e) => handleFormSubmit(e)}>
               <input
+                maxLength={50}
+                autoFocus
                 className={styles.descriptionInput}
                 ref={descriptionRef}
                 defaultValue={profileDescription}
                 type="text"
-                placeholder={profileDescription}
+                placeholder="Enter your profile description"
               />
             </form>
           )}
