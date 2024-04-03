@@ -25,6 +25,10 @@
   width: 100%;
 }
 
+.profileStats > div {
+  width: 20%;
+}
+
 .profileButtons {
   display: flex;
   margin-top: 2rem;
