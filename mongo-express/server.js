@@ -33,7 +33,7 @@ app.use("/videos", video);
 app.use("/messages", messages);
 app.use("/users", userProfile);
 
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 6001;
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}.`);
 });
