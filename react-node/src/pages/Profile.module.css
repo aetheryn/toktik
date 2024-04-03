@@ -8,6 +8,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 30vw;
 }
 
 .profilePicture {
@@ -49,7 +50,11 @@
 }
 
 .descriptionContainer {
-  width: 100%;
+  max-width: 100%;
+}
+
+.description {
+  text-align: center;
 }
 
 .descriptionInput {

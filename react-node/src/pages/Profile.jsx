@@ -196,6 +196,7 @@ const Profile = () => {
         <div className={styles.descriptionContainer}>
           {!updateProfileStatus ? (
             <h4
+              className={styles.description}
               onClick={() => {
                 setUpdateProfileStatus(true);
               }}
