@@ -3,29 +3,29 @@ import React, { useEffect, useState } from "react";
 const Chat = (props) => {
   const [messageThread, setMessageThread] = useState([]);
 
-  const findMessages = (messages) => {
-    const tempArray = [];
+  const getConversation = (messages) => {
+    const convArray = [];
     messages.map((message) => {
       if (
         message.receiver_id == props.selectedUser ||
         message.sender_id == props.selectedUser
       ) {
-        tempArray.push(message);
+        convArray.push(message);
       }
     });
-    console.log(tempArray);
-    setMessageThread(tempArray);
+    console.log(convArray);
+    setMessageThread(convArray);
   };
 
   useEffect(() => {
     console.log(props.allMessages);
-    findMessages(props.allMessages);
+    getConversation(props.allMessages);
   }, [props.selectedUser]);
 
   return (
     <div
       style={{
-        position: "absolute",
+        display: "grid",
       }}
     >
       <div
@@ -77,6 +77,39 @@ const Chat = (props) => {
             }
           })}
         </div>
+      </div>
+
+      <div
+        style={{
+          position: "absolute",
+          bottom: "0",
+          width: "100%",
+          margin: "20px",
+          justifySelf: "center",
+        }}
+      >
+        <input
+          style={{
+            width: "80%",
+            padding: "5px",
+            backgroundColor: "#333333",
+            margin: "2px",
+            borderRadius: "10px",
+            borderWidth: "0px",
+          }}
+        ></input>
+        <button
+          style={{
+            margin: "2px",
+            padding: "5px",
+            backgroundColor: "#c60060",
+            borderRadius: "10px",
+            borderWidth: "0px",
+          }}
+        >
+          {" "}
+          Submit{" "}
+        </button>
       </div>
     </div>
   );
