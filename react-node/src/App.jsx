@@ -7,6 +7,7 @@ import RegisterPage from "./pages/RegisterPage";
 import DirectMessage from "./pages/DirectMessage";
 import Profile from "./pages/Profile";
 import Upload from "./pages/Upload";
+import ContentModerator from "./pages/ContentModerator";
 import UserContext from "./context/user";
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
           <Route path="dm" element={<DirectMessage></DirectMessage>} />
           <Route path="profile" element={<Profile></Profile>} />
           <Route path="upload" element={<Upload></Upload>} />
+          <Route path="cm" element={<ContentModerator></ContentModerator>} />
         </Routes>
       </UserContext.Provider>
     </>

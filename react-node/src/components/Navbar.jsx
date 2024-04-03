@@ -5,7 +5,6 @@ import UserContext from "../context/user";
 
 const Navbar = () => {
   const userCtx = useContext(UserContext);
-  console.log(userCtx.accessToken);
 
   return (
     <header className={styles.navbar}>
