@@ -5,19 +5,19 @@ const seedMessages = async (req, res) => {
     await Messages.deleteMany({});
     await Messages.create([
       {
-        receiver_id: "Ken",
-        sender_id: "Bryan",
-        content: "omg",
+        receiver_id: "kentest",
+        sender_id: "bryan1234",
+        content: "[Seeded Message]",
       },
       {
-        receiver_id: "Gab",
-        sender_id: "Ken",
-        content: "sis",
+        receiver_id: "gab",
+        sender_id: "kentest",
+        content: "[Seeded Message]",
       },
       {
-        receiver_id: "Bryan",
-        sender_id: "Gab",
-        content: "hello",
+        receiver_id: "bryan1234",
+        sender_id: "gab",
+        content: "[Seeded Message]",
       },
     ]);
     return res

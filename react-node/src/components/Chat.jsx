@@ -17,6 +17,7 @@ const Chat = (props) => {
       }
     });
     console.log(convArray);
+    convArray.reverse();
     setMessageThread(convArray);
   };
 
@@ -62,11 +63,7 @@ const Chat = (props) => {
   };
 
   return (
-    <div
-      style={{
-        display: "grid",
-      }}
-    >
+    <>
       <div
         style={{
           display: "flex",
@@ -96,21 +93,44 @@ const Chat = (props) => {
         </div>
       </div>
 
-      <div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          flexDirection: "column-reverse",
+          maxHeight: "430px",
+          padding: "20px",
+          position: "relative",
+        }}
+      >
         <div
-          style={{ overflow: "hidden", textAlign: "left", paddingLeft: "20px" }}
+          style={{
+            overflowY: "auto",
+            padding: "10px",
+          }}
         >
           {messageThread.map((message) => {
             if (message.sender_id == props.selectedUser) {
               return (
-                <div>
-                  {props.selectedUser}: {message.content}{" "}
+                <div
+                  style={{
+                    textAlign: "left",
+                  }}
+                >
+                  {props.selectedUser}: {message.content}
                 </div>
               );
             } else {
               return (
-                <div>
-                  {props.loggedInUser}: {message.content}{" "}
+                <div
+                  style={{
+                    backgroundColor: "black",
+                    textAlign: "right",
+                    borderColor: "white",
+                    borderWidth: "2px",
+                  }}
+                >
+                  {props.loggedInUser}: {message.content}
                 </div>
               );
             }
@@ -152,7 +172,7 @@ const Chat = (props) => {
           Submit
         </button>
       </div>
-    </div>
+    </>
   );
 };
 
