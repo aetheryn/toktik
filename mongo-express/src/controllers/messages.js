@@ -34,7 +34,15 @@ const seedMessages = async (req, res) => {
 const getAllMessages = async (req, res) => {
   try {
     const allMessages = await Messages.find();
-    return res.status(200).json(allMessages);
+
+    const formattedMsgs = allMessages.map((message) => {
+      return {
+        ...message._doc,
+        created_at: message._doc.created_at.toString().slice(0, 21),
+      };
+    });
+
+    return res.status(200).json(formattedMsgs);
   } catch (error) {
     console.error(error.message);
     return res.status(400).json({
@@ -51,7 +59,14 @@ const getUserMessages = async (req, res) => {
       { sender_id: req.params.user },
     ]);
 
-    return res.status(200).json(userMessages);
+    const formattedMsgs = userMessages.map((message) => {
+      return {
+        ...message._doc,
+        created_at: message._doc.created_at.toString().slice(0, 21),
+      };
+    });
+
+    return res.status(200).json(formattedMsgs);
   } catch (error) {
     console.error(error.message);
     return res.status(400).json({
