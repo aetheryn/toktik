@@ -50,6 +50,12 @@
   border-width: 3px;
 }
 
+.guestProfilePic {
+  float: right;
+  margin-top: 23px;
+  margin-right: 40px;
+}
+
 .dropdownlinks {
   display: none;
   /* position: absolute; */

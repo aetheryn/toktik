@@ -9,7 +9,7 @@ const DirectMessage = () => {
   const [usersInDMs, setUsersInDMs] = useState([]);
   const [selectedUser, setSelectedUser] = useState("");
   const [showChat, setShowChat] = useState(false);
-  const [loggedInUser, setLoggedInUser] = useState("Bryan");
+  const [loggedInUser, setLoggedInUser] = useState("kentest");
 
   const getAllMessages = async () => {
     try {

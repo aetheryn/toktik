@@ -49,6 +49,11 @@ const Navbar = () => {
           </div>
         ) : (
           <div className={`col ${styles.navigation}`}>
+            <span
+              className={`material-symbols-outlined ${styles.guestProfilePic}`}
+            >
+              account_circle
+            </span>
             <button className={styles.navlinks}>
               <Link to="/login">Login / Signup</Link>
             </button>

@@ -84,11 +84,14 @@ const seedVideo = async (req, res) => {
 const getVideos = async (req, res) => {
   try {
     const allVideos = await Videos.find();
+
     for (const video of allVideos) {
       const getObjectParams = { Bucket: bucketName, Key: video.imageName };
       const command = new GetObjectCommand(getObjectParams);
+
       const url = await getSignedUrl(s3, command, { expiresIn: 3600 });
       video.url = url;
+
       await Videos.updateOne({ _id: video._id }, { url: video.url });
     }
     res.json(allVideos);
