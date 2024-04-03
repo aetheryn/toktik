@@ -22,31 +22,28 @@ const Navbar = () => {
 
         {userCtx.accessToken.length > 0 ? (
           <div className={`col ${styles.navigation}`}>
-            (
             <div className={styles.dropdown}>
-              <button className={styles.navlinks}>Profile</button>(
+              <button className={styles.navlinks}>Profile</button>
               <div className={styles.dropdownlinks}>
                 <Link to="/profile"> Profile </Link>
                 <Link to="/login"> Logout </Link>
               </div>
-              )
             </div>
-            ) (
+
             <button type="" className={styles.navlinks}>
               <Link to="/dm">
                 <span className="material-symbols-outlined">mail</span>
               </Link>
             </button>
-            ) (
+
             <button className={styles.navlinks}>
               <Link to="/upload">
                 <span className="material-symbols-outlined">add</span>
               </Link>
             </button>
-            )
           </div>
         ) : (
-          <div className={styles.navigation}>
+          <div className={`col ${styles.navigation}`}>
             <button className={styles.navlinks}>
               <Link to="/login">Login / Signup</Link>
             </button>
