@@ -35,10 +35,8 @@ const Profile = () => {
 
   useEffect(() => {
     if (followers.includes(userCtx.username)) {
-      console.log(1);
       setFollowStatus(true);
     }
-    console.log(followers);
   }, [followers]);
 
   const followProfile = async () => {
@@ -55,16 +53,14 @@ const Profile = () => {
     if (res.ok) {
       getProfileStatInfo();
       setFollowStatus(true);
-      console.log("Hi");
+      setFollow("");
     } else {
-      console.log(follow);
       alert("Unable to follow profile");
     }
   };
 
   const handleFollow = () => {
     setFollow(userCtx.username);
-    followProfile();
   };
 
   const unfollowProfile = async () => {
@@ -81,6 +77,7 @@ const Profile = () => {
     if (res.ok) {
       getProfileStatInfo();
       setFollowStatus(false);
+      setUnfollow("");
     } else {
       alert("Unable to unfollow them >: ) ");
     }
@@ -88,12 +85,23 @@ const Profile = () => {
 
   const handleUnfollow = () => {
     setUnfollow(userCtx.username);
-    unfollowProfile();
   };
 
   useEffect(() => {
     getProfileStatInfo();
   }, []);
+
+  useEffect(() => {
+    if (unfollow) {
+      unfollowProfile();
+    }
+  }, [unfollow]);
+
+  useEffect(() => {
+    if (follow) {
+      followProfile();
+    }
+  }, [follow]);
 
   return (
     <div className={styles.container}>
