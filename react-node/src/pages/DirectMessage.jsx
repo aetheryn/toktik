@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Chat from "../components/Chat";
+import UserContext from "../context/user";
 import useFetch from "../hooks/useFetch";
 import UserinDM from "../components/UserinDM";
 
 const DirectMessage = () => {
+  const userCtx = useContext(UserContext);
   const fetchMessages = useFetch();
   const [allMessages, setAllMessages] = useState([]);
   const [usersInDMs, setUsersInDMs] = useState([]);
   const [selectedUser, setSelectedUser] = useState("");
   const [showChat, setShowChat] = useState(false);
-  const [loggedInUser, setLoggedInUser] = useState("kentest");
+  const [loggedInUser, setLoggedInUser] = useState(userCtx.username);
 
   const getAllMessages = async () => {
     try {
@@ -71,7 +73,6 @@ const DirectMessage = () => {
         style={{
           backgroundColor: "black",
           height: "640px",
-          width: "360px",
           borderRadius: "30px",
           display: "block",
           paddingLeft: "-1.5rem",
@@ -105,7 +106,7 @@ const DirectMessage = () => {
           display: "block",
           position: "relative",
           marginLeft: "10px",
-          width: "830px",
+          // width: "830px",
         }}
       >
         {showChat && (
