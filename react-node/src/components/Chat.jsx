@@ -17,6 +17,7 @@ const Chat = (props) => {
       }
     });
     console.log(convArray);
+    convArray.reverse();
     setMessageThread(convArray);
   };
 
@@ -62,17 +63,12 @@ const Chat = (props) => {
   };
 
   return (
-    <div
-      style={{
-        display: "grid",
-      }}
-    >
+    <>
       <div
         style={{
           display: "flex",
           margin: "20px",
           padding: "20px",
-          width: "790px",
           backgroundColor: "#c60060",
           borderRadius: "20px",
         }}
@@ -96,21 +92,67 @@ const Chat = (props) => {
         </div>
       </div>
 
-      <div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "flex-end",
+          height: "430px",
+          // maxHeight: "430px",
+          padding: "20px",
+          position: "relative",
+        }}
+      >
         <div
-          style={{ overflow: "hidden", textAlign: "left", paddingLeft: "20px" }}
+          style={{
+            overflowY: "auto",
+            padding: "10px",
+          }}
         >
           {messageThread.map((message) => {
             if (message.sender_id == props.selectedUser) {
               return (
-                <div>
-                  {props.selectedUser}: {message.content}{" "}
+                <div style={{ display: "flex", justifyContent: "left" }}>
+                  <div
+                    style={{
+                      backgroundColor: "#aaaaaa",
+                      maxWidth: "50%",
+                      textAlign: "left",
+                      margin: "5px",
+                      paddingLeft: "10px",
+                      paddingRight: "10px",
+                      paddingTop: "5px",
+                      paddingBottom: "5px",
+                      borderRadius: "10px",
+                      color: "black",
+                    }}
+                  >
+                    {message.content}
+                  </div>{" "}
+                  {/* <div> {message.created_at}</div> */}
                 </div>
               );
             } else {
               return (
-                <div>
-                  {props.loggedInUser}: {message.content}{" "}
+                <div style={{ display: "flex", justifyContent: "right" }}>
+                  <div
+                    style={{
+                      backgroundColor: "#eeeeee",
+                      width: "auto",
+                      textAlign: "right",
+                      margin: "5px",
+                      paddingLeft: "10px",
+                      paddingRight: "10px",
+                      paddingTop: "5px",
+                      paddingBottom: "5px",
+                      borderRadius: "10px",
+                      color: "black",
+                      maxWidth: "50%",
+                    }}
+                  >
+                    {message.content}
+                  </div>
+                  {/* <div> {message.created_at}</div> */}
                 </div>
               );
             }
@@ -122,7 +164,7 @@ const Chat = (props) => {
         style={{
           position: "absolute",
           bottom: "0",
-          width: "100%",
+          width: "90%",
           margin: "20px",
           justifySelf: "center",
         }}
@@ -152,7 +194,7 @@ const Chat = (props) => {
           Submit
         </button>
       </div>
-    </div>
+    </>
   );
 };
 
