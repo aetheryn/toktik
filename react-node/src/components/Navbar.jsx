@@ -1,10 +1,16 @@
-import { React, useContext } from "react";
+import { React, useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import UserContext from "../context/user";
 
 const Navbar = () => {
   const userCtx = useContext(UserContext);
+
+  const [adminView, setAdminView] = useState(false);
+
+  useEffect(() => {
+    console.log(adminView);
+  }, [adminView]);
 
   return (
     <header className={styles.navbar}>
@@ -79,7 +85,7 @@ const Navbar = () => {
           ""
         )}
 
-        {/* {userCtx.role === "admin" && location.pathname === "/cm" ? (
+        {userCtx.role === "admin" && !adminView ? (
           <div className={`col ${styles.navigation}`}>
             <button className={styles.guestProfilePic}>
               <span
@@ -89,10 +95,15 @@ const Navbar = () => {
               </span>
             </button>
             <button className={styles.navlinks}>
-              <Link to="/">User View</Link>
+              <Link onClick={() => setAdminView(true)} to="/">
+                User View
+              </Link>
             </button>
           </div>
         ) : (
+          ""
+        )}
+        {userCtx.role === "admin" && adminView ? (
           <div className={`col ${styles.navigation}`}>
             <button className={styles.guestProfilePic}>
               <Link to="/register">
@@ -104,10 +115,14 @@ const Navbar = () => {
               </Link>
             </button>
             <button className={styles.navlinks}>
-              <Link to="/cm">Content Moderator View</Link>
+              <Link onClick={() => setAdminView(false)} to="/cm">
+                Content Moderator View
+              </Link>
             </button>
           </div>
-        )} */}
+        ) : (
+          ""
+        )}
       </div>
     </header>
   );
