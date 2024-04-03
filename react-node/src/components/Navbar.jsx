@@ -18,8 +18,7 @@ const Navbar = () => {
             />
           </Link>
         </div>
-
-        {userCtx.accessToken.length > 0 ? (
+        {userCtx.role === "user" ? (
           <div className={`col ${styles.navigation}`}>
             <div className={styles.dropdown}>
               <button className={styles.navlinks}>
@@ -56,6 +55,10 @@ const Navbar = () => {
             </button>
           </div>
         ) : (
+          ""
+        )}
+
+        {userCtx.accessToken.length === 0 ? (
           <div className={`col ${styles.navigation}`}>
             <button className={styles.guestProfilePic}>
               <Link to="/register">
@@ -72,7 +75,39 @@ const Navbar = () => {
               </Link>
             </button>
           </div>
+        ) : (
+          ""
         )}
+
+        {/* {userCtx.role === "admin" && location.pathname === "/cm" ? (
+          <div className={`col ${styles.navigation}`}>
+            <button className={styles.guestProfilePic}>
+              <span
+                className={`material-symbols-outlined ${styles.guestProfilePic}`}
+              >
+                local_police
+              </span>
+            </button>
+            <button className={styles.navlinks}>
+              <Link to="/">User View</Link>
+            </button>
+          </div>
+        ) : (
+          <div className={`col ${styles.navigation}`}>
+            <button className={styles.guestProfilePic}>
+              <Link to="/register">
+                <span
+                  className={`material-symbols-outlined ${styles.guestProfilePic}`}
+                >
+                  local_police
+                </span>
+              </Link>
+            </button>
+            <button className={styles.navlinks}>
+              <Link to="/cm">Content Moderator View</Link>
+            </button>
+          </div>
+        )} */}
       </div>
     </header>
   );
