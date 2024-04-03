@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {
+  Children,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import styles from "./Profile.module.css";
 import UserContext from "../context/user";
 import useFetch from "../hooks/useFetch";
@@ -13,10 +19,13 @@ const Profile = () => {
   const [followers, setFollowers] = useState([]);
   const [likes, setLikes] = useState([]);
   const [profilePicture, setProfilePicture] = useState("");
+  const [profileDescription, setProfileDescription] = useState("");
 
   const [follow, setFollow] = useState("");
   const [unfollow, setUnfollow] = useState("");
   const [followStatus, setFollowStatus] = useState(false);
+
+  const descriptionRef = useRef("");
 
   // DO NOTE THAT ALL THE PROFILES, IT IS NOT USERCTX.USERNAME - IT SHOULD BE WHOEVER WE CLICKED ON - USERCTX.USERNAME IS FOR DEV PURPOSES
   const getProfileStatInfo = async () => {
@@ -31,6 +40,8 @@ const Profile = () => {
       setFollowing(res.data.following);
       setFollowers(res.data.followers);
       setLikes(res.data.liked_videos);
+      setProfileDescription(res.data.profileDescription);
+
       // profile pic is the pic of the user they are viewing, not the users actual pic - for placeholder purposes
       setProfilePicture(res.data.profilePicture);
     }
@@ -162,6 +173,18 @@ const Profile = () => {
         </div>
         <div className="profileDescription">
           <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h4>
+          <input
+            style={{
+              fontSize: 24,
+              backgroundColor: "transparent",
+              borderRadius: "transparent",
+              color: "whitesmoke",
+            }}
+            ref={descriptionRef}
+            defaultValue={profileDescription}
+            type="text"
+            placeholder={profileDescription}
+          />
         </div>
       </div>
     </div>

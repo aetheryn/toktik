@@ -67,10 +67,7 @@ const Navbar = () => {
               </Link>
             </button>
             <button className={styles.navlinks}>
-              <Link
-                style={{ fontSize: 18, marginRight: 15, marginTop: 100 }}
-                to="/login"
-              >
+              <Link style={{ fontSize: 18, marginRight: 15 }} to="/login">
                 Login / Signup
               </Link>
             </button>

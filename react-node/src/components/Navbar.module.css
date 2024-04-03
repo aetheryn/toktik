@@ -57,6 +57,7 @@
   margin-top: 5px;
   margin-right: 15px;
 }
+
 .userProfilePic {
   border-radius: 50%;
   height: 55px;
@@ -67,8 +68,7 @@
 
 .dropdownlinks {
   display: none;
-  /* position: absolute; */
-  /* float: right; */
+  text-align: center;
 }
 
 .dropdownlinks > a {
