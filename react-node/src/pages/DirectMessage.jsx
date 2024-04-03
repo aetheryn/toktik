@@ -10,20 +10,7 @@ const DirectMessage = () => {
   const [selectedUser, setSelectedUser] = useState("");
   const [showChat, setShowChat] = useState(false);
 
-  const loggedInUser = "Bryan";
-  let senders;
-  let receivers;
-
-  const checkSenders = (messages) => {
-    senders = [...new Set(messages.map((message) => message.sender_id))];
-    console.log(senders);
-    return senders;
-  };
-  const checkReceivers = (messages) => {
-    receivers = [...new Set(messages.map((message) => message.receiver_id))];
-    console.log(receivers);
-    return receivers;
-  };
+  const loggedInUser = "Ken";
 
   const getAllMessages = async () => {
     try {
@@ -40,6 +27,7 @@ const DirectMessage = () => {
         data.reverse();
 
         setAllMessages(data);
+        console.log(data);
         getUsersInDMs(data);
       }
     } catch (error) {
@@ -54,17 +42,21 @@ const DirectMessage = () => {
   }, []);
 
   const getUsersInDMs = (messages) => {
-    checkSenders(messages);
-    checkReceivers(messages);
+    const usersInConv = [];
 
-    const usersEngaged = senders.concat(
-      receivers.filter(
-        (receiver) => !senders.some((sender) => sender === receiver)
-      )
-    );
-    usersEngaged.splice(usersEngaged.indexOf(loggedInUser), 1);
-    console.log(usersEngaged);
-    setUsersInDMs(usersEngaged);
+    messages.map((message) => {
+      console.log(message.sender_id);
+      usersInConv.push(message.sender_id);
+      console.log(message.receiver_id);
+      usersInConv.push(message.receiver_id);
+      console.log(usersInConv);
+    });
+
+    const uniqueUsers = [...new Set(usersInConv)];
+    uniqueUsers.splice(uniqueUsers.indexOf(loggedInUser), 1);
+
+    console.log(uniqueUsers);
+    setUsersInDMs(uniqueUsers);
   };
 
   const handleUserSelect = (user) => {
@@ -113,9 +105,12 @@ const DirectMessage = () => {
           borderRadius: "30px",
           display: "block",
           marginLeft: "10px",
+          width: "830px",
         }}
       >
-        {showChat && <Chat selectedUser={selectedUser}></Chat>}
+        {showChat && (
+          <Chat selectedUser={selectedUser} allMessages={allMessages}></Chat>
+        )}
       </div>
 
       <div className="col-1"></div>
