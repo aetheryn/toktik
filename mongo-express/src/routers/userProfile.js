@@ -8,9 +8,12 @@ const {
   removeProfileData,
 } = require("../controllers/userProfile");
 
+const { errorCheck } = require("../validators/errorCheck");
+const { checkFollowInput } = require("../validators/userProfile");
+
 router.get("/", getAllUserProfile);
 router.post("/user/:username", getProfileById);
-router.put("/:username", addProfileData);
-router.put("/rm/:username", removeProfileData);
+router.put("/:username", checkFollowInput, errorCheck, addProfileData);
+router.put("/rm/:username", checkFollowInput, errorCheck, removeProfileData);
 
 module.exports = router;
