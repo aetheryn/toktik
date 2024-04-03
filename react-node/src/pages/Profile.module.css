@@ -39,11 +39,23 @@
 .button {
   color: whitesmoke;
   background-color: #ea284e;
-  border-color: #ea284e;
+  border-color: transparent;
   border-radius: 15px;
   font-size: 2rem;
   font-weight: bold;
   padding: 0 3rem;
   text-align: center;
   width: 235.38px;
+}
+
+.descriptionContainer {
+  width: 100%;
+}
+
+.descriptionInput {
+  width: 100%;
+  font-size: 24;
+  border-radius: "transparent";
+  background-color: transparent;
+  color: whitesmoke;
 }

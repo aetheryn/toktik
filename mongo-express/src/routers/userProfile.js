@@ -6,6 +6,7 @@ const {
   getProfileById,
   addProfileData,
   removeProfileData,
+  updateDescription,
 } = require("../controllers/userProfile");
 
 const { errorCheck } = require("../validators/errorCheck");
@@ -14,6 +15,7 @@ const { checkFollowInput } = require("../validators/userProfile");
 router.get("/", getAllUserProfile);
 router.post("/user/:username", getProfileById);
 router.put("/:username", checkFollowInput, errorCheck, addProfileData);
+router.put("/description/:username", errorCheck, updateDescription);
 router.put("/rm/:username", checkFollowInput, errorCheck, removeProfileData);
 
 module.exports = router;

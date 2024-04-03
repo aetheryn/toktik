@@ -1,10 +1,4 @@
-import React, {
-  Children,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import styles from "./Profile.module.css";
 import UserContext from "../context/user";
 import useFetch from "../hooks/useFetch";
@@ -26,6 +20,7 @@ const Profile = () => {
   const [followStatus, setFollowStatus] = useState(false);
 
   const descriptionRef = useRef("");
+  const [updateProfileStatus, setUpdateProfileStatus] = useState(false);
 
   // DO NOTE THAT ALL THE PROFILES, IT IS NOT USERCTX.USERNAME - IT SHOULD BE WHOEVER WE CLICKED ON - USERCTX.USERNAME IS FOR DEV PURPOSES
   const getProfileStatInfo = async () => {
@@ -40,7 +35,7 @@ const Profile = () => {
       setFollowing(res.data.following);
       setFollowers(res.data.followers);
       setLikes(res.data.liked_videos);
-      setProfileDescription(res.data.profileDescription);
+      setProfileDescription(res.data.description);
 
       // profile pic is the pic of the user they are viewing, not the users actual pic - for placeholder purposes
       setProfilePicture(res.data.profilePicture);
@@ -101,6 +96,27 @@ const Profile = () => {
     setUnfollow(userCtx.username);
   };
 
+  const descriptionUpdate = async () => {
+    const res = await fetchData(
+      "/users/description/" + userCtx.username,
+      "PUT",
+      {
+        description: descriptionRef.current.value,
+      },
+      undefined
+    );
+    if (res.ok) {
+      getProfileStatInfo();
+      console.log("Sent description update");
+    }
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    descriptionUpdate();
+    setUpdateProfileStatus(false);
+  };
+
   useEffect(() => {
     getProfileStatInfo();
   }, []);
@@ -116,6 +132,12 @@ const Profile = () => {
       followProfile();
     }
   }, [follow]);
+
+  useEffect(() => {
+    if (updateProfileStatus) {
+      console.log(updateProfileStatus);
+    }
+  }, [updateProfileStatus]);
 
   return (
     <div className={styles.container}>
@@ -147,7 +169,6 @@ const Profile = () => {
           </div>
         </div>
         <div className={styles.profileButtons}>
-          {/* {followStatus ? <button>unfollow</button> : <button>follow</button>} */}
           {followStatus ? (
             <div className="unfollowBtn">
               <button
@@ -171,20 +192,29 @@ const Profile = () => {
             </button>
           </div>
         </div>
-        <div className="profileDescription">
-          <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h4>
-          <input
-            style={{
-              fontSize: 24,
-              backgroundColor: "transparent",
-              borderRadius: "transparent",
-              color: "whitesmoke",
-            }}
-            ref={descriptionRef}
-            defaultValue={profileDescription}
-            type="text"
-            placeholder={profileDescription}
-          />
+
+        <div className={styles.descriptionContainer}>
+          {!updateProfileStatus ? (
+            <h4
+              onClick={() => {
+                setUpdateProfileStatus(true);
+              }}
+            >
+              {profileDescription
+                ? profileDescription
+                : "I am a blank description"}
+            </h4>
+          ) : (
+            <form onSubmit={(e) => handleFormSubmit(e)}>
+              <input
+                className={styles.descriptionInput}
+                ref={descriptionRef}
+                defaultValue={profileDescription}
+                type="text"
+                placeholder={profileDescription}
+              />
+            </form>
+          )}
         </div>
       </div>
     </div>

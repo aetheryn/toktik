@@ -21,7 +21,7 @@ const getProfileById = async (req, res) => {
   try {
     const profileID = await UserProfile.findOne({
       username: req.params.username,
-    }).select("profilePicture followers following liked_videos");
+    }).select("profilePicture followers following liked_videos description");
 
     res.json(profileID);
   } catch (error) {
@@ -44,12 +44,13 @@ const addProfileData = async (req, res) => {
       tempArr.liked_videos = req.body.liked_videos;
     if ("profilePicture" in req.body)
       tempArr.profilePicture = req.body.profilePicture;
+    if ("description" in req.body) tempArr.description = req.body.description;
+
     await UserProfile.findOneAndUpdate(
       { username: req.params.username },
       { $push: tempArr }
     );
 
-    console.log(req.body);
     res.json({ status: "ok", msg: "Added data :) " });
 
     // if put the same data
@@ -83,6 +84,22 @@ const removeProfileData = async (req, res) => {
   }
 };
 
+const updateDescription = async (req, res) => {
+  try {
+    await UserProfile.findOneAndUpdate(
+      { username: req.params.username },
+      { description: req.body.description }
+    );
+
+    res.json({ status: "ok", msg: "Added description :) " });
+
+    // if put the same data
+  } catch (error) {
+    console.log("Error adding data");
+    res.status(400).json({ status: "error", msg: "Error adding description" });
+  }
+};
+
 // patch UserProfile ( update data ) (Is there a need to edit? Don't really need to right because most of the actions are single actions - not mass updating)
 
 // delete UserProfile ( delete specific things in user profile -- unlike videos / remove following etc )
@@ -92,4 +109,5 @@ module.exports = {
   getProfileById,
   addProfileData,
   removeProfileData,
+  updateDescription,
 };
