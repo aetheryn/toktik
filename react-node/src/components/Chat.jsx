@@ -112,25 +112,47 @@ const Chat = (props) => {
           {messageThread.map((message) => {
             if (message.sender_id == props.selectedUser) {
               return (
-                <div
-                  style={{
-                    textAlign: "left",
-                  }}
-                >
-                  {props.selectedUser}: {message.content}
+                <div style={{ display: "flex", justifyContent: "left" }}>
+                  <div
+                    style={{
+                      backgroundColor: "#aaaaaa",
+                      maxWidth: "50%",
+                      textAlign: "left",
+                      margin: "5px",
+                      paddingLeft: "10px",
+                      paddingRight: "10px",
+                      paddingTop: "5px",
+                      paddingBottom: "5px",
+                      borderRadius: "10px",
+                      color: "black",
+                    }}
+                  >
+                    {message.content}
+                  </div>{" "}
+                  {/* <div> {message.created_at}</div> */}
                 </div>
               );
             } else {
               return (
-                <div
-                  style={{
-                    backgroundColor: "black",
-                    textAlign: "right",
-                    borderColor: "white",
-                    borderWidth: "2px",
-                  }}
-                >
-                  {props.loggedInUser}: {message.content}
+                <div style={{ display: "flex", justifyContent: "right" }}>
+                  <div
+                    style={{
+                      backgroundColor: "#eeeeee",
+                      width: "auto",
+                      textAlign: "right",
+                      margin: "5px",
+                      paddingLeft: "10px",
+                      paddingRight: "10px",
+                      paddingTop: "5px",
+                      paddingBottom: "5px",
+                      borderRadius: "10px",
+                      color: "black",
+                      maxWidth: "50%",
+                    }}
+                  >
+                    {message.content}
+                  </div>
+                  {/* <div> {message.created_at}</div> */}
                 </div>
               );
             }
