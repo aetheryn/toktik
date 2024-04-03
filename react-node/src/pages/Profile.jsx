@@ -77,15 +77,6 @@ const Profile = () => {
     getProfileStatInfo();
   }, []);
 
-  !isLoading ??
-    useEffect(() => {
-      if (followers.includes(userCtx.username)) {
-        setFollowStatus(true);
-      } else {
-        setFollowStatus(false);
-      }
-    }, []);
-
   return (
     <div className={styles.container}>
       <div className={styles.profileContainer}>
