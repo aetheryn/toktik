@@ -53,7 +53,8 @@
 .guestProfilePic {
   float: right;
   margin-top: 23px;
-  margin-right: 40px;
+  margin-left: 20px;
+  scale: 1.5;
 }
 
 .dropdownlinks {
