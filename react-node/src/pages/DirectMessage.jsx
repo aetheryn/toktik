@@ -9,8 +9,7 @@ const DirectMessage = () => {
   const [usersInDMs, setUsersInDMs] = useState([]);
   const [selectedUser, setSelectedUser] = useState("");
   const [showChat, setShowChat] = useState(false);
-
-  const loggedInUser = "Ken";
+  const [loggedInUser, setLoggedInUser] = useState("Ken");
 
   const getAllMessages = async () => {
     try {
@@ -109,7 +108,11 @@ const DirectMessage = () => {
         }}
       >
         {showChat && (
-          <Chat selectedUser={selectedUser} allMessages={allMessages}></Chat>
+          <Chat
+            selectedUser={selectedUser}
+            loggedInUser={loggedInUser}
+            allMessages={allMessages}
+          ></Chat>
         )}
       </div>
 
