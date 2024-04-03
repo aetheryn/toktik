@@ -52,9 +52,11 @@
 
 .guestProfilePic {
   float: right;
-  margin-top: 23px;
-  margin-left: 20px;
-  scale: 1.5;
+  margin-top: 10px;
+  margin-left: 10px;
+  scale: 1.4;
+  border: transparent;
+  background-color: transparent;
 }
 
 .dropdownlinks {

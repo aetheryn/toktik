@@ -37,23 +37,27 @@ const Navbar = () => {
 
             <button type="" className={styles.navlinks}>
               <Link to="/dm">
-                <span className="material-symbols-outlined">mail</span>
+                <span className={`material-symbols-outlined`}>mail</span>
               </Link>
             </button>
 
             <button className={styles.navlinks}>
               <Link to="/upload">
-                <span className="material-symbols-outlined">add</span>
+                <span className={`material-symbols-outlined`}>add</span>
               </Link>
             </button>
           </div>
         ) : (
           <div className={`col ${styles.navigation}`}>
-            <span
-              className={`material-symbols-outlined ${styles.guestProfilePic}`}
-            >
-              account_circle
-            </span>
+            <button className={styles.guestProfilePic}>
+              <Link to="/register">
+                <span
+                  className={`material-symbols-outlined ${styles.guestProfilePic}`}
+                >
+                  account_circle
+                </span>
+              </Link>
+            </button>
             <button className={styles.navlinks}>
               <Link to="/login">Login / Signup</Link>
             </button>
