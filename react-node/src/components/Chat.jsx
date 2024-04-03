@@ -69,7 +69,6 @@ const Chat = (props) => {
           display: "flex",
           margin: "20px",
           padding: "20px",
-          // width: "790px",
           backgroundColor: "#c60060",
           borderRadius: "20px",
         }}
@@ -96,9 +95,10 @@ const Chat = (props) => {
       <div
         style={{
           display: "flex",
+          flexDirection: "column",
           justifyContent: "flex-end",
-          flexDirection: "column-reverse",
-          maxHeight: "430px",
+          height: "430px",
+          // maxHeight: "430px",
           padding: "20px",
           position: "relative",
         }}
@@ -142,7 +142,7 @@ const Chat = (props) => {
         style={{
           position: "absolute",
           bottom: "0",
-          width: "100%",
+          width: "90%",
           margin: "20px",
           justifySelf: "center",
         }}
