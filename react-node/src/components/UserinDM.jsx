@@ -6,10 +6,9 @@ const UserinDM = (props) => {
     <>
       <div
         style={{
-          display: "inline-flex",
+          display: "flex",
           backgroundColor: "#c60060",
           height: "70px",
-          width: "360px",
           alignItems: "center",
           padding: "30px",
         }}

@@ -73,7 +73,6 @@ const DirectMessage = () => {
         style={{
           backgroundColor: "black",
           height: "640px",
-          width: "360px",
           borderRadius: "30px",
           display: "block",
           paddingLeft: "-1.5rem",
@@ -107,7 +106,7 @@ const DirectMessage = () => {
           display: "block",
           position: "relative",
           marginLeft: "10px",
-          width: "830px",
+          // width: "830px",
         }}
       >
         {showChat && (

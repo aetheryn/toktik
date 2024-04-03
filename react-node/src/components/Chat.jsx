@@ -69,7 +69,7 @@ const Chat = (props) => {
           display: "flex",
           margin: "20px",
           padding: "20px",
-          width: "790px",
+          // width: "790px",
           backgroundColor: "#c60060",
           borderRadius: "20px",
         }}
