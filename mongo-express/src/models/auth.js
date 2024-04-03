@@ -5,6 +5,8 @@ const authSchema = new mongoose.Schema(
     username: { type: String, require: true },
     hash: { type: String, require: true },
     role: { type: String, default: "user" },
+    profilePicture: { type: String },
+    description: { type: String },
     following: { type: Array },
     following_count: { type: Number },
     followers: { type: Array },

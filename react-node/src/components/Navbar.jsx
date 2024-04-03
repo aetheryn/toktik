@@ -1,8 +1,11 @@
-import { React, useState } from "react";
+import { React, useContext } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Navbar.module.css";
+import UserContext from "../context/user";
 
 const Navbar = () => {
+  const userCtx = useContext(UserContext);
+
   return (
     <header className={styles.navbar}>
       <div className={`row ${styles.container}`}>
@@ -15,29 +18,96 @@ const Navbar = () => {
             />
           </Link>
         </div>
+        {userCtx.role === "user" ? (
+          <div className={`col ${styles.navigation}`}>
+            <div className={styles.dropdown}>
+              <button className={styles.navlinks}>
+                <img
+                  className={styles.userProfilePic}
+                  src={userCtx.profilePic}
+                />
+              </button>
 
-        <div className={`col ${styles.navigation}`}>
-          <div className={styles.dropdown}>
-            <button className={styles.navlinks}>Profile</button>
-
-            <div className={styles.dropdownlinks}>
-              <Link to="/profile"> Profile </Link>
-              <Link to="/login"> Logout </Link>
+              <div className={styles.dropdownlinks}>
+                <Link to="/profile"> Profile </Link>
+                <Link to="/login"> Logout </Link>
+              </div>
             </div>
+
+            <button className={styles.navlinks}>
+              <Link to="/dm">
+                <span
+                  className={`material-symbols-outlined ${styles.userIcon}`}
+                >
+                  mail
+                </span>
+              </Link>
+            </button>
+
+            <button className={styles.navlinks}>
+              <Link to="/upload">
+                <span
+                  className={`material-symbols-outlined ${styles.userIcon}`}
+                >
+                  add
+                </span>
+              </Link>
+            </button>
           </div>
+        ) : (
+          ""
+        )}
 
-          <button type="" className={styles.navlinks}>
-            <Link to="/dm">
-              <span class="material-symbols-outlined">mail</span>
-            </Link>
-          </button>
+        {userCtx.accessToken.length === 0 ? (
+          <div className={`col ${styles.navigation}`}>
+            <button className={styles.guestProfilePic}>
+              <Link to="/register">
+                <span
+                  className={`material-symbols-outlined ${styles.guestProfilePic}`}
+                >
+                  account_circle
+                </span>
+              </Link>
+            </button>
+            <button className={styles.navlinks}>
+              <Link style={{ fontSize: 18, marginRight: 15 }} to="/login">
+                Login / Signup
+              </Link>
+            </button>
+          </div>
+        ) : (
+          ""
+        )}
 
-          <button className={styles.navlinks}>
-            <Link to="/upload">
-              <span class="material-symbols-outlined">add</span>
-            </Link>
-          </button>
-        </div>
+        {/* {userCtx.role === "admin" && location.pathname === "/cm" ? (
+          <div className={`col ${styles.navigation}`}>
+            <button className={styles.guestProfilePic}>
+              <span
+                className={`material-symbols-outlined ${styles.guestProfilePic}`}
+              >
+                local_police
+              </span>
+            </button>
+            <button className={styles.navlinks}>
+              <Link to="/">User View</Link>
+            </button>
+          </div>
+        ) : (
+          <div className={`col ${styles.navigation}`}>
+            <button className={styles.guestProfilePic}>
+              <Link to="/register">
+                <span
+                  className={`material-symbols-outlined ${styles.guestProfilePic}`}
+                >
+                  local_police
+                </span>
+              </Link>
+            </button>
+            <button className={styles.navlinks}>
+              <Link to="/cm">Content Moderator View</Link>
+            </button>
+          </div>
+        )} */}
       </div>
     </header>
   );

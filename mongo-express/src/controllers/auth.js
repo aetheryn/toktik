@@ -95,6 +95,7 @@ const login = async (req, res) => {
     const claims = {
       username: auth.username,
       role: auth.role,
+      profilePicture: auth.profilePicture,
     };
 
     // encrypting things above into JWT payload
@@ -123,6 +124,7 @@ const refresh = async (req, res) => {
     const claims = {
       username: decoded.username,
       role: decoded.role,
+      profilePicture: decoded.profilePicture,
     };
 
     const access = jwt.sign(claims, process.env.ACCESS_SECRET, {
