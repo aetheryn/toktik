@@ -34,10 +34,21 @@
 
 .headingButton > h1 {
   padding: 20px;
+  color: #b0b0b0;
 }
 
 .headingButton :hover {
-  background-color: #c6006085;
   border-radius: 20px;
   scale: 1.1;
+  color: rgb(255, 255, 255);
+}
+
+.displayItems {
+  list-style-type: none;
+}
+
+.cancelButton {
+  background: transparent;
+  border: transparent;
+  font-size: 1.5rem;
 }
