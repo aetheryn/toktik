@@ -166,15 +166,7 @@ const Profile = () => {
     <div className={styles.container}>
       <div className={styles.profileContainer}>
         <div>
-          <img
-            className={styles.profilePicture}
-            src={
-              profilePicture
-                ? profilePicture
-                : "https://i.pravatar.cc/150?img=6"
-            }
-            alt=""
-          />
+          <img className={styles.profilePicture} src={profilePicture} alt="" />
         </div>
         <h1>{`@${currentUser}`}</h1>
         <div className={styles.profileStats}>
