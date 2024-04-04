@@ -51,21 +51,41 @@ const Profile = () => {
   }, [followers]);
 
   const followProfile = async () => {
+    if (userCtx.username !== currentUser) {
+      const res = await fetchData(
+        "/users/" + currentUser,
+        "PUT",
+        {
+          followers: userCtx.username,
+        },
+        undefined
+      );
+
+      if (res.ok) {
+        addFollowing();
+        getProfileStatInfo();
+        setFollowStatus(true);
+        setFollow("");
+      } else {
+        console.log(userCtx.username);
+        alert("Unable to follow profile");
+      }
+    }
+  };
+
+  const addFollowing = async () => {
     const res = await fetchData(
-      "/users/" + currentUser,
+      "/users/" + userCtx.username,
       "PUT",
       {
-        followers: userCtx.username,
+        following: currentUser,
       },
       undefined
     );
 
     if (res.ok) {
       getProfileStatInfo();
-      setFollowStatus(true);
-      setFollow("");
     } else {
-      console.log(userCtx.username);
       alert("Unable to follow profile");
     }
   };
@@ -75,21 +95,23 @@ const Profile = () => {
   };
 
   const unfollowProfile = async () => {
-    const res = await fetchData(
-      "/users/rm/" + currentUser,
-      "PUT",
-      {
-        followers: userCtx.username,
-      },
-      undefined
-    );
+    if (userCtx.username !== currentUser) {
+      const res = await fetchData(
+        "/users/rm/" + currentUser,
+        "PUT",
+        {
+          followers: userCtx.username,
+        },
+        undefined
+      );
 
-    if (res.ok) {
-      getProfileStatInfo();
-      setFollowStatus(false);
-      setUnfollow("");
-    } else {
-      alert("Unable to unfollow them >: ) ");
+      if (res.ok) {
+        getProfileStatInfo();
+        setFollowStatus(false);
+        setUnfollow("");
+      } else {
+        alert("Unable to unfollow them >: ) ");
+      }
     }
   };
 
