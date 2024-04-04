@@ -10,15 +10,13 @@ const Navbar = () => {
   useEffect(() => {
     console.log(adminView);
   }, [adminView]);
-  
-  
+
   const handleLogout = () => {
     userCtx.setaccessToken("");
     userCtx.setRole("");
     userCtx.setUsername("");
     userCtx.setProfilePic("");
   };
-
 
   return (
     <header className={styles.navbar}>
@@ -97,13 +95,21 @@ const Navbar = () => {
 
         {userCtx.role === "admin" && !adminView ? (
           <div className={`col ${styles.navigation}`}>
-            <button className={styles.guestProfilePic}>
-              <span
-                className={`material-symbols-outlined ${styles.guestProfilePic}`}
-              >
-                local_police
-              </span>
-            </button>
+            <div className={styles.cmdropdown}>
+              <button className={styles.guestProfilePic}>
+                <span
+                  className={`material-symbols-outlined ${styles.guestProfilePic}`}
+                >
+                  local_police
+                </span>
+                <div className={styles.cmdropdownlinks}>
+                  <Link to="/login" onClick={() => handleLogout()}>
+                    {" "}
+                    Logout{" "}
+                  </Link>
+                </div>
+              </button>
+            </div>
             <button className={styles.navlinks}>
               <Link onClick={() => setAdminView(true)} to="/cm">
                 Content Moderator View
@@ -115,15 +121,21 @@ const Navbar = () => {
         )}
         {userCtx.role === "admin" && adminView ? (
           <div className={`col ${styles.navigation}`}>
-            <button className={styles.guestProfilePic}>
-              <Link to="/register">
+            <div className={styles.cmdropdown}>
+              <button className={styles.guestProfilePic}>
                 <span
                   className={`material-symbols-outlined ${styles.guestProfilePic}`}
                 >
                   local_police
                 </span>
-              </Link>
-            </button>
+                <div className={styles.cmdropdownlinks}>
+                  <Link to="/login" onClick={() => handleLogout()}>
+                    {" "}
+                    Logout
+                  </Link>
+                </div>
+              </button>
+            </div>
             <button className={styles.navlinks}>
               <Link onClick={() => setAdminView(false)} to="/">
                 User View
