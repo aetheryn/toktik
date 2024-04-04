@@ -106,6 +106,7 @@ const Profile = () => {
       );
 
       if (res.ok) {
+        removeFollowing();
         getProfileStatInfo();
         setFollowStatus(false);
         setUnfollow("");
@@ -117,6 +118,23 @@ const Profile = () => {
 
   const handleUnfollow = () => {
     setUnfollow(userCtx.username);
+  };
+
+  const removeFollowing = async () => {
+    const res = await fetchData(
+      "/users/rm/" + userCtx.username,
+      "PUT",
+      {
+        following: currentUser,
+      },
+      undefined
+    );
+
+    if (res.ok) {
+      getProfileStatInfo();
+    } else {
+      alert("Unable to follow profile");
+    }
   };
 
   const descriptionUpdate = async () => {
