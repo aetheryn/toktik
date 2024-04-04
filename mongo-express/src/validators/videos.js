@@ -1,12 +1,12 @@
 const { body, param } = require("express-validator");
 
 const validateIdInParam = [
-  param("id", "id is invalid").isLength({ min: 24, max: 24 }),
+  param("id", "id is invalid").optional().isLength({ min: 24, max: 24 }),
 ];
 
 const validateIdInBody = [
-  body("id", "id is required").not().isEmpty(),
-  body("id", "id is invalid").isLength({ min: 24, max: 24 }),
+  body("id", "id is required").optional().not().isEmpty(),
+  body("id", "id is invalid").optional().isLength({ min: 24, max: 24 }),
 ];
 
 const validateAddVideoData = [

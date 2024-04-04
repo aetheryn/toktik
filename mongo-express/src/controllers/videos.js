@@ -130,7 +130,7 @@ const deleteVideo = async (req, res) => {
 
 const getSpecificVideo = async (req, res) => {
   try {
-    const video = await Videos.findById(req.body.id);
+    const video = await Videos.find({ username: req.body.username });
     res.json(video);
   } catch (error) {
     console.error(error.message);
