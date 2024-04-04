@@ -103,7 +103,10 @@ const Navbar = () => {
                   local_police
                 </span>
                 <div className={styles.cmdropdownlinks}>
-                  <Link to="/login"> Logout </Link>
+                  <Link to="/login" onClick={() => handleLogout()}>
+                    {" "}
+                    Logout{" "}
+                  </Link>
                 </div>
               </button>
             </div>
@@ -126,7 +129,10 @@ const Navbar = () => {
                   local_police
                 </span>
                 <div className={styles.cmdropdownlinks}>
-                  <Link to="/login"> Logout</Link>
+                  <Link to="/login" onClick={() => handleLogout()}>
+                    {" "}
+                    Logout
+                  </Link>
                 </div>
               </button>
             </div>
