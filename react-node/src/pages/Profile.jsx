@@ -238,13 +238,6 @@ const Profile = () => {
             </form>
           )}
         </div>
-        <button
-          onClick={() => {
-            console.log(currentUser);
-          }}
-        >
-          TEST SHIT
-        </button>
       </div>
     </div>
   );
