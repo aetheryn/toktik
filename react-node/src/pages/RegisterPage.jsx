@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./LoginPage.module.css";
 import useFetch from "../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
+import UserContext from "../context/user";
+import { jwtDecode } from "jwt-decode";
 
 const RegisterPage = () => {
   const fetchData = useFetch();
   const navigate = useNavigate();
+  const userCtx = useContext(UserContext);
 
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -20,7 +23,24 @@ const RegisterPage = () => {
     if (res.ok) {
       console.log("Registration successful!");
       console.log(res);
-      navigate("/login");
+      login();
+    }
+  };
+
+  const login = async () => {
+    const res = await fetchData(
+      "/auth/login",
+      "POST",
+      { username, password },
+      undefined
+    );
+    if (res.ok) {
+      userCtx.setAccessToken(res.data.access);
+      const decoded = jwtDecode(res.data.access);
+      userCtx.setRole(decoded.role);
+      userCtx.setUsername(decoded.username);
+      userCtx.setProfilePic(decoded.profilePicture);
+      navigate("/main");
     }
   };
 

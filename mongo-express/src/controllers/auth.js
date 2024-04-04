@@ -53,14 +53,21 @@ const register = async (req, res) => {
     // to hash password
     const hash = await bcrypt.hash(req.body.password, 12);
 
-    // to create into DB
-    await Auth.create({
-      username: req.body.username,
-      hash,
-      role: req.body.role || "user",
-    });
+    if (req.body.username.includes("@toktik.com")) {
+      await Auth.create({
+        username: req.body.username,
+        hash,
+        role: "admin",
+      });
+    } else {
+      await Auth.create({
+        username: req.body.username,
+        hash,
+        role: "user",
+      });
+    }
 
-    res.json({ status: "ok", msg: "Account created successfully!" });
+    res.json({ status: "ok", msg: "Account succesfully created" });
   } catch (error) {
     console.log("Something went wrong!");
     res.status(400).json({ status: "error", msg: "Error creating account!" });

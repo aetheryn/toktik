@@ -41,7 +41,7 @@ const Navbar = () => {
               </button>
 
               <div className={styles.dropdownlinks}>
-                <Link to="/profile"> Profile </Link>
+                <Link to={`/profile/${userCtx.username}`}> Profile </Link>
                 <Link to="/login" onClick={{ handleLogout }}>
                   Logout
                 </Link>

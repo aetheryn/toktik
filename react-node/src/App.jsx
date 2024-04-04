@@ -37,7 +37,7 @@ function App() {
           <Route path="login" element={<LoginPage></LoginPage>} />
           <Route path="register" element={<RegisterPage></RegisterPage>} />
           <Route path="dm" element={<DirectMessage></DirectMessage>} />
-          <Route path="profile" element={<Profile></Profile>} />
+          <Route path="profile/:currentUser" element={<Profile></Profile>} />
           <Route path="upload" element={<Upload></Upload>} />
           <Route path="cm" element={<ContentModerator></ContentModerator>} />
         </Routes>
