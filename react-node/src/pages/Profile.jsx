@@ -156,12 +156,6 @@ const Profile = () => {
     }
   }, [follow]);
 
-  // useEffect(() => {
-  //   if (updateProfileStatus) {
-
-  //   }
-  // }, [updateProfileStatus]);
-
   return (
     <div className={styles.container}>
       <div className={styles.profileContainer}>
@@ -183,30 +177,38 @@ const Profile = () => {
             <h3>likes</h3>
           </div>
         </div>
-        <div className={styles.profileButtons}>
-          {followStatus ? (
-            <div className="unfollowBtn">
-              <button
-                className={styles.button}
-                onClick={() => handleUnfollow()}
-              >
-                Unfollow
-              </button>
-            </div>
-          ) : (
-            <div className="followBtn">
-              <button className={styles.button} onClick={() => handleFollow()}>
-                Follow
-              </button>
-            </div>
-          )}
 
-          <div className="messageBtn">
-            <button className={styles.button} onClick={() => navigate("/dm")}>
-              Message
-            </button>
+        {currentUser !== userCtx.username ? (
+          <div className={styles.profileButtons}>
+            {followStatus ? (
+              <div className="unfollowBtn">
+                <button
+                  className={styles.button}
+                  onClick={() => handleUnfollow()}
+                >
+                  Unfollow
+                </button>
+              </div>
+            ) : (
+              <div className="followBtn">
+                <button
+                  className={styles.button}
+                  onClick={() => handleFollow()}
+                >
+                  Follow
+                </button>
+              </div>
+            )}
+
+            <div className="messageBtn">
+              <button className={styles.button} onClick={() => navigate("/dm")}>
+                Message
+              </button>
+            </div>
           </div>
-        </div>
+        ) : (
+          ""
+        )}
 
         <div className={styles.descriptionContainer}>
           {!updateProfileStatus ? (
