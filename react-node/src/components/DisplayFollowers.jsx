@@ -58,11 +58,15 @@ const OverLay = (props) => {
           {/* followers display */}
           {showFollowers ? (
             <div className={styles.modalDisplay}>
-              <ul className={styles.displayItems}>
+              <div className={styles.displayItems}>
                 {props.followers.map((item) => {
-                  return <li>{item}</li>;
+                  return (
+                    <>
+                      <h4>{item}</h4>
+                    </>
+                  );
                 })}
-              </ul>
+              </div>
             </div>
           ) : (
             ""
@@ -84,20 +88,24 @@ const OverLay = (props) => {
           {/* liked video display */}
           {showLikedVideos ? (
             <div className={styles.modalDisplay}>
-              <ul className={styles.displayItems}> This is working </ul>
+              <ul className={styles.displayItems}>
+                {" "}
+                Liked Videos Placeholder{" "}
+              </ul>
             </div>
           ) : (
             ""
           )}
-
-          <button
-            className={styles.cancelButton}
-            onClick={() => {
-              props.setShowModal(true);
-            }}
-          >
-            CANCEL
-          </button>
+          <div className={styles.buttonDiv}>
+            <button
+              className={styles.cancelButton}
+              onClick={() => {
+                props.setShowModal(true);
+              }}
+            >
+              CANCEL
+            </button>
+          </div>
         </div>
       </div>
     </div>
