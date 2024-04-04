@@ -135,6 +135,9 @@ const Chat = (props) => {
             } else {
               return (
                 <div style={{ display: "flex", justifyContent: "right" }}>
+                  {/* <div style={{ alignSelf: "flex-end" }}>
+                    {message.created_at}
+                  </div> */}
                   <div
                     style={{
                       backgroundColor: "#eeeeee",
@@ -152,7 +155,6 @@ const Chat = (props) => {
                   >
                     {message.content}
                   </div>
-                  {/* <div> {message.created_at}</div> */}
                 </div>
               );
             }

@@ -75,7 +75,6 @@ const DirectMessage = () => {
           height: "640px",
           borderRadius: "30px",
           display: "block",
-          paddingLeft: "-1.5rem",
         }}
       >
         <h1
@@ -92,6 +91,7 @@ const DirectMessage = () => {
           return (
             <UserinDM
               user={user}
+              allMessages={allMessages}
               handleUserSelect={handleUserSelect}
             ></UserinDM>
           );
@@ -101,7 +101,7 @@ const DirectMessage = () => {
         className="col centered"
         style={{
           backgroundColor: "black",
-          height: "640px",
+          // height: "640px",
           borderRadius: "30px",
           display: "block",
           position: "relative",
