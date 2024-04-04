@@ -62,8 +62,11 @@ const OverLay = (props) => {
               <div className={styles.displayItems}>
                 {props.followers.map((item) => {
                   return (
-                    <>
-                      <img src={item.profilePicture} alt="" />
+                    <div className={styles.profileDiv}>
+                      <img
+                        className={styles.userProfilePic}
+                        src={item.profilePicture}
+                      />
                       <Link
                         to={`/profile/${item.username}`}
                         onClick={() => props.setShowModal(true)}
@@ -71,7 +74,7 @@ const OverLay = (props) => {
                       >
                         {item.username}
                       </Link>
-                    </>
+                    </div>
                   );
                 })}
               </div>
@@ -86,8 +89,12 @@ const OverLay = (props) => {
               <ul className={styles.displayItems}>
                 {props.following.map((item) => {
                   return (
-                    <>
-                      <img src={item.profilePicture} alt="" />
+                    <div className={styles.profileDiv}>
+                      <img
+                        className={styles.userProfilePic}
+                        src={item.profilePicture}
+                        alt=""
+                      />
                       <Link
                         to={`/profile/${item.username}`}
                         onClick={() => props.setShowModal(true)}
@@ -95,7 +102,7 @@ const OverLay = (props) => {
                       >
                         {item.username}
                       </Link>
-                    </>
+                    </div>
                   );
                 })}
               </ul>

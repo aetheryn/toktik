@@ -58,16 +58,19 @@
   gap: 20px;
 }
 
-/* .displayItems > a {
-  text-decoration: none;
-  color: whitesmoke;
-  font-size: 20px;
-} */
+.profileDiv {
+  display: flex;
+  width: 20vw;
+}
 
 .profileNames {
+  display: flex;
   color: whitesmoke;
   text-decoration: none;
   font-size: 20px;
+  justify-content: center;
+  align-items: center;
+  margin-left: 2vw;
 }
 
 .profileNames:hover {
@@ -76,9 +79,20 @@
   font-weight: bold;
 }
 
+.userProfilePic {
+  display: flex;
+  border-radius: 50%;
+  height: 70px;
+  border-color: whitesmoke;
+  border-style: solid;
+  border-width: 3px;
+  align-items: start;
+}
+
 .buttonDiv {
   display: flex;
-  justify-content: center;
+  justify-content: end;
+  margin-right: 2vw;
 }
 
 .cancelButton {
