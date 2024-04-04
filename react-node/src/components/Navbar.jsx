@@ -95,8 +95,8 @@ const Navbar = () => {
               </span>
             </button>
             <button className={styles.navlinks}>
-              <Link onClick={() => setAdminView(true)} to="/">
-                User View
+              <Link onClick={() => setAdminView(true)} to="/cm">
+                Content Moderator View
               </Link>
             </button>
           </div>
@@ -115,8 +115,8 @@ const Navbar = () => {
               </Link>
             </button>
             <button className={styles.navlinks}>
-              <Link onClick={() => setAdminView(false)} to="/cm">
-                Content Moderator View
+              <Link onClick={() => setAdminView(false)} to="/">
+                User View
               </Link>
             </button>
           </div>
