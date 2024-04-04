@@ -64,11 +64,11 @@ const OverLay = (props) => {
                   return (
                     <>
                       <Link
-                        to={`/profile/${item}`}
+                        to={`/profile/${item.username}`}
                         onClick={() => props.setShowModal(true)}
                         className={styles.profileNames}
                       >
-                        {item}
+                        {item.username}
                       </Link>
                     </>
                   );
@@ -84,7 +84,17 @@ const OverLay = (props) => {
             <div className={styles.modalDisplay}>
               <ul className={styles.displayItems}>
                 {props.following.map((item) => {
-                  return <li>{item}</li>;
+                  return (
+                    <>
+                      <Link
+                        to={`/profile/${item.username}`}
+                        onClick={() => props.setShowModal(true)}
+                        className={styles.profileNames}
+                      >
+                        {item.username}
+                      </Link>
+                    </>
+                  );
                 })}
               </ul>
             </div>
