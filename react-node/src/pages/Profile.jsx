@@ -3,6 +3,7 @@ import styles from "./Profile.module.css";
 import UserContext from "../context/user";
 import useFetch from "../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const Profile = () => {
   const userCtx = useContext(UserContext); // used for only display username
@@ -24,12 +25,7 @@ const Profile = () => {
 
   // DO NOTE THAT ALL THE PROFILES, IT IS NOT USERCTX.USERNAME - IT SHOULD BE WHOEVER WE CLICKED ON - USERCTX.USERNAME IS FOR DEV PURPOSES
   const getProfileStatInfo = async () => {
-    const res = await fetchData(
-      "/users/user/" + userCtx.username,
-      "POST",
-      undefined,
-      undefined
-    );
+    const res = await fetchData(URL, "POST", undefined, undefined);
 
     if (res.ok) {
       setFollowing(res.data.following);

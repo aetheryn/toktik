@@ -100,6 +100,21 @@ const updateDescription = async (req, res) => {
   }
 };
 
+const tryData = async (req, res) => {
+  try {
+    const profileID = await UserProfile.findOne({
+      username: req.params.username,
+    }).select("profilePicture followers following liked_videos description");
+
+    res.json(profileID);
+  } catch (error) {
+    console.log("Error getting specific user");
+    res
+      .status(400)
+      .json({ status: "error", msg: "Error fetching specific user profile" });
+  }
+};
+
 // patch UserProfile ( update data ) (Is there a need to edit? Don't really need to right because most of the actions are single actions - not mass updating)
 
 // delete UserProfile ( delete specific things in user profile -- unlike videos / remove following etc )
@@ -110,4 +125,5 @@ module.exports = {
   addProfileData,
   removeProfileData,
   updateDescription,
+  tryData,
 };
