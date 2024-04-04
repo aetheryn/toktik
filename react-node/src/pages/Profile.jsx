@@ -156,11 +156,11 @@ const Profile = () => {
     }
   }, [follow]);
 
-  useEffect(() => {
-    if (updateProfileStatus) {
-      console.log(updateProfileStatus);
-    }
-  }, [updateProfileStatus]);
+  // useEffect(() => {
+  //   if (updateProfileStatus) {
+
+  //   }
+  // }, [updateProfileStatus]);
 
   return (
     <div className={styles.container}>
@@ -221,7 +221,9 @@ const Profile = () => {
             <h4
               className={styles.description}
               onClick={() => {
-                setUpdateProfileStatus(true);
+                if (currentUser === userCtx.username) {
+                  setUpdateProfileStatus(true);
+                }
               }}
             >
               {profileDescription
