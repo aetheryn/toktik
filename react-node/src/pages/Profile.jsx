@@ -142,7 +142,7 @@ const Profile = () => {
 
   useEffect(() => {
     getProfileStatInfo();
-  }, []);
+  }, [currentUser]);
 
   useEffect(() => {
     if (unfollow) {
