@@ -5,16 +5,39 @@
   width: 100%;
   height: 100vh;
   z-index: 10;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(34, 34, 34, 0.7);
 }
 
 .modal {
   position: fixed;
-  background: white;
-  top: 30vh;
-  bottom: 40vh;
-  left: 10%;
-  width: 80%;
-  z-index: 100;
+  background: #383838;
+  top: 10vh;
+  bottom: 10vh;
+  left: 25%;
+  right: 25;
+  width: 50%;
+  z-index: 1;
   overflow: hidden;
+  border-radius: 20px;
+}
+
+.modalHeading {
+  display: flex;
+  justify-content: space-around;
+  margin: 30px 0 0 0;
+}
+
+.headingButton {
+  background: transparent;
+  border-color: transparent;
+}
+
+.headingButton > h1 {
+  padding: 20px;
+}
+
+.headingButton :hover {
+  background-color: #c6006085;
+  border-radius: 20px;
+  scale: 1.1;
 }

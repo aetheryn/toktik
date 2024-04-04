@@ -3,11 +3,14 @@ import styles from "./Profile.module.css";
 import UserContext from "../context/user";
 import useFetch from "../hooks/useFetch";
 import { useNavigate, useParams } from "react-router-dom";
+import DisplayFollowers from "../components/DisplayFollowers";
 
 const Profile = () => {
   const userCtx = useContext(UserContext); // used for only display username
   const fetchData = useFetch();
   const navigate = useNavigate();
+
+  const [showModal, setShowModal] = useState(true);
 
   const [following, setFollowing] = useState([]);
   const [followers, setFollowers] = useState([]);
@@ -174,14 +177,31 @@ const Profile = () => {
     }
   }, [follow]);
 
+  useEffect(() => {}, [showModal]);
+
+  const handleShowModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <div className={styles.container}>
+      {!showModal ? (
+        <DisplayFollowers
+          following={following}
+          followers={followers}
+          setShowModal={setShowModal}
+        ></DisplayFollowers>
+      ) : (
+        ""
+      )}
+
       <div className={styles.profileContainer}>
         <div>
           <img className={styles.profilePicture} src={profilePicture} alt="" />
         </div>
         <h1>{`@${currentUser}`}</h1>
-        <div className={styles.profileStats}>
+
+        <div className={styles.profileStats} onClick={() => handleShowModal()}>
           <div className="following">
             <h4>{following ? following.length : 0}</h4>
             <h3>following</h3>
