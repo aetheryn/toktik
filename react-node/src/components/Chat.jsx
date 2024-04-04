@@ -17,7 +17,6 @@ const Chat = (props) => {
       }
     });
     console.log(convArray);
-    convArray.reverse();
     setMessageThread(convArray);
   };
 
@@ -98,15 +97,16 @@ const Chat = (props) => {
           flexDirection: "column",
           justifyContent: "flex-end",
           height: "430px",
-          // maxHeight: "430px",
           padding: "20px",
           position: "relative",
         }}
       >
         <div
           style={{
-            overflowY: "auto",
+            display: "flex",
+            flexDirection: "column-reverse",
             padding: "10px",
+            overflowY: "auto",
           }}
         >
           {messageThread.map((message) => {
