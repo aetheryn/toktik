@@ -53,14 +53,19 @@ const register = async (req, res) => {
     // to hash password
     const hash = await bcrypt.hash(req.body.password, 12);
 
-    // to create into DB
-    await Auth.create({
-      username: req.body.username,
-      hash,
-      role: req.body.role || "user",
-    });
-
-    // give access token and refresh token for registered users
+    if (req.body.username.includes("@toktik.com")) {
+      await Auth.create({
+        username: req.body.username,
+        hash,
+        role: "admin",
+      });
+    } else {
+      await Auth.create({
+        username: req.body.username,
+        hash,
+        role: "user",
+      });
+    }
 
     res.json({ status: "ok", msg: "Account succesfully created" });
   } catch (error) {
