@@ -118,15 +118,18 @@ const Navbar = () => {
         )}
         {userCtx.role === "admin" && adminView ? (
           <div className={`col ${styles.navigation}`}>
-            <button className={styles.guestProfilePic}>
-              <Link to="/register">
+            <div className={styles.cmdropdown}>
+              <button className={styles.guestProfilePic}>
                 <span
                   className={`material-symbols-outlined ${styles.guestProfilePic}`}
                 >
                   local_police
                 </span>
-              </Link>
-            </button>
+                <div className={styles.cmdropdownlinks}>
+                  <Link to="/login"> Logout</Link>
+                </div>
+              </button>
+            </div>
             <button className={styles.navlinks}>
               <Link onClick={() => setAdminView(false)} to="/">
                 User View
