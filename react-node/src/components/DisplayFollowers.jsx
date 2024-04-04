@@ -86,7 +86,7 @@ const OverLay = (props) => {
           {/* following display */}
           {showFollowing ? (
             <div className={styles.modalDisplay}>
-              <ul className={styles.displayItems}>
+              <div className={styles.displayItems}>
                 {props.following.map((item) => {
                   return (
                     <div className={styles.profileDiv}>
@@ -105,7 +105,7 @@ const OverLay = (props) => {
                     </div>
                   );
                 })}
-              </ul>
+              </div>
             </div>
           ) : (
             ""

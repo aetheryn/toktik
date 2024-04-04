@@ -61,6 +61,9 @@
 .profileDiv {
   display: flex;
   width: 20vw;
+  background-color: #ff067e45;
+  padding: 1vh;
+  border-radius: 20px;
 }
 
 .profileNames {
