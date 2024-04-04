@@ -157,8 +157,9 @@ const uploadFile = async (req, res) => {
 
     const upload = {
       title: req.body.title,
-      url: "",
       fileName: fileName,
+      url: "",
+      username: req.body.username,
     };
     await Videos.create(upload);
 
