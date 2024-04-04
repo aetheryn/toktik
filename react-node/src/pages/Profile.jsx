@@ -2,8 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import styles from "./Profile.module.css";
 import UserContext from "../context/user";
 import useFetch from "../hooks/useFetch";
-import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Profile = () => {
   const userCtx = useContext(UserContext); // used for only display username
@@ -23,9 +22,16 @@ const Profile = () => {
   const descriptionRef = useRef("");
   const [updateProfileStatus, setUpdateProfileStatus] = useState(false);
 
+  let { currentUser } = useParams();
+
   // DO NOTE THAT ALL THE PROFILES, IT IS NOT USERCTX.USERNAME - IT SHOULD BE WHOEVER WE CLICKED ON - USERCTX.USERNAME IS FOR DEV PURPOSES
-  const getProfileStatInfo = async () => {
-    const res = await fetchData(URL, "POST", undefined, undefined);
+  const getProfileStatInfo = async (username) => {
+    const res = await fetchData(
+      "/users/user/" + currentUser,
+      "POST",
+      undefined,
+      undefined
+    );
 
     if (res.ok) {
       setFollowing(res.data.following);
@@ -46,10 +52,10 @@ const Profile = () => {
 
   const followProfile = async () => {
     const res = await fetchData(
-      "/users/" + userCtx.username,
+      "/users/" + currentUser,
       "PUT",
       {
-        followers: follow,
+        followers: userCtx.username,
         following: userCtx.username,
       },
       undefined
@@ -70,10 +76,10 @@ const Profile = () => {
 
   const unfollowProfile = async () => {
     const res = await fetchData(
-      "/users/rm/" + userCtx.username,
+      "/users/rm/" + currentUser,
       "PUT",
       {
-        followers: unfollow,
+        followers: userCtx.username,
         following: userCtx.username,
       },
       undefined
@@ -149,7 +155,7 @@ const Profile = () => {
             alt=""
           />
         </div>
-        <h1>{`@${userCtx.username}`}</h1>
+        <h1>{`@${currentUser}`}</h1>
         <div className={styles.profileStats}>
           <div className="following">
             <h4>{following ? following.length : 0}</h4>
@@ -215,6 +221,13 @@ const Profile = () => {
             </form>
           )}
         </div>
+        <button
+          onClick={() => {
+            console.log(currentUser);
+          }}
+        >
+          TEST SHIT
+        </button>
       </div>
     </div>
   );
