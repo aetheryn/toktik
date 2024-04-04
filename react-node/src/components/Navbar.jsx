@@ -10,15 +10,13 @@ const Navbar = () => {
   useEffect(() => {
     console.log(adminView);
   }, [adminView]);
-  
-  
+
   const handleLogout = () => {
     userCtx.setaccessToken("");
     userCtx.setRole("");
     userCtx.setUsername("");
     userCtx.setProfilePic("");
   };
-
 
   return (
     <header className={styles.navbar}>
@@ -97,13 +95,18 @@ const Navbar = () => {
 
         {userCtx.role === "admin" && !adminView ? (
           <div className={`col ${styles.navigation}`}>
-            <button className={styles.guestProfilePic}>
-              <span
-                className={`material-symbols-outlined ${styles.guestProfilePic}`}
-              >
-                local_police
-              </span>
-            </button>
+            <div className={styles.cmdropdown}>
+              <button className={styles.guestProfilePic}>
+                <span
+                  className={`material-symbols-outlined ${styles.guestProfilePic}`}
+                >
+                  local_police
+                </span>
+                <div className={styles.cmdropdownlinks}>
+                  <Link to="/login"> Logout </Link>
+                </div>
+              </button>
+            </div>
             <button className={styles.navlinks}>
               <Link onClick={() => setAdminView(true)} to="/cm">
                 Content Moderator View

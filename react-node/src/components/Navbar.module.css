@@ -94,3 +94,32 @@
   width: 120px;
   background-color: #2f2f2f;
 }
+
+/* Content moderator navbar  */
+
+.cmdropdownlinks {
+  text-align: center;
+  display: none;
+}
+
+.cmdropdownlinks > a {
+  float: none;
+  display: grid;
+  color: white;
+  height: 100%;
+  align-items: center;
+  padding: 5px;
+  text-decoration: none;
+  font-size: 11px;
+}
+
+.cmdropdownlinks > a:hover {
+  background-color: #c60060;
+}
+
+.cmdropdown:hover .cmdropdownlinks {
+  display: grid;
+  position: fixed;
+  margin-top: 42px;
+  background-color: #2f2f2f;
+}
