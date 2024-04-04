@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import "./Upload.css";
 import UserContext from "../context/user";
+import { useNavigate } from "react-router-dom";
 
 const Upload = () => {
   const userCtx = useContext(UserContext);
+  const navigate = useNavigate();
 
   const [file, setFile] = useState("");
   const [title, setTitle] = useState("");
@@ -34,6 +36,7 @@ const Upload = () => {
       }
       const data = await res.json();
       console.log(data);
+      goToHomePage();
     } catch (error) {
       console.error("There was a problem with your fetch operation:", error);
     }
@@ -48,6 +51,13 @@ const Upload = () => {
 
   const onChooseFile = () => {
     inputRef.current.click();
+  };
+
+  // function to navigate back to homepage after uploading
+  const goToHomePage = (event) => {
+    // event.preventDefault();
+
+    navigate("/main");
   };
 
   useEffect(() => {
@@ -80,7 +90,7 @@ const Upload = () => {
           {file && (
             <>
               <h1>Video Preview</h1>
-              <video src={preview} style={{ width: 200, height: 200 }} />
+              <video src={preview} loop style={{ width: 200, height: 200 }} />
 
               <input
                 value={title}
@@ -89,10 +99,9 @@ const Upload = () => {
                 placeholder="Title"
                 style={{ color: "black" }}
               ></input>
+              <button type="submit">Post</button>
             </>
           )}
-
-          <button type="submit">Post</button>
         </form>
       </div>
     </>

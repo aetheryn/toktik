@@ -29,7 +29,7 @@ const HomePage = () => {
         {videos.map((video, index) => (
           <li key={index}>
             <h2>{video.title}</h2>
-            <p>{video.description}</p>
+            <p>{video.username}</p>
             <img src={video.url} />
             <video src={video.url} controls />
           </li>
