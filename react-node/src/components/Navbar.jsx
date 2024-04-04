@@ -6,6 +6,13 @@ import UserContext from "../context/user";
 const Navbar = () => {
   const userCtx = useContext(UserContext);
 
+  const handleLogout = () => {
+    userCtx.setaccessToken("");
+    userCtx.setRole("");
+    userCtx.setUsername("");
+    userCtx.setProfilePic("");
+  };
+
   return (
     <header className={styles.navbar}>
       <div className={`row ${styles.container}`}>
@@ -30,7 +37,9 @@ const Navbar = () => {
 
               <div className={styles.dropdownlinks}>
                 <Link to="/profile"> Profile </Link>
-                <Link to="/login"> Logout </Link>
+                <Link to="/login" onClick={{ handleLogout }}>
+                  Logout
+                </Link>
               </div>
             </div>
 
