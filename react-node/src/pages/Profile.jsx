@@ -18,14 +18,22 @@ const Profile = () => {
   const [profilePicture, setProfilePicture] = useState("");
   const [profileDescription, setProfileDescription] = useState("");
 
-  const [follow, setFollow] = useState("");
-  const [unfollow, setUnfollow] = useState("");
+  const [follow, setFollow] = useState({ username: "", profilePicture: "" });
+  const [unfollow, setUnfollow] = useState({
+    username: "",
+    profilePicture: "",
+  });
   const [followStatus, setFollowStatus] = useState(false);
 
   const descriptionRef = useRef("");
   const [updateProfileStatus, setUpdateProfileStatus] = useState(false);
 
   let { currentUser } = useParams();
+
+  const [currUser, setCurrUser] = useState({
+    username: "",
+    profilePicture: "",
+  });
 
   // DO NOTE THAT ALL THE PROFILES, IT IS NOT USERCTX.USERNAME - IT SHOULD BE WHOEVER WE CLICKED ON - USERCTX.USERNAME IS FOR DEV PURPOSES
   const getProfileStatInfo = async () => {
@@ -44,6 +52,11 @@ const Profile = () => {
 
       // profile pic is the pic of the user they are viewing, not the users actual pic - for placeholder purposes
       setProfilePicture(res.data.profilePicture);
+
+      setCurrUser({
+        username: currentUser,
+        profilePicture: res.data.profilePicture,
+      });
     }
   };
 
@@ -59,7 +72,7 @@ const Profile = () => {
         "/users/" + currentUser,
         "PUT",
         {
-          followers: userCtx.username,
+          followers: follow,
         },
         undefined
       );
@@ -68,9 +81,10 @@ const Profile = () => {
         addFollowing();
         getProfileStatInfo();
         setFollowStatus(true);
-        setFollow("");
+
+        setFollow({ username: "", profilePicture: "" });
+        console.log(follow);
       } else {
-        console.log(userCtx.username);
         alert("Unable to follow profile");
       }
     }
@@ -81,20 +95,24 @@ const Profile = () => {
       "/users/" + userCtx.username,
       "PUT",
       {
-        following: currentUser,
+        following: currUser,
       },
       undefined
     );
 
     if (res.ok) {
       getProfileStatInfo();
+      console.log("I am addFollowing end");
     } else {
       alert("Unable to follow profile");
     }
   };
 
   const handleFollow = () => {
-    setFollow(userCtx.username);
+    setFollow({
+      username: userCtx.username,
+      profilePicture: userCtx.profilePic,
+    });
   };
 
   const unfollowProfile = async () => {
@@ -103,7 +121,7 @@ const Profile = () => {
         "/users/rm/" + currentUser,
         "PUT",
         {
-          followers: userCtx.username,
+          followers: unfollow,
         },
         undefined
       );
@@ -112,7 +130,9 @@ const Profile = () => {
         removeFollowing();
         getProfileStatInfo();
         setFollowStatus(false);
-        setUnfollow("");
+
+        setUnfollow({ username: "", profilePicture: "" });
+        console.log("I am unfollowProfile end");
       } else {
         alert("Unable to unfollow them >: ) ");
       }
@@ -120,7 +140,10 @@ const Profile = () => {
   };
 
   const handleUnfollow = () => {
-    setUnfollow(userCtx.username);
+    setUnfollow({
+      username: userCtx.username,
+      profilePicture: userCtx.profilePic,
+    });
   };
 
   const removeFollowing = async () => {
@@ -128,13 +151,14 @@ const Profile = () => {
       "/users/rm/" + userCtx.username,
       "PUT",
       {
-        following: currentUser,
+        following: currUser,
       },
       undefined
     );
 
     if (res.ok) {
       getProfileStatInfo();
+      console.log("I am removeFollowing end");
     } else {
       alert("Unable to follow profile");
     }
@@ -166,13 +190,15 @@ const Profile = () => {
   }, [currentUser]);
 
   useEffect(() => {
-    if (unfollow) {
+    if (unfollow.username && unfollow.profilePicture) {
+      console.log(unfollow);
       unfollowProfile();
     }
   }, [unfollow]);
 
   useEffect(() => {
-    if (follow) {
+    if (follow.username && follow.profilePicture) {
+      console.log(follow);
       followProfile();
     }
   }, [follow]);

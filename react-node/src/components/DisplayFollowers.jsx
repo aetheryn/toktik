@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import styles from "./DisplayFollowers.module.css";
+import { Link } from "react-router-dom";
 
 const OverLay = (props) => {
   const [showFollowers, setShowFollowers] = useState(false);
@@ -62,7 +63,13 @@ const OverLay = (props) => {
                 {props.followers.map((item) => {
                   return (
                     <>
-                      <h4>{item}</h4>
+                      <Link
+                        to={`/profile/${item}`}
+                        onClick={() => props.setShowModal(true)}
+                        className={styles.profileNames}
+                      >
+                        {item}
+                      </Link>
                     </>
                   );
                 })}

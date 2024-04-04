@@ -40,7 +40,7 @@
 .headingButton :hover {
   border-radius: 20px;
   scale: 1.1;
-  color: rgb(255, 255, 255);
+  color: whitesmoke;
 }
 
 .modalDisplay {
@@ -58,6 +58,24 @@
   gap: 20px;
 }
 
+/* .displayItems > a {
+  text-decoration: none;
+  color: whitesmoke;
+  font-size: 20px;
+} */
+
+.profileNames {
+  color: whitesmoke;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.profileNames:hover {
+  scale: 1.1;
+  color: #ff067f;
+  font-weight: bold;
+}
+
 .buttonDiv {
   display: flex;
   justify-content: center;
@@ -70,6 +88,7 @@
   color: #b0b0b0;
 }
 
-.cancelButton :hover {
+.cancelButton:hover {
   color: rgb(255, 255, 255);
+  scale: 1.1;
 }
