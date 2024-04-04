@@ -63,6 +63,7 @@ const OverLay = (props) => {
                 {props.followers.map((item) => {
                   return (
                     <>
+                      <img src={item.profilePicture} alt="" />
                       <Link
                         to={`/profile/${item.username}`}
                         onClick={() => props.setShowModal(true)}
@@ -86,6 +87,7 @@ const OverLay = (props) => {
                 {props.following.map((item) => {
                   return (
                     <>
+                      <img src={item.profilePicture} alt="" />
                       <Link
                         to={`/profile/${item.username}`}
                         onClick={() => props.setShowModal(true)}
