@@ -1,12 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import useFetch from "../hooks/useFetch";
+import SocketContext from "../context/SocketContext";
 
 const Chat = (props) => {
   const [messageThread, setMessageThread] = useState([]);
   const messageRef = useRef();
   const newMessage = useFetch();
+  const SocketCtx = useContext(SocketContext);
 
   const getConversation = (messages) => {
+    console.log("getConversation function is called");
     const convArray = [];
     messages.map((message) => {
       if (
@@ -21,20 +24,29 @@ const Chat = (props) => {
   };
 
   useEffect(() => {
-    console.log(props.allMessages);
+    // console.log(props.allMessages);
     getConversation(props.allMessages);
   }, [props.selectedUser]);
 
   useEffect(() => {
-    console.log(props.allMessages);
+    // console.log(props.allMessages);
     getConversation(props.allMessages);
   }, [props.allMessages]);
+
+  useEffect(() => {
+    SocketCtx.socket.on("newMessage", handleNewMessage);
+    return () => SocketCtx.socket.off("newMessage");
+  }, [SocketCtx.socket, props.allMessages]);
+
+  const handleNewMessage = () => {
+    props.getAllMessages();
+  };
 
   const createMessage = async () => {
     try {
       const response = await newMessage(
         `/messages`,
-        "PUT",
+        "POST",
         {
           receiverId: props.selectedUser,
           senderId: props.loggedInUser,

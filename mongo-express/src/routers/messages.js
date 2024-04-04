@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get("/seed", seedMessages);
 router.get("/", getAllMessages);
-router.post("/:user", getUserMessages);
-router.put("/", createUserMessages);
+router.get("/:user", getUserMessages);
+router.post("/", createUserMessages);
 
 module.exports = router;

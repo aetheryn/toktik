@@ -1,4 +1,5 @@
 const Messages = require("../models/Messages");
+const { getReceiverSocketId, io } = require("../socket/socket");
 
 const seedMessages = async (req, res) => {
   try {
@@ -83,6 +84,13 @@ const createUserMessages = async (req, res) => {
       sender_id: req.body.senderId,
       content: req.body.content,
     };
+
+    const receiverSocketId = getReceiverSocketId(req.body.receiverId);
+    console.log(receiverSocketId);
+    if (receiverSocketId) {
+      io.to(receiverSocketId).emit("newMessage");
+    }
+
     await Messages.create(newMessage);
     return res.status(200).json({
       status: "ok",

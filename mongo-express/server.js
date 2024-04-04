@@ -10,6 +10,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const connectDB = require("./src/db/db");
+const { app, server } = require("./src/socket/socket");
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -18,7 +19,6 @@ const limiter = rateLimit({
   legacyHeaders: false,
 });
 
-const app = express();
 connectDB();
 
 app.use(cors());
@@ -34,6 +34,6 @@ app.use("/messages", messages);
 app.use("/users", userProfile);
 
 const PORT = process.env.PORT || 6001;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server started on port ${PORT}.`);
 });
