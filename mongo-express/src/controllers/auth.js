@@ -60,7 +60,9 @@ const register = async (req, res) => {
       role: req.body.role || "user",
     });
 
-    res.json({ status: "ok", msg: "Account created successfully!" });
+    // give access token and refresh token for registered users
+
+    res.json({ status: "ok", msg: "Account succesfully created" });
   } catch (error) {
     console.log("Something went wrong!");
     res.status(400).json({ status: "error", msg: "Error creating account!" });

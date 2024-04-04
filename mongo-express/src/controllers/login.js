@@ -47,7 +47,7 @@ const login = async (req, res) => {
       jwtid: uuidv4(),
     });
 
-    const refresh = await jwt.sign(claims, process.env, REFRESH_SECRET, {
+    const refresh = await jwt.sign(claims, process.env.REFRESH_SECRET, {
       expiresIn: "30d",
       jwtid: uuidv4(),
     });
