@@ -25,7 +25,7 @@ const Profile = () => {
   let { currentUser } = useParams();
 
   // DO NOTE THAT ALL THE PROFILES, IT IS NOT USERCTX.USERNAME - IT SHOULD BE WHOEVER WE CLICKED ON - USERCTX.USERNAME IS FOR DEV PURPOSES
-  const getProfileStatInfo = async (username) => {
+  const getProfileStatInfo = async () => {
     const res = await fetchData(
       "/users/user/" + currentUser,
       "POST",
@@ -56,7 +56,6 @@ const Profile = () => {
       "PUT",
       {
         followers: userCtx.username,
-        following: userCtx.username,
       },
       undefined
     );
@@ -66,6 +65,7 @@ const Profile = () => {
       setFollowStatus(true);
       setFollow("");
     } else {
+      console.log(userCtx.username);
       alert("Unable to follow profile");
     }
   };
@@ -80,7 +80,6 @@ const Profile = () => {
       "PUT",
       {
         followers: userCtx.username,
-        following: userCtx.username,
       },
       undefined
     );
