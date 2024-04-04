@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import styles from "./DisplayFollowers.module.css";
 
@@ -6,6 +6,27 @@ const OverLay = (props) => {
   const [showFollowers, setShowFollowers] = useState(false);
   const [showFollowing, setShowFollowing] = useState(false);
   const [showLikedVideos, setShowLikedVideos] = useState(false);
+
+  useEffect(() => {
+    if (showFollowers) {
+      setShowFollowing(false);
+      setShowLikedVideos(false);
+    }
+  }, [showFollowers]);
+
+  useEffect(() => {
+    if (showFollowing) {
+      setShowFollowers(false);
+      setShowLikedVideos(false);
+    }
+  }, [showFollowing]);
+
+  useEffect(() => {
+    if (showLikedVideos) {
+      setShowFollowing(false);
+      setShowFollowers(false);
+    }
+  }, [showLikedVideos]);
 
   return (
     <div className={styles.backdrop}>
@@ -35,33 +56,40 @@ const OverLay = (props) => {
           <hr />
 
           {/* followers display */}
-          <div className={styles.modalDisplay}>
-            <ul className={styles.displayItems}>
-              {props.followers.map((item) => {
-                return <li>{item}</li>;
-              })}
-            </ul>
-          </div>
+          {showFollowers ? (
+            <div className={styles.modalDisplay}>
+              <ul className={styles.displayItems}>
+                {props.followers.map((item) => {
+                  return <li>{item}</li>;
+                })}
+              </ul>
+            </div>
+          ) : (
+            ""
+          )}
 
           {/* following display */}
-          <div className={styles.modalDisplay}>
-            <ul className={styles.displayItems}>
-              {props.following.map((item) => {
-                return <li>{item}</li>;
-              })}
-            </ul>
-          </div>
+          {showFollowing ? (
+            <div className={styles.modalDisplay}>
+              <ul className={styles.displayItems}>
+                {props.following.map((item) => {
+                  return <li>{item}</li>;
+                })}
+              </ul>
+            </div>
+          ) : (
+            ""
+          )}
 
           {/* liked video display */}
-          <div className={styles.modalDisplay}>
-            <ul className={styles.displayItems}>
-              {props.likedvideos
-                ? props.likedvideos.map((item) => {
-                    return <li>{item}</li>;
-                  })
-                : ""}
-            </ul>
-          </div>
+          {showLikedVideos ? (
+            <div className={styles.modalDisplay}>
+              <ul className={styles.displayItems}> This is working </ul>
+            </div>
+          ) : (
+            ""
+          )}
+
           <button
             className={styles.cancelButton}
             onClick={() => {
