@@ -17,7 +17,6 @@ const Chat = (props) => {
       }
     });
     console.log(convArray);
-    convArray.reverse();
     setMessageThread(convArray);
   };
 
@@ -98,15 +97,16 @@ const Chat = (props) => {
           flexDirection: "column",
           justifyContent: "flex-end",
           height: "430px",
-          // maxHeight: "430px",
           padding: "20px",
           position: "relative",
         }}
       >
         <div
           style={{
-            overflowY: "auto",
+            display: "flex",
+            flexDirection: "column-reverse",
             padding: "10px",
+            overflowY: "auto",
           }}
         >
           {messageThread.map((message) => {
@@ -116,7 +116,8 @@ const Chat = (props) => {
                   <div
                     style={{
                       backgroundColor: "#aaaaaa",
-                      maxWidth: "50%",
+                      inlineSize: "fit-content",
+                      maxWidth: "40%",
                       textAlign: "left",
                       margin: "5px",
                       paddingLeft: "10px",
@@ -125,6 +126,7 @@ const Chat = (props) => {
                       paddingBottom: "5px",
                       borderRadius: "10px",
                       color: "black",
+                      overflowWrap: "break-word",
                     }}
                   >
                     {message.content}
@@ -135,10 +137,13 @@ const Chat = (props) => {
             } else {
               return (
                 <div style={{ display: "flex", justifyContent: "right" }}>
+                  {/* <div style={{ alignSelf: "flex-end" }}>
+                    {message.created_at}
+                  </div> */}
                   <div
                     style={{
                       backgroundColor: "#eeeeee",
-                      width: "auto",
+                      inlineSize: "fit-content",
                       textAlign: "right",
                       margin: "5px",
                       paddingLeft: "10px",
@@ -147,12 +152,12 @@ const Chat = (props) => {
                       paddingBottom: "5px",
                       borderRadius: "10px",
                       color: "black",
-                      maxWidth: "50%",
+                      maxWidth: "40%",
+                      overflowWrap: "break-word",
                     }}
                   >
                     {message.content}
                   </div>
-                  {/* <div> {message.created_at}</div> */}
                 </div>
               );
             }
