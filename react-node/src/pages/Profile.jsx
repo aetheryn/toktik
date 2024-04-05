@@ -63,7 +63,8 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    if (followers.includes(userCtx.username)) {
+    const checkFollowStatus = followers.map((item) => item.username);
+    if (checkFollowStatus.includes(userCtx.username)) {
       setFollowStatus(true);
     }
   }, [followers]);
