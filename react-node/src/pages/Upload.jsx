@@ -73,20 +73,19 @@ const Upload = () => {
   return (
     <>
       <div className="container">
+        <input
+          ref={inputRef}
+          onChange={handleFileChange}
+          type="file"
+          accept="image/*,video/*"
+          style={{ display: "none" }}
+        ></input>
+        {!file && (
+          <button className="file-btn" onClick={onChooseFile}>
+            Upload File
+          </button>
+        )}
         <form onSubmit={submit}>
-          <input
-            ref={inputRef}
-            onChange={handleFileChange}
-            type="file"
-            accept="image/*,video/*"
-            style={{ display: "none" }}
-          ></input>
-          {!file && (
-            <button className="file-btn" onClick={onChooseFile}>
-              Upload File
-            </button>
-          )}
-
           {file && (
             <>
               <input
