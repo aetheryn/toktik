@@ -73,33 +73,43 @@ const Upload = () => {
   return (
     <>
       <div className="container">
+        <input
+          ref={inputRef}
+          onChange={handleFileChange}
+          type="file"
+          accept="image/*,video/*"
+          style={{ display: "none" }}
+        ></input>
+        {!file && (
+          <button className="file-btn" onClick={onChooseFile}>
+            Upload File
+          </button>
+        )}
         <form onSubmit={submit}>
-          <input
-            ref={inputRef}
-            onChange={handleFileChange}
-            type="file"
-            accept="image/*,video/*"
-            style={{ display: "none" }}
-          ></input>
-          {!file && (
-            <button className="file-btn" onClick={onChooseFile}>
-              Upload File
-            </button>
-          )}
-
           {file && (
             <>
-              <h1>Video Preview</h1>
-              <video src={preview} loop style={{ width: 200, height: 200 }} />
-
               <input
+                className="title-input"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 type="text"
-                placeholder="Title"
-                style={{ color: "black" }}
+                placeholder="Content"
+                style={{ color: "white" }}
               ></input>
-              <button type="submit">Post</button>
+              <div className="preview-container">
+                <div
+                  className="video-preview-header"
+                  style={{ color: "#cacaca" }}
+                >
+                  <h6>Video Preview</h6>
+                </div>
+                <video className="uploaded-video" src={preview} />
+              </div>
+              <div className="input-container">
+                <button className="post-button" type="submit">
+                  Post
+                </button>
+              </div>
             </>
           )}
         </form>

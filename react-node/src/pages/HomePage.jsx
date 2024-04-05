@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Profile from "./Profile";
+import Video from "../components/Video";
+import "./HomePage.css";
 
 const HomePage = () => {
   const [videos, setVideos] = useState([]);
@@ -27,17 +29,11 @@ const HomePage = () => {
 
   return (
     <div>
-      <h1>Homepage</h1>
-      <ul>
+      <div className="homepage">
         {videos.map((video, index) => (
-          <li key={index}>
-            <h2>{video.title}</h2>
-            <Link to={`/profile/${video.username}`}>{video.username}</Link>
-            <img src={video.url} />
-            <video src={video.url} controls />
-          </li>
+          <Video key={index} video={video} />
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

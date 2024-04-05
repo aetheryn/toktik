@@ -17,7 +17,7 @@ const DirectMessage = () => {
     try {
       const response = await fetchMessages(
         `/messages/${loggedInUser}`,
-        "GET",
+        "POST",
         undefined,
         undefined
       );

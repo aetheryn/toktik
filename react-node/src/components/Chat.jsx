@@ -46,7 +46,7 @@ const Chat = (props) => {
     try {
       const response = await newMessage(
         `/messages`,
-        "POST",
+        "PUT",
         {
           receiverId: props.selectedUser,
           senderId: props.loggedInUser,
@@ -108,7 +108,7 @@ const Chat = (props) => {
           display: "flex",
           flexDirection: "column",
           justifyContent: "flex-end",
-          height: "430px",
+          maxHeight: "30em",
           padding: "20px",
           position: "relative",
         }}
@@ -118,6 +118,7 @@ const Chat = (props) => {
             display: "flex",
             flexDirection: "column-reverse",
             padding: "10px",
+            marginBottom: "2em",
             overflowY: "auto",
           }}
         >

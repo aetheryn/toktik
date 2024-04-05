@@ -1,0 +1,14 @@
+/* .homepage {
+  display: grid;
+  color: white;
+  background-color: #383838;
+  min-height: 100vh;
+  place-items: center;
+} */
+
+.homepage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
