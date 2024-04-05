@@ -1,17 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "../components/Video.css";
 
 const Video = (props) => {
   return (
     <>
-      <li>
-        <h2>{props.video.title}</h2>
-        <Link to={`/profile/${props.video.username}`}>
-          {props.video.username}
-        </Link>
-        <img src={props.video.url} />
-        <video src={props.video.url} controls />
-      </li>
+      <div className="video-display">
+        <div className="video">
+          <div className="title">{props.video.title}</div>
+          <Link to={`/profile/${props.video.username}`} className="username">
+            {props.video.username}
+          </Link>
+          <video className="video-player" src={props.video.url} controls />
+        </div>
+      </div>
     </>
   );
 };
