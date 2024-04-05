@@ -13,9 +13,9 @@
   background: #383838;
   top: 10vh;
   bottom: 10vh;
-  left: 25%;
-  right: 25;
-  width: 50%;
+  left: 30%;
+  right: 30%;
+  width: 40%;
   z-index: 1;
   overflow: hidden;
   border-radius: 20px;
@@ -24,7 +24,7 @@
 .modalHeading {
   display: flex;
   justify-content: space-around;
-  margin: 30px 0 0 0;
+  margin: 1vw 0 0 0;
 }
 
 .headingButton {
@@ -49,21 +49,37 @@
   height: 50vh;
 }
 
+.bodyContainer {
+  height: 50vh;
+}
+
 .displayItems {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   list-style-type: none;
-  gap: 20px;
+  gap: 1vh;
 }
 
 .profileDiv {
   display: flex;
-  width: 20vw;
+  width: 18vw;
   background-color: #ff067e45;
   padding: 1vh;
   border-radius: 20px;
+  border-color: transparent;
+  align-items: center;
+}
+
+.profileDiv:hover {
+  scale: 1.1;
+  color: #ff067f;
+  font-weight: bold;
+}
+
+.username {
+  margin-left: 1vw;
 }
 
 .profileNames {
@@ -73,13 +89,10 @@
   font-size: 20px;
   justify-content: center;
   align-items: center;
-  margin-left: 2vw;
 }
 
-.profileNames:hover {
-  scale: 1.1;
-  color: #ff067f;
-  font-weight: bold;
+.profileNames > text {
+  color: black;
 }
 
 .userProfilePic {
@@ -96,6 +109,7 @@
   display: flex;
   justify-content: end;
   margin-right: 2vw;
+  margin-top: 5vh;
 }
 
 .cancelButton {

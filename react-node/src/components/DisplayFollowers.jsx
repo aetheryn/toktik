@@ -8,6 +8,8 @@ const OverLay = (props) => {
   const [showFollowing, setShowFollowing] = useState(false);
   const [showLikedVideos, setShowLikedVideos] = useState(false);
 
+  const backdrop = document.getElementById("backdrop");
+
   useEffect(() => {
     if (showFollowers) {
       setShowFollowing(false);
@@ -29,52 +31,54 @@ const OverLay = (props) => {
     }
   }, [showLikedVideos]);
 
-  return (
-    <div className={styles.backdrop}>
-      <div className={styles.modal}>
-        <div className="modalContainer">
-          <div className={styles.modalHeading}>
-            <button
-              className={styles.headingButton}
-              onClick={() => setShowFollowers(true)}
-            >
-              <h1>Followers</h1>
-            </button>
-            <button
-              className={styles.headingButton}
-              onClick={() => setShowFollowing(true)}
-            >
-              <h1>Following</h1>
-            </button>
-            <button
-              value="LikedVideos"
-              className={styles.headingButton}
-              onClick={() => setShowLikedVideos(true)}
-            >
-              <h1>Liked Videos</h1>
-            </button>
-          </div>
-          <hr />
+  //   backdrop.addEventListener(onClick, props.setShowModal(true));
 
+  return (
+    <div id="backdrop" className={styles.backdrop}>
+      <div className={styles.modal}>
+        <div className={styles.modalHeading}>
+          <button
+            className={styles.headingButton}
+            onClick={() => setShowFollowers(true)}
+          >
+            <h1>Followers</h1>
+          </button>
+          <button
+            className={styles.headingButton}
+            onClick={() => setShowFollowing(true)}
+          >
+            <h1>Following</h1>
+          </button>
+          <button
+            value="LikedVideos"
+            className={styles.headingButton}
+            onClick={() => setShowLikedVideos(true)}
+          >
+            <h1>Liked Videos</h1>
+          </button>
+          <hr />
+        </div>
+
+        <div className={styles.bodyContainer}>
           {/* followers display */}
           {showFollowers ? (
             <div className={styles.modalDisplay}>
               <div className={styles.displayItems}>
                 {props.followers.map((item) => {
                   return (
-                    <div className={styles.profileDiv}>
-                      <img
-                        className={styles.userProfilePic}
-                        src={item.profilePicture}
-                      />
-                      <Link
-                        to={`/profile/${item.username}`}
-                        onClick={() => props.setShowModal(true)}
-                        className={styles.profileNames}
-                      >
-                        {item.username}
-                      </Link>
-                    </div>
+                    <Link
+                      to={`/profile/${item.username}`}
+                      onClick={() => props.setShowModal(true)}
+                      className={styles.profileNames}
+                    >
+                      <button className={styles.profileDiv}>
+                        <img
+                          className={styles.userProfilePic}
+                          src={item.profilePicture}
+                        />
+                        <span className={styles.username}>{item.username}</span>
+                      </button>
+                    </Link>
                   );
                 })}
               </div>
@@ -89,20 +93,19 @@ const OverLay = (props) => {
               <div className={styles.displayItems}>
                 {props.following.map((item) => {
                   return (
-                    <div className={styles.profileDiv}>
-                      <img
-                        className={styles.userProfilePic}
-                        src={item.profilePicture}
-                        alt=""
-                      />
-                      <Link
-                        to={`/profile/${item.username}`}
-                        onClick={() => props.setShowModal(true)}
-                        className={styles.profileNames}
-                      >
-                        {item.username}
-                      </Link>
-                    </div>
+                    <Link
+                      to={`/profile/${item.username}`}
+                      onClick={() => props.setShowModal(true)}
+                      className={styles.profileNames}
+                    >
+                      <button className={styles.profileDiv}>
+                        <img
+                          className={styles.userProfilePic}
+                          src={item.profilePicture}
+                        />
+                        <span className={styles.username}>{item.username}</span>
+                      </button>
+                    </Link>
                   );
                 })}
               </div>
@@ -122,16 +125,16 @@ const OverLay = (props) => {
           ) : (
             ""
           )}
-          <div className={styles.buttonDiv}>
-            <button
-              className={styles.cancelButton}
-              onClick={() => {
-                props.setShowModal(true);
-              }}
-            >
-              CANCEL
-            </button>
-          </div>
+        </div>
+        <div className={styles.buttonDiv}>
+          <button
+            className={styles.cancelButton}
+            onClick={() => {
+              props.setShowModal(true);
+            }}
+          >
+            CANCEL
+          </button>
         </div>
       </div>
     </div>
