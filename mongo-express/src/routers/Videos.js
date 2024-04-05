@@ -8,6 +8,7 @@ const {
   deleteVideo,
   getSpecificVideo,
   uploadFile,
+  getVideoByUser,
 } = require("../controllers/videos");
 const {
   validateIdInParam,
@@ -39,5 +40,7 @@ router.delete("/:id", validateIdInParam, errorCheck, deleteVideo);
 router.post("/", validateIdInBody, errorCheck, getSpecificVideo);
 
 router.post("/videoupload", uploadSingleFile, uploadFile);
+
+router.post("/:username", getVideoByUser);
 
 module.exports = router;

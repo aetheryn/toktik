@@ -35,7 +35,9 @@ const Profile = () => {
     profilePicture: "",
   });
 
-  // DO NOTE THAT ALL THE PROFILES, IT IS NOT USERCTX.USERNAME - IT SHOULD BE WHOEVER WE CLICKED ON - USERCTX.USERNAME IS FOR DEV PURPOSES
+  const [userVideos, setUserVideos] = useState([]);
+
+  // getting stats of user
   const getProfileStatInfo = async () => {
     const res = await fetchData(
       "/users/user/" + currentUser,
@@ -66,6 +68,7 @@ const Profile = () => {
     }
   }, [followers]);
 
+  // folllow
   const followProfile = async () => {
     if (userCtx.username !== currentUser) {
       const res = await fetchData(
@@ -115,6 +118,7 @@ const Profile = () => {
     });
   };
 
+  //unfollow
   const unfollowProfile = async () => {
     if (userCtx.username !== currentUser) {
       const res = await fetchData(
@@ -164,6 +168,7 @@ const Profile = () => {
     }
   };
 
+  //description
   const descriptionUpdate = async () => {
     const res = await fetchData(
       "/users/description/" + userCtx.username,
@@ -185,6 +190,25 @@ const Profile = () => {
     setUpdateProfileStatus(false);
   };
 
+  // user uploaded videos
+  const getUserVideos = async () => {
+    const res = await fetchData(
+      "/videos/" + currentUser,
+      "POST",
+      undefined,
+      undefined
+    );
+    if (res.ok) {
+      setUserVideos(res.data);
+      console.log(userVideos);
+    } else {
+      console.log("an error has occured");
+    }
+  };
+
+  useEffect(() => {
+    getUserVideos();
+  }, []);
   useEffect(() => {
     getProfileStatInfo();
   }, [currentUser]);
@@ -303,6 +327,8 @@ const Profile = () => {
           )}
         </div>
       </div>
+
+      {/* user videos */}
     </div>
   );
 };

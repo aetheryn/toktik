@@ -41,23 +41,23 @@ const OverLay = (props) => {
             className={styles.headingButton}
             onClick={() => setShowFollowers(true)}
           >
-            <h1>Followers</h1>
+            <h3>Followers</h3>
           </button>
           <button
             className={styles.headingButton}
             onClick={() => setShowFollowing(true)}
           >
-            <h1>Following</h1>
+            <h3>Following</h3>
           </button>
           <button
             value="LikedVideos"
             className={styles.headingButton}
             onClick={() => setShowLikedVideos(true)}
           >
-            <h1>Liked Videos</h1>
+            <h3>Likes</h3>
           </button>
-          <hr />
         </div>
+        <hr />
 
         <div className={styles.bodyContainer}>
           {/* followers display */}
