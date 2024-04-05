@@ -327,9 +327,12 @@ const Profile = () => {
             </form>
           )}
         </div>
+        <hr />
+        <div className={styles.userVideoContainer}>
+          <h1>Videos here</h1>
+          <div></div>
+        </div>
       </div>
-
-      {/* user videos */}
     </div>
   );
 };

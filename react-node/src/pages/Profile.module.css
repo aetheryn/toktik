@@ -68,3 +68,11 @@
   color: whitesmoke;
   width: 30vw;
 }
+
+.userVideoContainer {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  margin-top: 5vh;
+}
