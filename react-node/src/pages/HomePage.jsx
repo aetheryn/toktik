@@ -29,7 +29,6 @@ const HomePage = () => {
 
   return (
     <div>
-      <h1>Homepage</h1>
       <div className="homepage">
         {videos.map((video, index) => (
           <Video key={index} video={video} />
