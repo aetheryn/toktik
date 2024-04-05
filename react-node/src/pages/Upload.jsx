@@ -89,17 +89,23 @@ const Upload = () => {
 
           {file && (
             <>
-              <h1>Video Preview</h1>
-              <video src={preview} loop style={{ width: 200, height: 200 }} />
-
+              <div className="preview-container">
+                <div className="video-preview-header">
+                  <h6>Video Preview</h6>
+                </div>
+                <video className="uploaded-video" src={preview} />
+              </div>
               <input
+                className="title-input"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 type="text"
                 placeholder="Title"
                 style={{ color: "black" }}
               ></input>
-              <button type="submit">Post</button>
+              <button className="post-button" type="submit">
+                Post
+              </button>
             </>
           )}
         </form>
