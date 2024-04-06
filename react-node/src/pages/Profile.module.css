@@ -70,9 +70,9 @@
 }
 
 .userVideoContainer {
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-  justify-content: center;
-  margin-top: 5vh;
+  display: grid;
+  grid-template-rows: 40vh;
+  grid-template-columns: 15vw 15vw 15vw 15vw;
+  column-gap: "";
+  row-gap: 5vh;
 }

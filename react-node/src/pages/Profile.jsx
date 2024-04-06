@@ -335,16 +335,14 @@ const Profile = () => {
         </div>
         <hr />
         <div className={styles.userVideoContainer}>
-          <h1>Videos here</h1>
+          {userVideos.map((item) => {
+            return (
+              <>
+                <UserUpload url={item.url} title={item.title} />
+              </>
+            );
+          })}
         </div>
-
-        {userVideos.map((item) => {
-          return (
-            <>
-              <UserUpload url={item.url} title={item.title} />
-            </>
-          );
-        })}
       </div>
     </div>
   );

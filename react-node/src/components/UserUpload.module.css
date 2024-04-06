@@ -1,0 +1,11 @@
+.video {
+  height: 40vh;
+  width: fit-content;
+  outline: auto;
+  outline-color: crimson;
+  border-radius: 20px;
+}
+
+.title {
+  text-align: center;
+}
