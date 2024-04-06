@@ -265,7 +265,7 @@ const Profile = () => {
             <h4>{followers ? followers.length : 0}</h4>
             <h3>followers</h3>
           </div>
-          <div className="likes">
+          <div className={styles.likesStats}>
             <h4>{likes ? likes.length : 0}</h4>
             <h3>likes</h3>
           </div>

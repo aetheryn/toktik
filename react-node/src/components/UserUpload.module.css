@@ -1,3 +1,10 @@
+.videoContainer {
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
+}
+
 .video {
   height: 40vh;
   width: fit-content;
@@ -6,6 +13,8 @@
   border-radius: 20px;
 }
 
-.title {
+/* .title {
+  margin-top: 2vh;
+  width: fit-content;
   text-align: center;
-}
+} */

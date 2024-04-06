@@ -71,8 +71,8 @@
 
 .userVideoContainer {
   display: grid;
+  grid-template-columns: repeat(5, 15vw);
   grid-template-rows: 40vh;
-  grid-template-columns: 15vw 15vw 15vw 15vw;
-  column-gap: "";
   row-gap: 5vh;
+  column-gap: 2vw;
 }
