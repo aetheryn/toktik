@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import "./Upload.css";
 import UserContext from "../context/user";
 import { useNavigate } from "react-router-dom";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 const Upload = () => {
   const userCtx = useContext(UserContext);
@@ -81,9 +82,21 @@ const Upload = () => {
           style={{ display: "none" }}
         ></input>
         {!file && (
-          <button className="file-btn" onClick={onChooseFile}>
-            Upload File
-          </button>
+          <>
+            <button className="file-btn" onClick={onChooseFile}>
+              <span>
+                <CloudUploadIcon
+                  style={{
+                    position: "absolute",
+                    left: 721,
+                    top: 353,
+                    fontSize: 28,
+                  }}
+                ></CloudUploadIcon>
+              </span>
+              Upload File
+            </button>
+          </>
         )}
         <form onSubmit={submit}>
           {file && (
