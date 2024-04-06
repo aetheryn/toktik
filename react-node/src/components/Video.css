@@ -46,3 +46,19 @@
   color: white;
   z-index: 10;
 }
+
+.likes {
+  position: absolute;
+  bottom: 32%;
+  right: 6.3%;
+  font-size: 12px;
+  text-shadow: white 1px;
+}
+
+.comments {
+  position: absolute;
+  bottom: 24.5%;
+  right: 6.3%;
+  font-size: 12px;
+  text-shadow: white 1px;
+}
