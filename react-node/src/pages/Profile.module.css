@@ -68,3 +68,10 @@
   color: whitesmoke;
   width: 30vw;
 }
+
+.userVideoContainer {
+  display: grid;
+  grid-template-columns: repeat(5, 15vw);
+  grid-template-rows: 40vh;
+  row-gap: 5vh;
+}

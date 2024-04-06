@@ -4,6 +4,7 @@ import UserContext from "../context/user";
 import useFetch from "../hooks/useFetch";
 import { useNavigate, useParams } from "react-router-dom";
 import DisplayFollowers from "../components/DisplayFollowers";
+import UserUpload from "../components/UserUpload";
 
 const Profile = () => {
   const userCtx = useContext(UserContext); // used for only display username
@@ -35,7 +36,10 @@ const Profile = () => {
     profilePicture: "",
   });
 
-  // DO NOTE THAT ALL THE PROFILES, IT IS NOT USERCTX.USERNAME - IT SHOULD BE WHOEVER WE CLICKED ON - USERCTX.USERNAME IS FOR DEV PURPOSES
+  const [userVideos, setUserVideos] = useState([]);
+  const [videoIsLoading, setVideoIsLoading] = useState(false);
+
+  // getting stats of user
   const getProfileStatInfo = async () => {
     const res = await fetchData(
       "/users/user/" + currentUser,
@@ -61,11 +65,13 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    if (followers.includes(userCtx.username)) {
+    const checkFollowStatus = followers.map((item) => item.username);
+    if (checkFollowStatus.includes(userCtx.username)) {
       setFollowStatus(true);
     }
   }, [followers]);
 
+  // folllow
   const followProfile = async () => {
     if (userCtx.username !== currentUser) {
       const res = await fetchData(
@@ -115,6 +121,7 @@ const Profile = () => {
     });
   };
 
+  //unfollow
   const unfollowProfile = async () => {
     if (userCtx.username !== currentUser) {
       const res = await fetchData(
@@ -164,6 +171,7 @@ const Profile = () => {
     }
   };
 
+  //description
   const descriptionUpdate = async () => {
     const res = await fetchData(
       "/users/description/" + userCtx.username,
@@ -185,8 +193,30 @@ const Profile = () => {
     setUpdateProfileStatus(false);
   };
 
+  // user uploaded videos
+  const getUserVideos = async () => {
+    setVideoIsLoading(true);
+    const res = await fetchData(
+      "/videos/" + currentUser,
+      "POST",
+      undefined,
+      undefined
+    );
+    if (res.ok) {
+      setUserVideos(res.data);
+      console.log(userVideos);
+      setVideoIsLoading(false);
+    } else {
+      console.log("an error has occured");
+    }
+  };
+
+  useEffect(() => {
+    console.log("mounted");
+  }, []);
   useEffect(() => {
     getProfileStatInfo();
+    getUserVideos();
   }, [currentUser]);
 
   useEffect(() => {
@@ -211,6 +241,7 @@ const Profile = () => {
 
   return (
     <div className={styles.container}>
+      {/* display profile stats jsx */}
       {!showModal ? (
         <DisplayFollowers
           following={following}
@@ -221,12 +252,12 @@ const Profile = () => {
         ""
       )}
 
+      {/* profile JSX */}
       <div className={styles.profileContainer}>
         <div>
           <img className={styles.profilePicture} src={profilePicture} alt="" />
         </div>
         <h1>{`@${currentUser}`}</h1>
-
         <div className={styles.profileStats} onClick={() => handleShowModal()}>
           <div className="following">
             <h4>{following ? following.length : 0}</h4>
@@ -236,12 +267,12 @@ const Profile = () => {
             <h4>{followers ? followers.length : 0}</h4>
             <h3>followers</h3>
           </div>
-          <div className="likes">
+          <div className={styles.likesStats}>
             <h4>{likes ? likes.length : 0}</h4>
             <h3>likes</h3>
           </div>
         </div>
-
+        {/* button jsx */}
         {currentUser !== userCtx.username ? (
           <div className={styles.profileButtons}>
             {followStatus ? (
@@ -273,7 +304,7 @@ const Profile = () => {
         ) : (
           ""
         )}
-
+        {/* descirption jsx */}
         <div className={styles.descriptionContainer}>
           {!updateProfileStatus ? (
             <h4
@@ -301,6 +332,15 @@ const Profile = () => {
               />
             </form>
           )}
+        </div>
+        <div className={styles.userVideoContainer}>
+          {userVideos.map((item) => {
+            return (
+              <>
+                <UserUpload url={item.url} title={item.title} />
+              </>
+            );
+          })}
         </div>
       </div>
     </div>

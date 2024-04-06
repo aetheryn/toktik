@@ -1,0 +1,19 @@
+.video {
+  height: 40vh;
+  width: fit-content;
+  outline-color: crimson;
+  border-radius: 20px;
+}
+
+.video:hover {
+  scale: 0.98;
+  cursor: pointer;
+}
+
+.title {
+  text-align: center;
+  width: 10vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

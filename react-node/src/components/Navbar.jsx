@@ -1,5 +1,5 @@
 import { React, useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import UserContext from "../context/user";
 
@@ -48,10 +48,10 @@ const Navbar = () => {
               </div>
             </div>
 
-            <button className={styles.navlinks}>
+            <button className={`${styles.navlinks}`}>
               <Link to="/dm">
                 <span
-                  className={`material-symbols-outlined ${styles.userIcon}`}
+                  className={`material-symbols-outlined ${styles.userIcon} active`}
                 >
                   mail
                 </span>
@@ -59,13 +59,14 @@ const Navbar = () => {
             </button>
 
             <button className={styles.navlinks}>
-              <Link to="/upload">
+              <NavLink to="/upload">
                 <span
+                  id="icon"
                   className={`material-symbols-outlined ${styles.userIcon}`}
                 >
                   add
                 </span>
-              </Link>
+              </NavLink>
             </button>
           </div>
         ) : (

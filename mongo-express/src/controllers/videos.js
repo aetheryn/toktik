@@ -91,6 +91,28 @@ const getVideos = async (req, res) => {
   }
 };
 
+const getVideoByUser = async (req, res) => {
+  try {
+    const videos = await Videos.find({ username: req.params.username });
+
+    for (const video of videos) {
+      const getObjectParams = { Bucket: bucketName, Key: video.fileName };
+      const command = new GetObjectCommand(getObjectParams);
+
+      const url = await getSignedUrl(s3, command, { expireIn: 3600 });
+      video.url = url;
+      await Videos.updateOne({ _id: video._id }, { url: video.url });
+    }
+
+    res.json(videos);
+  } catch (error) {
+    console.log(error.message);
+    res
+      .status(400)
+      .json({ status: "error", msg: "Can't fetch videos for user" });
+  }
+};
+
 const addVideos = async (req, res) => {
   try {
     const newVideo = {
@@ -178,4 +200,5 @@ module.exports = {
   deleteVideo,
   getSpecificVideo,
   uploadFile,
+  getVideoByUser,
 };

@@ -2,7 +2,7 @@ require("dotenv").config();
 
 const express = require("express");
 const auth = require("./src/routers/auth");
-const video = require("./src/routers/videos");
+const video = require("./src/routers/Videos");
 const messages = require("./src/routers/messages");
 const userProfile = require("./src/routers/userProfile");
 
