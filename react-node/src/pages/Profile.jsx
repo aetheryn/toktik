@@ -4,6 +4,7 @@ import UserContext from "../context/user";
 import useFetch from "../hooks/useFetch";
 import { useNavigate, useParams } from "react-router-dom";
 import DisplayFollowers from "../components/DisplayFollowers";
+import UserUpload from "../components/UserUpload";
 
 const Profile = () => {
   const userCtx = useContext(UserContext); // used for only display username
@@ -208,10 +209,11 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    getUserVideos();
+    console.log("mounted");
   }, []);
   useEffect(() => {
     getProfileStatInfo();
+    getUserVideos();
   }, [currentUser]);
 
   useEffect(() => {
@@ -236,6 +238,7 @@ const Profile = () => {
 
   return (
     <div className={styles.container}>
+      {/* display profile stats jsx */}
       {!showModal ? (
         <DisplayFollowers
           following={following}
@@ -246,6 +249,7 @@ const Profile = () => {
         ""
       )}
 
+      {/* profile JSX */}
       <div className={styles.profileContainer}>
         <div>
           <img className={styles.profilePicture} src={profilePicture} alt="" />
@@ -267,6 +271,7 @@ const Profile = () => {
           </div>
         </div>
 
+        {/* button jsx */}
         {currentUser !== userCtx.username ? (
           <div className={styles.profileButtons}>
             {followStatus ? (
@@ -299,6 +304,7 @@ const Profile = () => {
           ""
         )}
 
+        {/* descirption jsx */}
         <div className={styles.descriptionContainer}>
           {!updateProfileStatus ? (
             <h4
@@ -330,8 +336,15 @@ const Profile = () => {
         <hr />
         <div className={styles.userVideoContainer}>
           <h1>Videos here</h1>
-          <div></div>
         </div>
+
+        {userVideos.map((item) => {
+          return (
+            <>
+              <UserUpload url={item.url} title={item.title} />
+            </>
+          );
+        })}
       </div>
     </div>
   );
