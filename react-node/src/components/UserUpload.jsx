@@ -4,9 +4,11 @@ import styles from "./UserUpload.module.css";
 const UserUpload = (props) => {
   return (
     <div className="container">
-      <div className="">
+      <div className="video">
         <video className={styles.video} src={props.url} controls></video>
-        <p className={styles.title}>{props.title}</p>
+        <div className={styles.titleContainer}>
+          <p className={styles.title}>{props.title}</p>
+        </div>
       </div>
     </div>
   );

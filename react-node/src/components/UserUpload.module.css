@@ -8,13 +8,14 @@
 .video {
   height: 40vh;
   width: fit-content;
-  outline: auto;
   outline-color: crimson;
   border-radius: 20px;
 }
 
-/* .title {
-  margin-top: 2vh;
-  width: fit-content;
+.title {
   text-align: center;
-} */
+  width: 13vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
