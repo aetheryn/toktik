@@ -74,5 +74,4 @@
   grid-template-columns: repeat(5, 15vw);
   grid-template-rows: 40vh;
   row-gap: 5vh;
-  column-gap: 2vw;
 }

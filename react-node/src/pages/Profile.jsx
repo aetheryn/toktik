@@ -37,6 +37,7 @@ const Profile = () => {
   });
 
   const [userVideos, setUserVideos] = useState([]);
+  const [videoIsLoading, setVideoIsLoading] = useState(false);
 
   // getting stats of user
   const getProfileStatInfo = async () => {
@@ -194,6 +195,7 @@ const Profile = () => {
 
   // user uploaded videos
   const getUserVideos = async () => {
+    setVideoIsLoading(true);
     const res = await fetchData(
       "/videos/" + currentUser,
       "POST",
@@ -203,6 +205,7 @@ const Profile = () => {
     if (res.ok) {
       setUserVideos(res.data);
       console.log(userVideos);
+      setVideoIsLoading(false);
     } else {
       console.log("an error has occured");
     }
@@ -255,7 +258,6 @@ const Profile = () => {
           <img className={styles.profilePicture} src={profilePicture} alt="" />
         </div>
         <h1>{`@${currentUser}`}</h1>
-
         <div className={styles.profileStats} onClick={() => handleShowModal()}>
           <div className="following">
             <h4>{following ? following.length : 0}</h4>
@@ -270,7 +272,6 @@ const Profile = () => {
             <h3>likes</h3>
           </div>
         </div>
-
         {/* button jsx */}
         {currentUser !== userCtx.username ? (
           <div className={styles.profileButtons}>
@@ -303,7 +304,6 @@ const Profile = () => {
         ) : (
           ""
         )}
-
         {/* descirption jsx */}
         <div className={styles.descriptionContainer}>
           {!updateProfileStatus ? (
@@ -333,7 +333,6 @@ const Profile = () => {
             </form>
           )}
         </div>
-        <hr />
         <div className={styles.userVideoContainer}>
           {userVideos.map((item) => {
             return (
