@@ -3,6 +3,7 @@ import Chat from "../components/Chat";
 import UserContext from "../context/user";
 import useFetch from "../hooks/useFetch";
 import UserinDM from "../components/UserinDM";
+import styles from "../components/DM.module.css";
 
 const DirectMessage = () => {
   const userCtx = useContext(UserContext);
@@ -67,25 +68,8 @@ const DirectMessage = () => {
 
   return (
     <div className="row">
-      <div className="col-1"></div>
-      <div
-        className="col-3 centered"
-        style={{
-          backgroundColor: "black",
-          height: "640px",
-          borderRadius: "30px",
-          display: "block",
-        }}
-      >
-        <h1
-          style={{
-            marginTop: "30px",
-            marginBottom: "30px",
-            fontSize: "1em",
-          }}
-        >
-          Direct Messages
-        </h1>
+      <div className={`${styles.container} col-3 centered `}>
+        <h1>Direct Messages</h1>
 
         {usersInDMs.map((user) => {
           return (
@@ -97,18 +81,7 @@ const DirectMessage = () => {
           );
         })}
       </div>
-      <div
-        className="col centered"
-        style={{
-          backgroundColor: "black",
-          // height: "640px",
-          borderRadius: "30px",
-          display: "block",
-          position: "relative",
-          marginLeft: "10px",
-          // width: "830px",
-        }}
-      >
+      <div className={`${styles.container} col centered`}>
         {showChat && (
           <Chat
             selectedUser={selectedUser}
@@ -118,8 +91,6 @@ const DirectMessage = () => {
           ></Chat>
         )}
       </div>
-
-      <div className="col-1"></div>
     </div>
   );
 };
