@@ -12,10 +12,14 @@ const bucketRegion = process.env.BUCKET_REGION;
 const accessKey = process.env.ACCESS_KEY;
 const secretAccessKey = process.env.SECRET_ACCESS_KEY;
 
+const bucketNameBackup = process.env.BUCKET_NAME_BACKUP;
+const accessKeyBackup = process.env.ACCESS_KEY_BACKUP;
+const secretAccessKeyBackup = process.env.SECRET_ACCESS_KEY_BACKUP;
+
 const s3 = new S3Client({
   credentials: {
-    accessKeyId: accessKey,
-    secretAccessKey: secretAccessKey,
+    accessKeyId: accessKeyBackup,
+    secretAccessKey: secretAccessKeyBackup,
   },
   region: bucketRegion,
 });
@@ -76,7 +80,7 @@ const getVideos = async (req, res) => {
     const allVideos = await Videos.find();
 
     for (const video of allVideos) {
-      const getObjectParams = { Bucket: bucketName, Key: video.fileName };
+      const getObjectParams = { Bucket: bucketNameBackup, Key: video.fileName };
       const command = new GetObjectCommand(getObjectParams);
 
       const url = await getSignedUrl(s3, command, { expiresIn: 3600 });
@@ -96,7 +100,7 @@ const getVideoByUser = async (req, res) => {
     const videos = await Videos.find({ username: req.params.username });
 
     for (const video of videos) {
-      const getObjectParams = { Bucket: bucketName, Key: video.fileName };
+      const getObjectParams = { Bucket: bucketNameBackup, Key: video.fileName };
       const command = new GetObjectCommand(getObjectParams);
 
       const url = await getSignedUrl(s3, command, { expireIn: 3600 });
@@ -168,7 +172,7 @@ const uploadFile = async (req, res) => {
 
     const fileName = req.file.originalname;
     const params = {
-      Bucket: bucketName,
+      Bucket: bucketNameBackup,
       Key: fileName,
       Body: req.file.buffer,
       ContentType: req.file.mimetype,
