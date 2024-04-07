@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import SocketContext from "../context/SocketContext";
+import styles from "./DM.module.css";
 
 const Chat = (props) => {
   const [messageThread, setMessageThread] = useState([]);
@@ -97,29 +98,8 @@ const Chat = (props) => {
 
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          margin: "20px",
-          padding: "20px",
-          backgroundColor: "#c60060",
-          borderRadius: "20px",
-        }}
-      >
-        <div
-          style={{
-            backgroundColor: "black",
-            borderRadius: "50px",
-            height: "50px",
-            width: "50px",
-          }}
-        >
-          <img
-            src={profilePicture}
-            alt=""
-            style={{ borderRadius: "50%", height: "50px" }}
-          />
-        </div>
+      <div className={styles.userBanner}>
+        <img className={styles.profilePic} src={profilePicture} alt="" />
         <div
           style={{
             fontWeight: "700",
@@ -131,47 +111,21 @@ const Chat = (props) => {
         </div>
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-end",
-          maxHeight: "30em",
-          padding: "20px",
-          position: "relative",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column-reverse",
-            padding: "10px",
-            marginBottom: "2em",
-            overflowY: "auto",
-          }}
-        >
+      <div className={styles.chatbox}>
+        <div>
           {messageThread.map((message) => {
             if (message.sender_id == props.selectedUser) {
               return (
                 <div style={{ display: "flex", justifyContent: "left" }}>
                   <div
+                    className={styles.chatbubble}
                     style={{
                       backgroundColor: "#aaaaaa",
-                      inlineSize: "fit-content",
-                      maxWidth: "40%",
                       textAlign: "left",
-                      margin: "5px",
-                      paddingLeft: "10px",
-                      paddingRight: "10px",
-                      paddingTop: "5px",
-                      paddingBottom: "5px",
-                      borderRadius: "10px",
-                      color: "black",
-                      overflowWrap: "break-word",
                     }}
                   >
                     {message.content}
-                  </div>{" "}
+                  </div>
                   {/* <div> {message.created_at}</div> */}
                 </div>
               );
@@ -182,19 +136,10 @@ const Chat = (props) => {
                     {message.created_at}
                   </div> */}
                   <div
+                    className={styles.chatbubble}
                     style={{
                       backgroundColor: "#eeeeee",
-                      inlineSize: "fit-content",
                       textAlign: "right",
-                      margin: "5px",
-                      paddingLeft: "10px",
-                      paddingRight: "10px",
-                      paddingTop: "5px",
-                      paddingBottom: "5px",
-                      borderRadius: "10px",
-                      color: "black",
-                      maxWidth: "40%",
-                      overflowWrap: "break-word",
                     }}
                   >
                     {message.content}
@@ -206,39 +151,9 @@ const Chat = (props) => {
         </div>
       </div>
 
-      <div
-        style={{
-          position: "absolute",
-          bottom: "0",
-          width: "90%",
-          margin: "20px",
-          justifySelf: "center",
-        }}
-      >
-        <input
-          ref={messageRef}
-          onKeyDown={handleKeyDown}
-          style={{
-            width: "80%",
-            padding: "5px",
-            backgroundColor: "#333333",
-            margin: "2px",
-            borderRadius: "10px",
-            borderWidth: "0px",
-          }}
-        ></input>
-        <button
-          onClick={() => createMessage()}
-          style={{
-            margin: "2px",
-            padding: "5px",
-            backgroundColor: "#c60060",
-            borderRadius: "10px",
-            borderWidth: "0px",
-          }}
-        >
-          Submit
-        </button>
+      <div className={styles.bottomBanner}>
+        <input ref={messageRef} onKeyDown={handleKeyDown}></input>
+        <button onClick={() => createMessage()}>&#x293B;</button>
       </div>
     </>
   );
