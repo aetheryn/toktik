@@ -104,8 +104,7 @@ const Navbar = () => {
                 </span>
                 <div className={styles.cmdropdownlinks}>
                   <Link to="/login" onClick={() => handleLogout()}>
-                    {" "}
-                    Logout{" "}
+                    Logout
                   </Link>
                 </div>
               </button>
@@ -130,7 +129,6 @@ const Navbar = () => {
                 </span>
                 <div className={styles.cmdropdownlinks}>
                   <Link to="/login" onClick={() => handleLogout()}>
-                    {" "}
                     Logout
                   </Link>
                 </div>
