@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import SocketContext from "../context/SocketContext";
 import styles from "./DM.module.css";
+import SendIcon from "@mui/icons-material/Send";
 
 const Chat = (props) => {
   const [messageThread, setMessageThread] = useState([]);
@@ -176,7 +177,9 @@ const Chat = (props) => {
 
       <div className={styles.bottomBanner}>
         <input ref={messageRef} onKeyDown={handleKeyDown}></input>
-        <button onClick={() => createMessage()}>&#x293B;</button>
+        <button onClick={() => createMessage()}>
+          <SendIcon style={{ width: "80%" }}></SendIcon>
+        </button>
       </div>
     </>
   );

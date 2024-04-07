@@ -7,6 +7,22 @@
   height: 90vh;
 }
 
+.container > button {
+  display: block;
+  color: white;
+  margin: auto;
+  background: transparent;
+  border: transparent;
+  border-radius: 100px;
+  padding: 5px;
+  width: 10%;
+}
+
+.container > button:hover {
+  color: black;
+  background: white;
+}
+
 .container > h1 {
   text-align: center;
   margin: 30px;
@@ -26,13 +42,14 @@
   width: 90%;
   padding: 5px 20px;
   background-color: #333333;
-  margin: 2px;
+  margin: 5px;
   border-radius: 100px;
   border: transparent;
+  font-size: 0.8rem;
 }
 
 .searchUser > button {
-  margin: 2px;
+  margin: 5px;
   padding: 5px;
   width: 10%;
   background-color: #ea284e;
@@ -143,13 +160,13 @@
   width: 80%;
   padding: 5px;
   background-color: #333333;
-  margin: 2px;
+  margin: 5px;
   border-radius: 10px;
   border: transparent;
 }
 
 .bottomBanner > button {
-  margin: 2px;
+  margin: 5px;
   padding: 5px;
   width: 5%;
   background-color: #ea284e;

@@ -4,6 +4,7 @@ import UserContext from "../context/user";
 import useFetch from "../hooks/useFetch";
 import UserinDM from "../components/UserinDM";
 import styles from "../components/DM.module.css";
+import SearchIcon from "@mui/icons-material/Search";
 
 const DirectMessage = () => {
   const userCtx = useContext(UserContext);
@@ -101,13 +102,18 @@ const DirectMessage = () => {
     <div className="row" style={{ width: "95vw", margin: "auto" }}>
       <div className={`${styles.container} col-3`}>
         <h1>Direct Messages</h1>
-        <div className={styles.searchUser}>
+        <div
+          className={styles.searchUser}
+          onClick={() => setShowSearchBar(false)}
+        >
           <input
             placeholder="Start a DM with Toktik User"
             ref={searchRef}
             onKeyDown={handleKeyDown}
           ></input>
-          <button onClick={() => handleSearch()}>&#x293B;</button>
+          <button onClick={() => handleSearch()}>
+            <SearchIcon style={{ width: "80%" }}></SearchIcon>
+          </button>
         </div>
         {usersInDMs.map((user) => {
           return (
