@@ -25,14 +25,11 @@ const DirectMessage = () => {
         undefined,
         undefined
       );
-
-      console.log(response);
       if (response.ok) {
         const data = [...response.data];
         data.reverse();
 
         setAllMessages(data);
-        console.log(data);
         getUsersInDMs(data);
       }
     } catch (error) {
@@ -54,17 +51,12 @@ const DirectMessage = () => {
     const usersInConv = [];
 
     messages.map((message) => {
-      console.log(message.sender_id);
       usersInConv.push(message.sender_id);
-      console.log(message.receiver_id);
       usersInConv.push(message.receiver_id);
-      console.log(usersInConv);
     });
 
     const uniqueUsers = [...new Set(usersInConv)];
     uniqueUsers.splice(uniqueUsers.indexOf(loggedInUser), 1);
-
-    console.log(uniqueUsers);
     setUsersInDMs(uniqueUsers);
   };
 

@@ -14,7 +14,6 @@ const Chat = (props) => {
   const SocketCtx = useContext(SocketContext);
 
   const getConversation = (messages) => {
-    console.log("getConversation function is called");
     const convArray = [];
     messages.map((message) => {
       if (
@@ -24,7 +23,6 @@ const Chat = (props) => {
         convArray.push(message);
       }
     });
-    console.log(convArray);
     setMessageThread(convArray);
   };
 
@@ -48,13 +46,11 @@ const Chat = (props) => {
   };
 
   useEffect(() => {
-    // console.log(props.allMessages);
     getConversation(props.allMessages);
     getUserProfilePic(props.selectedUser);
   }, [props.selectedUser]);
 
   useEffect(() => {
-    // console.log(props.allMessages);
     getConversation(props.allMessages);
   }, [props.allMessages]);
 
@@ -75,8 +71,6 @@ const Chat = (props) => {
         },
         undefined
       );
-
-      console.log(response);
       if (response.ok) {
         props.getAllMessages();
         messageRef.current.value = "";
