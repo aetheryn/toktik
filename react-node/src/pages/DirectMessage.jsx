@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import Chat from "../components/Chat";
 import UserContext from "../context/user";
 import useFetch from "../hooks/useFetch";
@@ -7,7 +7,9 @@ import styles from "../components/DM.module.css";
 
 const DirectMessage = () => {
   const userCtx = useContext(UserContext);
+  const searchRef = useRef();
   const fetchMessages = useFetch();
+  const fetchProfile = useFetch();
   const [allMessages, setAllMessages] = useState([]);
   const [usersInDMs, setUsersInDMs] = useState([]);
   const [selectedUser, setSelectedUser] = useState("");
@@ -66,11 +68,47 @@ const DirectMessage = () => {
     setShowChat(true);
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key == "Enter") {
+      handleSearch();
+    }
+  };
+
+  const handleSearch = async () => {
+    const username = searchRef.current.value;
+    try {
+      const response = await fetchProfile(
+        "/users/",
+        "GET",
+        undefined,
+        undefined
+      );
+
+      if (response.ok) {
+        if (response.data.find((user) => user.username === username)) {
+          handleUserSelect(username);
+          searchRef.current.value = "";
+        }
+      }
+    } catch (error) {
+      if (error.name !== "AbortError") {
+        console.error(error.message);
+      }
+    }
+  };
+
   return (
-    <div className="row">
+    <div className="row" style={{ width: "95vw", margin: "auto" }}>
       <div className={`${styles.container} col-3`}>
         <h1>Direct Messages</h1>
-
+        <div className={styles.searchUser}>
+          <input
+            placeholder="Start a DM with Toktik User"
+            ref={searchRef}
+            onKeyDown={handleKeyDown}
+          ></input>
+          <button onClick={() => handleSearch()}>&#x293B;</button>
+        </div>
         {usersInDMs.map((user) => {
           return (
             <UserinDM

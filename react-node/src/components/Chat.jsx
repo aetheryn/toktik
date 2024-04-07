@@ -128,7 +128,7 @@ const Chat = (props) => {
                     <div
                       className={styles.chatbubble}
                       style={{
-                        backgroundColor: "#aaaaaa",
+                        backgroundColor: "#bbbbbb",
                         textAlign: "left",
                       }}
                     >
