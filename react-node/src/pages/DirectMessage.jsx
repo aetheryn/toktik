@@ -43,6 +43,10 @@ const DirectMessage = () => {
   };
 
   useEffect(() => {
+    if (userCtx.selectedUser) {
+      setSelectedUser(userCtx.selectedUser);
+      setShowChat(true);
+    }
     getAllMessages();
   }, []);
 
@@ -86,7 +90,11 @@ const DirectMessage = () => {
       );
 
       if (response.ok) {
-        if (response.data.find((user) => user.username === username)) {
+        if (
+          response.data.find(
+            (user) => user.username === username && username != loggedInUser
+          )
+        ) {
           handleUserSelect(username);
           searchRef.current.value = "";
         }
@@ -107,10 +115,7 @@ const DirectMessage = () => {
     <div className="row" style={{ width: "95vw", margin: "auto" }}>
       <div className={`${styles.container} col-3`}>
         <h1>Direct Messages</h1>
-        <div
-          className={styles.searchUser}
-          onClick={() => setShowSearchBar(false)}
-        >
+        <div className={styles.searchUser}>
           <input
             placeholder="Start a DM with Toktik User"
             ref={searchRef}

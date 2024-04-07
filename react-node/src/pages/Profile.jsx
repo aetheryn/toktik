@@ -239,6 +239,11 @@ const Profile = () => {
     setShowModal(false);
   };
 
+  const handleMessage = () => {
+    userCtx.setSelectedUser(currentUser);
+    navigate("/dm");
+  };
+
   return (
     <div className={styles.container}>
       {/* display profile stats jsx */}
@@ -296,7 +301,7 @@ const Profile = () => {
             )}
 
             <div className="messageBtn">
-              <button className={styles.button} onClick={() => navigate("/dm")}>
+              <button className={styles.button} onClick={() => handleMessage()}>
                 Message
               </button>
             </div>

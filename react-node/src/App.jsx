@@ -20,6 +20,7 @@ function App() {
 
   const [socket, setSocket] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState("");
 
   useEffect(() => {
     if (username) {
@@ -52,6 +53,8 @@ function App() {
           setUsername,
           profilePic,
           setProfilePic,
+          selectedUser,
+          setSelectedUser,
         }}
       >
         <SocketContext.Provider
