@@ -113,40 +113,61 @@ const Chat = (props) => {
 
       <div className={styles.chatbox}>
         <div>
-          {messageThread.map((message) => {
+          {messageThread.map((message, index) => {
+            const nextMessage = messageThread[index + 1];
+            const isNewDate =
+              (nextMessage &&
+                nextMessage.created_at.slice(0, 15) !==
+                  message.created_at.slice(0, 15)) ||
+              index === messageThread.length - 1;
+
             if (message.sender_id == props.selectedUser) {
               return (
-                <div style={{ display: "flex", justifyContent: "left" }}>
-                  <div
-                    className={styles.chatbubble}
-                    style={{
-                      backgroundColor: "#aaaaaa",
-                      textAlign: "left",
-                    }}
-                  >
-                    {message.content}
+                <>
+                  <div style={{ display: "flex", justifyContent: "left" }}>
+                    <div
+                      className={styles.chatbubble}
+                      style={{
+                        backgroundColor: "#aaaaaa",
+                        textAlign: "left",
+                      }}
+                    >
+                      {message.content}
+                    </div>
+                    <div className={styles.timestamp}>
+                      {message.created_at.slice(16, 21)}
+                    </div>
                   </div>
-                  <div className={styles.timestamp}>
-                    {message.created_at.slice(16, 21)}
-                  </div>
-                </div>
+                  {isNewDate && (
+                    <div className={styles.date}>
+                      <span> {message.created_at.slice(0, 15)}</span>
+                    </div>
+                  )}
+                </>
               );
             } else {
               return (
-                <div style={{ display: "flex", justifyContent: "right" }}>
-                  <div className={styles.timestamp}>
-                    {message.created_at.slice(16, 21)}
+                <>
+                  <div style={{ display: "flex", justifyContent: "right" }}>
+                    <div className={styles.timestamp}>
+                      {message.created_at.slice(16, 21)}
+                    </div>
+                    <div
+                      className={styles.chatbubble}
+                      style={{
+                        backgroundColor: "#eeeeee",
+                        textAlign: "right",
+                      }}
+                    >
+                      {message.content}
+                    </div>
                   </div>
-                  <div
-                    className={styles.chatbubble}
-                    style={{
-                      backgroundColor: "#eeeeee",
-                      textAlign: "right",
-                    }}
-                  >
-                    {message.content}
-                  </div>
-                </div>
+                  {isNewDate && (
+                    <div className={styles.date}>
+                      <span> {message.created_at.slice(0, 15)} </span>
+                    </div>
+                  )}
+                </>
               );
             }
           })}

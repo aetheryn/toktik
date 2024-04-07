@@ -70,6 +70,22 @@
   padding-bottom: 1em;
 }
 
+.date {
+  align-self: center;
+  width: 95%;
+  text-align: center;
+  border-bottom: 1px solid #333333;
+  line-height: 0.1em;
+  margin: 20px;
+}
+
+.date > span {
+  background: black;
+  padding: 0 10px;
+  font-size: smaller;
+  color: #333333;
+}
+
 .chatbubble {
   inline-size: fit-content;
   margin: 5px;
