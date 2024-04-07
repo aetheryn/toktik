@@ -1,8 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Chat from "./Chat";
+import UserContext from "../context/user";
+import useFetch from "../hooks/useFetch";
 
 const UserinDM = (props) => {
   const [lastMessage, setLastMessage] = useState("");
+  const [profilePicture, setProfilePicture] = useState("");
+  const fetchProfile = useFetch();
+  const userCtx = useContext(UserContext);
 
   const getLastMsg = (messages) => {
     const lastMsg = messages.find(
@@ -12,8 +17,28 @@ const UserinDM = (props) => {
     setLastMessage(lastMsg.content);
   };
 
+  const getUserProfilePic = async (user) => {
+    try {
+      const response = await fetchProfile(
+        "/users/user/" + user,
+        "POST",
+        undefined,
+        undefined
+      );
+
+      if (response.ok) {
+        setProfilePicture(response.data.profilePicture);
+      }
+    } catch (error) {
+      if (error.name !== "AbortError") {
+        console.error(error.message);
+      }
+    }
+  };
+
   useEffect(() => {
     getLastMsg(props.allMessages);
+    getUserProfilePic(props.user);
   }, [props.allMessages]);
 
   return (
@@ -39,7 +64,14 @@ const UserinDM = (props) => {
             width: "50px",
             position: "absolute",
           }}
-        ></div>
+        >
+          <img
+            src={profilePicture}
+            alt=""
+            style={{ borderRadius: "50%", height: "50px" }}
+          />
+        </div>
+
         <div
           style={{
             overflow: "hidden",

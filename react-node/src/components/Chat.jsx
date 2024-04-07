@@ -4,8 +4,10 @@ import SocketContext from "../context/SocketContext";
 
 const Chat = (props) => {
   const [messageThread, setMessageThread] = useState([]);
+  const [profilePicture, setProfilePicture] = useState("");
   const messageRef = useRef();
   const newMessage = useFetch();
+  const fetchProfile = useFetch();
   const SocketCtx = useContext(SocketContext);
 
   const getConversation = (messages) => {
@@ -23,9 +25,29 @@ const Chat = (props) => {
     setMessageThread(convArray);
   };
 
+  const getUserProfilePic = async (user) => {
+    try {
+      const response = await fetchProfile(
+        "/users/user/" + user,
+        "POST",
+        undefined,
+        undefined
+      );
+
+      if (response.ok) {
+        setProfilePicture(response.data.profilePicture);
+      }
+    } catch (error) {
+      if (error.name !== "AbortError") {
+        console.error(error.message);
+      }
+    }
+  };
+
   useEffect(() => {
     // console.log(props.allMessages);
     getConversation(props.allMessages);
+    getUserProfilePic(props.selectedUser);
   }, [props.selectedUser]);
 
   useEffect(() => {
@@ -91,7 +113,13 @@ const Chat = (props) => {
             height: "50px",
             width: "50px",
           }}
-        ></div>
+        >
+          <img
+            src={profilePicture}
+            alt=""
+            style={{ borderRadius: "50%", height: "50px" }}
+          />
+        </div>
         <div
           style={{
             fontWeight: "700",
