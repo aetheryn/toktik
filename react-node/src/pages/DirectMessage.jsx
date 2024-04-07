@@ -98,6 +98,11 @@ const DirectMessage = () => {
     }
   };
 
+  const handleNewMessage = () => {
+    getAllMessages();
+    newMessageCount();
+  };
+
   return (
     <div className="row" style={{ width: "95vw", margin: "auto" }}>
       <div className={`${styles.container} col-3`}>
@@ -132,6 +137,7 @@ const DirectMessage = () => {
             loggedInUser={loggedInUser}
             allMessages={allMessages}
             getAllMessages={getAllMessages}
+            handleNewMessage={handleNewMessage}
           ></Chat>
         )}
       </div>

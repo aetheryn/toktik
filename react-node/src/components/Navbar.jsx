@@ -24,7 +24,6 @@ const Navbar = () => {
         <div className={`col ${styles.logo}`}>
           <Link to="/main">
             <img
-              className={styles.toktiklogo}
               src="https://fontmeme.com/permalink/240402/d3d95be2d8e76c275d690618dd82def0.png"
               alt=""
             />
@@ -48,7 +47,7 @@ const Navbar = () => {
               </div>
             </div>
 
-            <button className={`${styles.navlinks}`}>
+            <button className={styles.navlinks}>
               <Link to="/dm">
                 <span
                   className={`material-symbols-outlined ${styles.userIcon} active`}

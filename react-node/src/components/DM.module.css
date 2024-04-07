@@ -5,6 +5,7 @@
   display: block;
   position: relative;
   height: 90vh;
+  overflow-y: auto;
 }
 
 .container > button {
@@ -76,7 +77,8 @@
 }
 
 .userDetails {
-  overflow: hidden;
+  overflow-x: hidden;
+  text-wrap: none;
   text-align: left;
   padding-left: 20px;
   display: grid;
@@ -84,19 +86,16 @@
 
 .userBanner {
   display: flex;
-  /* height: 10vh; */
   align-items: center;
-  /* justify-content: center; */
   margin: 20px 0;
   padding: 0 20px;
-  /* padding-bottom: 10px; */
 }
 
 .chatbox {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  height: 70vh;
+  height: 75%;
   padding: 0 20px;
   position: relative;
 }

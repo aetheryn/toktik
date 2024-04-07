@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import SocketContext from "../context/SocketContext";
 import styles from "./DM.module.css";
-import SendIcon from "@mui/icons-material/Send";
+import SendRoundedIcon from "@mui/icons-material/SendRounded";
 
 const Chat = (props) => {
   const [messageThread, setMessageThread] = useState([]);
@@ -58,13 +58,9 @@ const Chat = (props) => {
   }, [props.allMessages]);
 
   useEffect(() => {
-    SocketCtx.socket.on("newMessage", handleNewMessage);
+    SocketCtx.socket.on("newMessage", props.handleNewMessage);
     return () => SocketCtx.socket.off("newMessage");
   }, [SocketCtx.socket, props.allMessages]);
-
-  const handleNewMessage = () => {
-    props.getAllMessages();
-  };
 
   const createMessage = async () => {
     try {
@@ -178,7 +174,7 @@ const Chat = (props) => {
       <div className={styles.bottomBanner}>
         <input ref={messageRef} onKeyDown={handleKeyDown}></input>
         <button onClick={() => createMessage()}>
-          <SendIcon style={{ width: "80%" }}></SendIcon>
+          <SendRoundedIcon style={{ width: "80%" }}></SendRoundedIcon>
         </button>
       </div>
     </>

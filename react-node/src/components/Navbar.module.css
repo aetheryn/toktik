@@ -3,23 +3,8 @@
   height: 70px;
 }
 
-/* .container {
-  padding-top: 20px;
-} */
-
-.logo {
-  display: grid;
-  height: 70px;
+.logo > a > img {
   padding-left: 20px;
-  align-items: center;
-}
-
-.logo > a {
-  color: white;
-  text-decoration: none;
-}
-
-.toktiklogo {
   height: 70px;
 }
 
@@ -28,8 +13,6 @@
 }
 
 .navlinks {
-  color: white;
-  text-decoration: none;
   float: right;
   margin-left: 10px;
   border: transparent;
@@ -38,8 +21,8 @@
 }
 
 .navlinks > a {
-  color: white;
-  text-decoration: none;
+  /* color: white; */
+  /* text-decoration: none; */
 }
 
 .guestProfilePic {
@@ -84,7 +67,7 @@
 }
 
 .dropdownlinks > a:hover {
-  background-color: #c60060;
+  background-color: #ea284e;
 }
 
 .dropdown:hover .dropdownlinks {
@@ -116,7 +99,7 @@
 }
 
 .cmdropdownlinks > a:hover {
-  background-color: #c60060;
+  background-color: #ea284e;
 }
 
 .cmdropdown:hover .cmdropdownlinks {
