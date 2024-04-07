@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import SocketContext from "../context/SocketContext";
 import styles from "./DM.module.css";
@@ -95,7 +96,7 @@ const Chat = (props) => {
 
   return (
     <>
-      <div className={styles.userBanner}>
+      <Link className={styles.userBanner} to={`/profile/${props.selectedUser}`}>
         <img className={styles.profilePic} src={profilePicture} alt="" />
         <div
           style={{
@@ -106,7 +107,7 @@ const Chat = (props) => {
         >
           {props.selectedUser}
         </div>
-      </div>
+      </Link>
 
       <div className={styles.chatbox}>
         <div>

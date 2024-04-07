@@ -20,6 +20,11 @@
   height: 70px;
 }
 
+.navlinks > a {
+  color: white;
+  text-decoration: none;
+}
+
 .guestProfilePic {
   float: right;
   margin-top: 10px;
