@@ -68,7 +68,7 @@ const DirectMessage = () => {
 
   return (
     <div className="row">
-      <div className={`${styles.container} col-3 centered `}>
+      <div className={`${styles.container} col-3`}>
         <h1>Direct Messages</h1>
 
         {usersInDMs.map((user) => {
@@ -81,7 +81,7 @@ const DirectMessage = () => {
           );
         })}
       </div>
-      <div className={`${styles.container} col centered`}>
+      <div className={`${styles.container} col`}>
         {showChat && (
           <Chat
             selectedUser={selectedUser}

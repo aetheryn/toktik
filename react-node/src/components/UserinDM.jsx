@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import Chat from "./Chat";
 import UserContext from "../context/user";
 import useFetch from "../hooks/useFetch";
+import styles from "./DM.module.css";
 
 const UserinDM = (props) => {
   const [lastMessage, setLastMessage] = useState("");
@@ -44,42 +45,14 @@ const UserinDM = (props) => {
   return (
     <>
       <div
-        style={{
-          display: "flex",
-          backgroundColor: "#c60060",
-          height: "70px",
-          alignItems: "center",
-          paddingLeft: "20px",
-          paddingRight: "20px",
-        }}
+        className={styles.users}
         onClick={() => {
           props.handleUserSelect(props.user);
         }}
       >
-        <div
-          style={{
-            backgroundColor: "black",
-            borderRadius: "50px",
-            height: "50px",
-            width: "50px",
-            position: "absolute",
-          }}
-        >
-          <img
-            src={profilePicture}
-            alt=""
-            style={{ borderRadius: "50%", height: "50px" }}
-          />
-        </div>
+        <img src={profilePicture} alt="" className={styles.profilePic} />
 
-        <div
-          style={{
-            overflow: "hidden",
-            textAlign: "left",
-            paddingLeft: "60px",
-            display: "grid",
-          }}
-        >
+        <div className={styles.userDetails}>
           <div style={{ fontWeight: "700" }}>{props.user}</div>
           <div style={{ fontSize: "x-small", overflow: "hidden" }}>
             {lastMessage}

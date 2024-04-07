@@ -9,6 +9,32 @@
 }
 
 .container > h1 {
+  text-align: center;
   margin: 30px;
   font-size: 1em;
+}
+
+.users {
+  display: flex;
+  background-color: transparent;
+  height: 70px;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.users:hover {
+  background-color: #ea284e;
+  cursor: pointer;
+}
+
+.profilePic {
+  border-radius: 50%;
+  height: 50px;
+}
+
+.userDetails {
+  overflow: hidden;
+  text-align: left;
+  padding-left: 20px;
+  display: grid;
 }
