@@ -126,15 +126,17 @@ const Chat = (props) => {
                   >
                     {message.content}
                   </div>
-                  {/* <div> {message.created_at}</div> */}
+                  <div className={styles.timestamp}>
+                    {message.created_at.slice(16, 21)}
+                  </div>
                 </div>
               );
             } else {
               return (
                 <div style={{ display: "flex", justifyContent: "right" }}>
-                  {/* <div style={{ alignSelf: "flex-end" }}>
-                    {message.created_at}
-                  </div> */}
+                  <div className={styles.timestamp}>
+                    {message.created_at.slice(16, 21)}
+                  </div>
                   <div
                     className={styles.chatbubble}
                     style={{

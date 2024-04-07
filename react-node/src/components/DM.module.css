@@ -64,6 +64,12 @@
   overflow-y: auto;
 }
 
+.timestamp {
+  align-self: flex-end;
+  font-size: 0.5em;
+  padding-bottom: 1em;
+}
+
 .chatbubble {
   inline-size: fit-content;
   margin: 5px;
