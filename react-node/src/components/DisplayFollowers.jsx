@@ -10,6 +10,15 @@ const OverLay = (props) => {
 
   const backdrop = document.getElementById("backdrop");
 
+  const handleClick = (event) => {
+    const elements = document.getElementsByClassName("headerBtn");
+    for (let i = 0; i < elements.length; i++) {
+      elements[i].classList.remove(styles["isActive"]);
+    }
+
+    event.target.classList.add(styles["isActive"]);
+  };
+
   useEffect(() => {
     if (showFollowers) {
       setShowFollowing(false);
@@ -38,94 +47,100 @@ const OverLay = (props) => {
       <div className={styles.modal}>
         <div className={styles.modalHeading}>
           <button
-            className={styles.headingButton}
-            onClick={() => setShowFollowers(true)}
+            className={`headerBtn ${styles.headingButton}`}
+            onClick={(event) => {
+              setShowFollowers(true);
+              handleClick(event);
+            }}
           >
-            <h3>Followers</h3>
+            Followers
           </button>
           <button
-            className={styles.headingButton}
-            onClick={() => setShowFollowing(true)}
+            className={`headerBtn ${styles.headingButton}`}
+            onClick={(event) => {
+              setShowFollowing(true);
+              handleClick(event);
+            }}
           >
-            <h3>Following</h3>
+            Following
           </button>
           <button
             value="LikedVideos"
-            className={styles.headingButton}
-            onClick={() => setShowLikedVideos(true)}
+            className={`headerBtn ${styles.headingButton}`}
+            onClick={(event) => {
+              setShowLikedVideos(true);
+              handleClick(event);
+            }}
           >
-            <h3>Likes</h3>
+            Likes
           </button>
         </div>
         <hr />
 
-        <div className={styles.bodyContainer}>
-          {/* followers display */}
-          {showFollowers ? (
-            <div className={styles.modalDisplay}>
-              <div className={styles.displayItems}>
-                {props.followers.map((item) => {
-                  return (
-                    <Link
-                      to={`/profile/${item.username}`}
-                      onClick={() => props.setShowModal(true)}
-                      className={styles.profileNames}
-                    >
-                      <button className={styles.profileDiv}>
-                        <img
-                          className={styles.userProfilePic}
-                          src={item.profilePicture}
-                        />
-                        <span className={styles.username}>{item.username}</span>
-                      </button>
-                    </Link>
-                  );
-                })}
-              </div>
+        {/* <div className={styles.bodyContainer}> */}
+        {/* followers display */}
+        {showFollowers ? (
+          <div className={styles.modalDisplay}>
+            <div className={styles.displayItems}>
+              {props.followers.map((item) => {
+                return (
+                  <Link
+                    to={`/profile/${item.username}`}
+                    onClick={() => props.setShowModal(true)}
+                    className={styles.profileNames}
+                  >
+                    <button className={styles.profileDiv}>
+                      <img
+                        className={styles.userProfilePic}
+                        src={item.profilePicture}
+                      />
+                      <span className={styles.username}>{item.username}</span>
+                    </button>
+                  </Link>
+                );
+              })}
             </div>
-          ) : (
-            ""
-          )}
+          </div>
+        ) : (
+          ""
+        )}
 
-          {/* following display */}
-          {showFollowing ? (
-            <div className={styles.modalDisplay}>
-              <div className={styles.displayItems}>
-                {props.following.map((item) => {
-                  return (
-                    <Link
-                      to={`/profile/${item.username}`}
-                      onClick={() => props.setShowModal(true)}
-                      className={styles.profileNames}
-                    >
-                      <button className={styles.profileDiv}>
-                        <img
-                          className={styles.userProfilePic}
-                          src={item.profilePicture}
-                        />
-                        <span className={styles.username}>{item.username}</span>
-                      </button>
-                    </Link>
-                  );
-                })}
-              </div>
+        {/* following display */}
+        {showFollowing ? (
+          <div className={styles.modalDisplay}>
+            <div className={styles.displayItems}>
+              {props.following.map((item) => {
+                return (
+                  <Link
+                    to={`/profile/${item.username}`}
+                    onClick={() => props.setShowModal(true)}
+                    className={styles.profileNames}
+                  >
+                    <button className={styles.profileDiv}>
+                      <img
+                        className={styles.userProfilePic}
+                        src={item.profilePicture}
+                      />
+                      <span className={styles.username}>{item.username}</span>
+                    </button>
+                  </Link>
+                );
+              })}
             </div>
-          ) : (
-            ""
-          )}
+          </div>
+        ) : (
+          ""
+        )}
 
-          {/* liked video display */}
-          {showLikedVideos ? (
-            <div className={styles.modalDisplay}>
-              <ul className={styles.displayItems}>
-                {" "}
-                Liked Videos Placeholder{" "}
-              </ul>
-            </div>
-          ) : (
-            ""
-          )}
-        </div>
+        {/* liked video display */}
+        {showLikedVideos ? (
+          <div className={styles.modalDisplay}>
+            <ul className={styles.displayItems}> Liked Videos Placeholder </ul>
+          </div>
+        ) : (
+          ""
+        )}
+        {/* </div> */}
         <div className={styles.buttonDiv}>
           <button
             className={styles.cancelButton}

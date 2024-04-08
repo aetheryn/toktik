@@ -105,9 +105,33 @@ const createUserMessages = async (req, res) => {
   }
 };
 
+const updateReadMessages = async (req, res) => {
+  try {
+    await Messages.updateMany(
+      {
+        sender_id: req.body.senderId,
+        receiver_id: req.body.receiverId,
+        read: false,
+      },
+      { read: true }
+    );
+    return res.status(200).json({
+      status: "ok",
+      msg: `Message read.`,
+    });
+  } catch (error) {
+    console.error(error.message);
+    return res.status(400).json({
+      status: "error",
+      msg: "Error in reading message.",
+    });
+  }
+};
+
 module.exports = {
   seedMessages,
   getAllMessages,
   getUserMessages,
   createUserMessages,
+  updateReadMessages,
 };

@@ -130,6 +130,22 @@
   color: #333333;
 }
 
+.read {
+  align-self: center;
+  width: 95%;
+  text-align: center;
+  border-bottom: 1px solid #ea284e;
+  line-height: 0.1em;
+  margin: 20px;
+}
+
+.read > span {
+  background: black;
+  padding: 0 10px;
+  font-size: smaller;
+  color: #ea284e;
+}
+
 .chatbubble {
   inline-size: fit-content;
   margin: 5px;

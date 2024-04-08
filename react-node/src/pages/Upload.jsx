@@ -87,10 +87,7 @@ const Upload = () => {
               <span>
                 <CloudUploadIcon
                   style={{
-                    position: "absolute",
-                    left: 721,
-                    top: 353,
-                    fontSize: 28,
+                    marginTop: "10px",
                   }}
                 ></CloudUploadIcon>
               </span>

@@ -45,11 +45,10 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} centered`}>
       <div className={styles.loginContainer}>
-        <div id="heading title">
-          <h1 className={styles.toktikTitle}>TokTik</h1>
-        </div>
+        <h1>TokTik</h1>
+
         {/* username password 1 Login button 1  */}
         <div
           className={styles.inputContainer}
@@ -85,9 +84,9 @@ const RegisterPage = () => {
           </div>
           <div id="sign up text">
             <p className={styles.signUp}>
-              Already a Toktiker?
-              <a href="login">
-                <span className={styles.signUpText}> Login now!</span>
+              Already a Toktiker?&nbsp;
+              <a href="login" className={styles.signUpText}>
+                Login now!
               </a>
             </p>
           </div>
