@@ -12,6 +12,7 @@ const Profile = () => {
   const navigate = useNavigate();
 
   const [showModal, setShowModal] = useState(true);
+  const [showCommentsModal, setShowCommentsModal] = useState(false);
 
   const [following, setFollowing] = useState([]);
   const [followers, setFollowers] = useState([]);
@@ -214,6 +215,7 @@ const Profile = () => {
   useEffect(() => {
     console.log("mounted");
   }, []);
+
   useEffect(() => {
     getProfileStatInfo();
     getUserVideos();
