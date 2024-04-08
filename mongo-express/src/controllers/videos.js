@@ -254,4 +254,8 @@ module.exports = {
   getSpecificVideo,
   uploadFile,
   getVideoByUser,
+  addComments,
+  getFlaggedVideos,
+  updateFlaggedVideo,
+  getSelectVideo,
 };
