@@ -4,8 +4,8 @@
   left: 0;
   width: 100%;
   height: 100vh;
-  z-index: 10;
-  background: rgba(34, 34, 34, 0.7);
+  z-index: 1;
+  background: rgba(33, 33, 33, 0.7);
 }
 
 .modal {
@@ -16,40 +16,27 @@
   left: 30%;
   right: 30%;
   width: 40%;
-  z-index: 1;
+  /* z-index: 1; */
   overflow: hidden;
   border-radius: 20px;
 }
 
 .modalHeading {
   display: flex;
-  justify-content: space-around;
-  margin: 1vw 0 0 0;
+  justify-content: center;
+  gap: 4vw;
+  padding-top: 2vw;
 }
 
 .headingButton {
   background: transparent;
   border-color: transparent;
-}
-
-.headingButton > h1 {
-  padding: 20px;
-  color: #b0b0b0;
-}
-
-.headingButton :hover {
-  border-radius: 20px;
-  scale: 1.1;
-  color: whitesmoke;
+  font-size: 2vw;
 }
 
 .modalDisplay {
   display: flex;
   justify-content: center;
-  height: 50vh;
-}
-
-.bodyContainer {
   height: 50vh;
 }
 
@@ -64,17 +51,16 @@
 
 .profileDiv {
   display: flex;
-  width: 18vw;
-  background-color: #ff067e45;
+  width: 15vw;
+  background-color: transparent;
   padding: 1vh;
-  border-radius: 20px;
-  border-color: transparent;
+  border-radius: 10px;
+  border: #ea284e solid;
   align-items: center;
 }
 
 .profileDiv:hover {
-  scale: 1.1;
-  color: #ff067f;
+  background-color: #ea284e;
   font-weight: bold;
 }
 
@@ -84,22 +70,18 @@
 
 .profileNames {
   display: flex;
-  color: whitesmoke;
+  color: white;
   text-decoration: none;
-  font-size: 20px;
+  font-size: 0.8rem;
   justify-content: center;
   align-items: center;
-}
-
-.profileNames > text {
-  color: black;
 }
 
 .userProfilePic {
   display: flex;
   border-radius: 50%;
-  height: 70px;
-  border-color: whitesmoke;
+  height: 50px;
+  border-color: white;
   border-style: solid;
   border-width: 3px;
   align-items: start;
@@ -122,4 +104,9 @@
 .cancelButton:hover {
   color: rgb(255, 255, 255);
   scale: 1.1;
+}
+
+.isActive {
+  text-decoration: underline;
+  text-underline-offset: 1rem;
 }
