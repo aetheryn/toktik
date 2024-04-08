@@ -6,6 +6,20 @@ import styles from "./CommentsModal.module.css";
 const OverLay = (props) => {
   const fetchData = useFetch();
   const [userPP, setUserPP] = useState("");
+  // need to edit date & time ( throw to gabrielle hehe )
+
+  const dateConvert = (dateString) => {
+    const isoDate = dateString;
+    const date = new Date(isoDate);
+    const formatDate = new Intl.DateTimeFormat("en-US", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+    }).format(date);
+    return formatDate;
+  };
 
   const getProfileData = async () => {
     const res = await fetchData("/videos/getvideo", "PUT", {
@@ -49,10 +63,11 @@ const OverLay = (props) => {
                 <div className={styles.usernameTitle}>
                   <p style={{ fontWeight: "bold" }}>{props.username}</p>
                   <p>{props.title}</p>
-                  <p>{props.created_at}</p>
                 </div>
               </div>
-
+              <p className={styles.dateTimeMain}>
+                {dateConvert(props.created_at)}
+              </p>
               <hr />
 
               <button
