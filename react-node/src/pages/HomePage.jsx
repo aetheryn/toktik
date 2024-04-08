@@ -10,7 +10,7 @@ const HomePage = () => {
 
   const getVideos = async () => {
     try {
-      const res = await fetch("http://127.0.0.1:6001/videos");
+      const res = await fetch(import.meta.env.VITE_SERVER + "/videos");
       if (res.ok) {
         const data = await res.json();
         console.log(data);
@@ -22,9 +22,9 @@ const HomePage = () => {
       }
     }
   };
+  
   useEffect(() => {
     getVideos();
-    console.log(videos);
   }, []);
 
   return (

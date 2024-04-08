@@ -48,6 +48,8 @@ const Video = (props) => {
             top: 560,
             fontSize: 28,
             zIndex: 1000000,
+            backgroundColor: "transparent",
+            borderColor: "transparent",
           }}
           onClick={() => setShowCommentsModal(true)}
         >

@@ -210,6 +210,14 @@ const uploadFile = async (req, res) => {
   }
 };
 
+const addComments = async (req, res) => {
+  try {
+    await Videos.create(req.body);
+
+    res.status(200).json({ status: "ok", msg: "added comments" });
+  } catch (error) {}
+};
+
 module.exports = {
   seedVideo,
   getVideos,
@@ -220,4 +228,5 @@ module.exports = {
   uploadFile,
   getVideoByUser,
   getSelectVideo,
+  addComments,
 };

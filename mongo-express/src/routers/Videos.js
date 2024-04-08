@@ -10,6 +10,7 @@ const {
   uploadFile,
   getVideoByUser,
   getSelectVideo,
+  addComments,
 } = require("../controllers/videos");
 
 const {
@@ -46,5 +47,7 @@ router.post("/videoupload", uploadSingleFile, uploadFile);
 router.post("/:username", getVideoByUser);
 
 router.put("/getvideo", getSelectVideo);
+
+router.put("/comments", addComments);
 
 module.exports = router;

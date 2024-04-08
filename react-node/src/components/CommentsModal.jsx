@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import useFetch from "../hooks/useFetch";
 import styles from "./CommentsModal.module.css";
+import UserContext from "../context/user";
 
 const OverLay = (props) => {
   const fetchData = useFetch();
+  const userCtx = useContext(UserContext);
   const [userPP, setUserPP] = useState("");
+  const commentRef = useRef("");
   // need to edit date & time ( throw to gabrielle hehe )
 
   const dateConvert = (dateString) => {
@@ -45,6 +48,26 @@ const OverLay = (props) => {
     }
   };
 
+  const addComments = async () => {
+    const res = await fetchData(
+      "/videos/comments",
+      "PUT",
+      {
+        username: userCtx.username,
+        profilePicture: userCtx.profilePic,
+        content: commentRef.current.value,
+      },
+      undefined
+    );
+    if (res.ok) console.log("added comments");
+    // need to get new comments from userDetails (based on video ID)
+  };
+
+  const handleSubmitComment = () => {
+    addComments();
+    commentRef.current.value = "";
+  };
+
   useEffect(() => {
     getProfileData();
   }, []);
@@ -69,6 +92,13 @@ const OverLay = (props) => {
                 {dateConvert(props.created_at)}
               </p>
               <hr />
+
+              {/* comments */}
+              <input type="text" ref={commentRef} />
+              <button
+                type="submit"
+                onSubmit={() => handleSubmitComment()}
+              ></button>
 
               <button
                 style={{ color: "black" }}
