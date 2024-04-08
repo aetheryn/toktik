@@ -4,10 +4,16 @@ import "../components/Video.css";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CommentIcon from "@mui/icons-material/Comment";
 import ShareIcon from "@mui/icons-material/Share";
+import CommentsModal from "./CommentsModal";
 
 const Video = (props) => {
+  const [showCommentsModal, setShowCommentsModal] = useState(false);
+
   return (
     <>
+      {showCommentsModal ?? (
+        <CommentsModal username={props.video.username}></CommentsModal>
+      )}
       <div className="video-display">
         <div className="title">{props.video.title}</div>
         <Link to={`/profile/${props.video.username}`} className="username">
@@ -31,7 +37,9 @@ const Video = (props) => {
             fontSize: 28,
           }}
         ></CommentIcon>
-        <div className="comments">{props.video.comments.length}</div>
+        <div onClick={() => setShowCommentsModal(true)} className="comments">
+          {props.video.comments.length}
+        </div>
         <ShareIcon
           style={{
             position: "absolute",
@@ -40,7 +48,7 @@ const Video = (props) => {
             fontSize: 28,
           }}
         ></ShareIcon>
-        <video className="video-player" src={props.video.url} />
+        <video className="video-player" src={props.video.url} controls />
       </div>
     </>
   );

@@ -5,6 +5,7 @@ import useFetch from "../hooks/useFetch";
 import { useNavigate, useParams } from "react-router-dom";
 import DisplayFollowers from "../components/DisplayFollowers";
 import UserUpload from "../components/UserUpload";
+import CommentsModal from "../components/CommentsModal";
 
 const Profile = () => {
   const userCtx = useContext(UserContext); // used for only display username
@@ -12,6 +13,7 @@ const Profile = () => {
   const navigate = useNavigate();
 
   const [showModal, setShowModal] = useState(true);
+  const [showCommentsModal, setShowCommentsModal] = useState(false);
 
   const [following, setFollowing] = useState([]);
   const [followers, setFollowers] = useState([]);
@@ -214,6 +216,7 @@ const Profile = () => {
   useEffect(() => {
     console.log("mounted");
   }, []);
+
   useEffect(() => {
     getProfileStatInfo();
     getUserVideos();

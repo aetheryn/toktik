@@ -9,7 +9,9 @@ const {
   getSpecificVideo,
   uploadFile,
   getVideoByUser,
+  getSelectVideo,
 } = require("../controllers/videos");
+
 const {
   validateIdInParam,
   validateAddVideoData,
@@ -42,5 +44,7 @@ router.post("/", validateIdInBody, errorCheck, getSpecificVideo);
 router.post("/videoupload", uploadSingleFile, uploadFile);
 
 router.post("/:username", getVideoByUser);
+
+router.get("/getvideo", getSelectVideo);
 
 module.exports = router;

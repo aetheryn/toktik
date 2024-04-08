@@ -1,7 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import useFetch from "../hooks/useFetch";
 
-const OverLay = () => {};
+const OverLay = () => {
+  const fetchData = useFetch();
+  const getProfileData = async () => {
+    const res = await fetchData()
+  };
+};
 
 const CommentsModal = (props) => {
   return (

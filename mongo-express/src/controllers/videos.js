@@ -117,6 +117,19 @@ const getVideoByUser = async (req, res) => {
   }
 };
 
+const getSelectVideo = async (req, res) => {
+  try {
+    const videos = await Videos.findOne({ _id: req.body.id });
+    console.log(videos);
+    res.json(videos);
+  } catch (error) {
+    console.log(error.message);
+    res
+      .status(400)
+      .json({ status: "error", msg: "Can't fetch videos for user" });
+  }
+};
+
 const addVideos = async (req, res) => {
   try {
     const newVideo = {
@@ -205,4 +218,5 @@ module.exports = {
   getSpecificVideo,
   uploadFile,
   getVideoByUser,
+  getSelectVideo,
 };
