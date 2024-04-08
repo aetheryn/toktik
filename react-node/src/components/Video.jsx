@@ -6,6 +6,7 @@ import CommentIcon from "@mui/icons-material/Comment";
 import ShareIcon from "@mui/icons-material/Share";
 import CommentsModal from "./CommentsModal";
 import UserContext from "../context/user";
+import styles from "./Video";
 
 const Video = (props) => {
   const [showCommentsModal, setShowCommentsModal] = useState(false);
@@ -41,40 +42,56 @@ const Video = (props) => {
         <Link to={`/profile/${props.video.username}`} className="username">
           {props.video.username}
         </Link>
-        <FavoriteIcon
-          style={{
-            position: "absolute",
-            right: 15,
-            top: 500,
-            fontSize: 28,
-          }}
-        ></FavoriteIcon>
-        <div className="likes">{props.video.likes.length}</div>
 
-        <button
-          style={{
-            position: "absolute",
-            right: 15,
-            top: 560,
-            fontSize: 28,
-            zIndex: 1000000,
-            backgroundColor: "transparent",
-            borderColor: "transparent",
-          }}
-          onClick={() => handleCommentsClick()}
-        >
-          <CommentIcon></CommentIcon>
-        </button>
-        <div className="comments">{props.video.comments.length}</div>
+        <div>
+          <button
+            style={{
+              position: "absolute",
+              right: 15,
+              top: 500,
+              fontSize: 20,
+              backgroundColor: "transparent",
+              borderColor: "transparent",
+            }}
+          >
+            <FavoriteIcon></FavoriteIcon>
+            <p>{props.video.likes.length}</p>
+          </button>
+        </div>
 
-        <ShareIcon
-          style={{
-            position: "absolute",
-            right: 15,
-            top: 620,
-            fontSize: 28,
-          }}
-        ></ShareIcon>
+        <div>
+          <button
+            style={{
+              position: "absolute",
+              right: 15,
+              top: 560,
+              fontSize: 20,
+              zIndex: 1000000,
+              backgroundColor: "transparent",
+              borderColor: "transparent",
+            }}
+            onClick={() => handleCommentsClick()}
+          >
+            <CommentIcon></CommentIcon>
+            <p>{props.video.comments.length}</p>
+          </button>
+        </div>
+
+        <div>
+          <button
+            style={{
+              position: "absolute",
+              right: 15,
+              top: 620,
+              fontSize: 28,
+              backgroundColor: "transparent",
+              borderColor: "transparent",
+              zIndex: 10,
+            }}
+          >
+            <ShareIcon></ShareIcon>
+          </button>
+        </div>
         <video className="video-player" src={props.video.url} controls />
       </div>
     </>
