@@ -10,9 +10,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [adminView, setAdminView] = useState(false);
 
-  useEffect(() => {
-    console.log(adminView);
-  }, [adminView]);
+  useEffect(() => {}, [adminView]);
 
   const handleLogout = () => {
     userCtx.setaccessToken("");
@@ -32,10 +30,7 @@ const Navbar = () => {
       <div className={`row ${styles.container}`}>
         <div className={`col ${styles.logo}`}>
           <Link to="/main">
-            <img
-              src="https://fontmeme.com/permalink/240402/d3d95be2d8e76c275d690618dd82def0.png"
-              alt=""
-            />
+            <img src="https://fontmeme.com/permalink/240402/d3d95be2d8e76c275d690618dd82def0.png" />
           </Link>
         </div>
         {userCtx.role === "user" ? (

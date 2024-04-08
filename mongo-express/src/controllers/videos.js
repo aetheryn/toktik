@@ -118,6 +118,20 @@ const getVideoByUser = async (req, res) => {
   }
 };
 
+const getSelectVideo = async (req, res) => {
+  try {
+    const videos = await Videos.findOne({ _id: req.body.id });
+
+    console.log(videos);
+    res.json(videos);
+  } catch (error) {
+    console.log(error.message);
+    res
+      .status(400)
+      .json({ status: "error", msg: "Can't fetch videos for user" });
+  }
+};
+
 const addVideos = async (req, res) => {
   try {
     const newVideo = {
@@ -223,6 +237,14 @@ const updateFlaggedVideo = async (req, res) => {
   }
 };
 
+const addComments = async (req, res) => {
+  try {
+    await Videos.create(req.body);
+
+    res.status(200).json({ status: "ok", msg: "added comments" });
+  } catch (error) {}
+};
+
 module.exports = {
   seedVideo,
   getVideos,
@@ -232,6 +254,8 @@ module.exports = {
   getSpecificVideo,
   uploadFile,
   getVideoByUser,
+  addComments,
   getFlaggedVideos,
   updateFlaggedVideo,
+  getSelectVideo,
 };
