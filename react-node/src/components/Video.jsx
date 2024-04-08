@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../components/Video.css";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CommentIcon from "@mui/icons-material/Comment";
@@ -10,14 +10,23 @@ import UserContext from "../context/user";
 const Video = (props) => {
   const [showCommentsModal, setShowCommentsModal] = useState(false);
   const userCtx = useContext(UserContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log("value is changing");
   }, [showCommentsModal]);
 
+  const handleCommentsClick = () => {
+    if (userCtx.accessToken.length > 0) {
+      return setShowCommentsModal(true);
+    } else {
+      return navigate("/login");
+    }
+  };
+
   return (
     <>
-      {showCommentsModal && userCtx.accessToken.length > 0 && (
+      {showCommentsModal && (
         <CommentsModal
           id={props.id}
           username={props.video.username}
@@ -54,7 +63,7 @@ const Video = (props) => {
             backgroundColor: "transparent",
             borderColor: "transparent",
           }}
-          onClick={() => setShowCommentsModal(true)}
+          onClick={() => handleCommentsClick()}
         >
           <CommentIcon></CommentIcon>
         </button>
