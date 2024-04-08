@@ -84,9 +84,9 @@ const RegisterPage = () => {
           </div>
           <div id="sign up text">
             <p className={styles.signUp}>
-              Already a Toktiker?
-              <a href="login">
-                <span className={styles.signUpText}> Login now!</span>
+              Already a Toktiker?&nbsp;
+              <a href="login" className={styles.signUpText}>
+                Login now!
               </a>
             </p>
           </div>

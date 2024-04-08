@@ -62,9 +62,9 @@ const LoginPage = () => {
         </div>
         <div id="sign up text">
           <p className={styles.signUp}>
-            New to TokTik?
-            <a href="register">
-              <span className={styles.signUpText}> Sign up now!</span>
+            New to TokTik?&nbsp;
+            <a href="register" className={styles.signUpText}>
+              Sign up now!
             </a>
           </p>
         </div>
