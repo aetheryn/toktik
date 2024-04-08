@@ -45,6 +45,6 @@ router.post("/videoupload", uploadSingleFile, uploadFile);
 
 router.post("/:username", getVideoByUser);
 
-router.get("/getvideo", getSelectVideo);
+router.put("/getvideo", getSelectVideo);
 
 module.exports = router;

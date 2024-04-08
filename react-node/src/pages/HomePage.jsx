@@ -31,7 +31,7 @@ const HomePage = () => {
     <div>
       <div className="homepage">
         {videos.map((video, index) => (
-          <Video key={index} video={video} id={index} />
+          <Video key={index} video={video} id={video._id} />
         ))}
       </div>
     </div>
