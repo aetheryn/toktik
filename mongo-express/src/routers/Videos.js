@@ -11,10 +11,9 @@ const {
   getVideoByUser,
   getFlaggedVideos,
   updateFlaggedVideo,
-  getSelectVideo,
   addComments,
+  getSelectVideo,
 } = require("../controllers/videos");
-
 const {
   validateIdInParam,
   validateAddVideoData,
@@ -47,5 +46,13 @@ router.post("/", validateIdInBody, errorCheck, getSpecificVideo);
 router.post("/videoupload", uploadSingleFile, uploadFile);
 
 router.post("/:username", getVideoByUser);
+
+router.get("/flagged", getFlaggedVideos);
+
+router.patch("/flagged/:id", updateFlaggedVideo);
+
+router.put("/comments", addComments);
+
+router.put("/getvideo", getSelectVideo);
 
 module.exports = router;
