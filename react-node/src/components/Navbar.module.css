@@ -21,6 +21,7 @@
   display: grid;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .navlinks > input {
@@ -29,7 +30,7 @@
   padding: 0.5rem;
   padding-left: 20px;
   font-size: smaller;
-  width: 20rem;
+  width: 20vw;
   border-color: transparent;
   color: black;
 }
