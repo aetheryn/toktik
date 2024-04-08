@@ -4,8 +4,6 @@ import useFetch from "../hooks/useFetch";
 import SocketContext from "../context/SocketContext";
 import styles from "./DM.module.css";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
-import { FamilyRestroomTwoTone } from "@mui/icons-material";
-import { formLabelClasses } from "@mui/material";
 
 const Chat = (props) => {
   const [messageThread, setMessageThread] = useState([]);
