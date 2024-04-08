@@ -4,7 +4,7 @@ import Video from "../components/Video";
 import "./ContentModerator.css";
 import Button from "@mui/material/Button";
 
-const ContentModerator = () => {
+const ContentModerator = (props) => {
   const fetchData = useFetch();
   const [flaggedVideos, setFlaggedVideos] = useState([]);
   const [videoStatus, setVideoStatus] = useState(false);
