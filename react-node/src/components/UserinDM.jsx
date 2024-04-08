@@ -7,6 +7,7 @@ import styles from "./DM.module.css";
 const UserinDM = (props) => {
   const [lastMessage, setLastMessage] = useState("");
   const [profilePicture, setProfilePicture] = useState("");
+  const [unreadCount, setUnreadCount] = useState(0);
   const fetchProfile = useFetch();
   const userCtx = useContext(UserContext);
 
@@ -16,6 +17,13 @@ const UserinDM = (props) => {
         message.receiver_id == props.user || message.sender_id == props.user
     );
     setLastMessage(lastMsg.content);
+  };
+
+  const countUnreadMsgs = (messages) => {
+    const messageArray = messages.filter(
+      (message) => message.sender_id == props.user && message.read == false
+    );
+    setUnreadCount(messageArray.length);
   };
 
   const getUserProfilePic = async (user) => {
@@ -40,6 +48,7 @@ const UserinDM = (props) => {
   useEffect(() => {
     getLastMsg(props.allMessages);
     getUserProfilePic(props.user);
+    countUnreadMsgs(props.allMessages);
   }, [props.allMessages]);
 
   return (
@@ -57,6 +66,7 @@ const UserinDM = (props) => {
           <div style={{ fontSize: "x-small", overflow: "hidden" }}>
             {lastMessage}
           </div>
+          <div>{unreadCount}</div>
         </div>
       </div>
     </>
