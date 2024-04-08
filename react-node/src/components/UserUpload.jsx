@@ -6,7 +6,7 @@ const UserUpload = (props) => {
   const [showCommentsModal, setShowCommentsModal] = useState(false);
 
   return (
-    <div className="container">
+    <>
       {showCommentsModal && (
         <CommentsModal
           id={props.id}
@@ -24,7 +24,7 @@ const UserUpload = (props) => {
         </div>
       </div>
       {/* MODAL WHEN CLICK ON VIDEO - show video + comments (probably the same one from the homepage so we shall wait and delegate) */}
-    </div>
+    </>
   );
 };
 

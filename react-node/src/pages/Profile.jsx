@@ -12,7 +12,6 @@ const Profile = () => {
   const navigate = useNavigate();
 
   const [showModal, setShowModal] = useState(true);
-  const [showCommentsModal, setShowCommentsModal] = useState(false);
 
   const [following, setFollowing] = useState([]);
   const [followers, setFollowers] = useState([]);
@@ -341,7 +340,7 @@ const Profile = () => {
           )}
         </div>
         <div className={styles.userVideoContainer}>
-          {userVideos.map((item) => {
+          {userVideos.map((item, idx) => {
             return (
               <>
                 <UserUpload
@@ -350,6 +349,8 @@ const Profile = () => {
                   id={item._id}
                   username={item.username}
                   created_at={item.created_at}
+                  idx={idx}
+                  key={item._id}
                 />
               </>
             );
