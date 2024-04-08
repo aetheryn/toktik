@@ -51,7 +51,7 @@ router.get("/flagged", getFlaggedVideos);
 
 router.patch("/flagged/:id", updateFlaggedVideo);
 
-router.put("/comments", addComments);
+router.put("/comments/:id", addComments);
 
 router.put("/getvideo", getSelectVideo);
 

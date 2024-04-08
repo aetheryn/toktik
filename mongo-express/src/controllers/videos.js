@@ -239,7 +239,10 @@ const updateFlaggedVideo = async (req, res) => {
 
 const addComments = async (req, res) => {
   try {
-    await Videos.create(req.body);
+    await Videos.findByIdAndUpdate(
+      { _id: req.params.id },
+      { $push: { comments: req.body } }
+    );
 
     res.status(200).json({ status: "ok", msg: "added comments" });
   } catch (error) {}

@@ -44,13 +44,12 @@ const OverLay = (props) => {
 
     if (res.ok) {
       setUserPP(res.data.profilePicture);
-      console.log("done");
     }
   };
 
   const addComments = async () => {
     const res = await fetchData(
-      "/videos/comments",
+      "/videos/comments/" + props.id,
       "PUT",
       {
         username: userCtx.username,
@@ -64,6 +63,7 @@ const OverLay = (props) => {
   };
 
   const handleSubmitComment = () => {
+    console.log("working");
     addComments();
     commentRef.current.value = "";
   };
@@ -94,11 +94,11 @@ const OverLay = (props) => {
               <hr />
 
               {/* comments */}
-              <input type="text" ref={commentRef} />
-              <button
-                type="submit"
-                onSubmit={() => handleSubmitComment()}
-              ></button>
+
+              <input type="text" ref={commentRef} style={{ color: "black" }} />
+              <button type="submit" onClick={() => handleSubmitComment()}>
+                submit
+              </button>
 
               <button
                 style={{ color: "black" }}
