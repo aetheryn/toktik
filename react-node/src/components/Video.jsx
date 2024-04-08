@@ -12,9 +12,7 @@ const Video = (props) => {
   const userCtx = useContext(UserContext);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log("value is changing");
-  }, [showCommentsModal]);
+  useEffect(() => {}, [showCommentsModal]);
 
   const handleCommentsClick = () => {
     if (userCtx.accessToken.length > 0) {

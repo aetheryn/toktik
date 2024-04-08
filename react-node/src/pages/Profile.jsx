@@ -344,7 +344,13 @@ const Profile = () => {
           {userVideos.map((item) => {
             return (
               <>
-                <UserUpload url={item.url} title={item.title} />
+                <UserUpload
+                  url={item.url}
+                  title={item.title}
+                  id={item._id}
+                  username={item.username}
+                  created_at={item.created_at}
+                />
               </>
             );
           })}
