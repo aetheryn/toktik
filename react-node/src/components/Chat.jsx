@@ -78,12 +78,10 @@ const Chat = (props) => {
 
   useEffect(() => {
     getConversation(props.allMessages);
-    setTimeout(updateRead, 2000);
   }, [props.allMessages]);
 
   useEffect(() => {
     SocketCtx.socket.on("newMessage", props.handleNewMessage);
-    setTimeout(updateRead, 2000);
     return () => SocketCtx.socket.off("newMessage");
   }, [SocketCtx.socket, props.allMessages]);
 
@@ -101,6 +99,7 @@ const Chat = (props) => {
       );
       if (response.ok) {
         props.getAllMessages();
+        updateRead();
         messageRef.current.value = "";
       }
     } catch (error) {
