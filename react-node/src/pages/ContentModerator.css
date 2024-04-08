@@ -1,6 +1,14 @@
 .flagged-videos {
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.video-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
 }
