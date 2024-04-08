@@ -8,6 +8,7 @@ const OverLay = (props) => {
   const fetchData = useFetch();
   const userCtx = useContext(UserContext);
   const [userPP, setUserPP] = useState("");
+  const [comments, setComments] = useState([]);
   const commentRef = useRef("");
   // need to edit date & time ( throw to gabrielle hehe )
 
@@ -29,6 +30,7 @@ const OverLay = (props) => {
       id: props.id,
     });
     if (res.ok) {
+      setComments(res.data.comments);
       getUserDetails();
       console.log(res);
     }
@@ -74,7 +76,7 @@ const OverLay = (props) => {
 
   return (
     <>
-      <div className={styles.backdrop}>
+      <div id="outside" className={styles.backdrop}>
         <div className={styles.modalContainer}>
           <video className={styles.video} src={props.url}></video>
           <div className={styles.modal}>
@@ -100,13 +102,18 @@ const OverLay = (props) => {
                 submit
               </button>
 
+              {comments
+                ? comments.map((item) => {
+                    return <p>{item.content}</p>;
+                  })
+                : ""}
+
               <button
                 style={{ color: "black" }}
                 onClick={() => props.setShowCommentsModal(false)}
               >
                 CANCEL
               </button>
-              <p>TEST: {props.id}</p>
             </div>
           </div>
         </div>
