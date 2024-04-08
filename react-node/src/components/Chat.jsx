@@ -113,7 +113,7 @@ const Chat = (props) => {
   };
 
   const handleKeyDown = (event) => {
-    if (event.key == "Enter") {
+    if (event.key == "Enter" && messageRef.current.value.length !== 0) {
       createMessage();
     }
   };
