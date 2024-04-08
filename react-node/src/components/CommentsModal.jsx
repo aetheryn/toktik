@@ -8,7 +8,12 @@ const OverLay = (props) => {
   const fetchData = useFetch();
   const userCtx = useContext(UserContext);
   const [userPP, setUserPP] = useState("");
+  const [comments, setComments] = useState([]);
+  const [showInput, setShowInput] = useState(false);
   const commentRef = useRef("");
+
+  const modalRef = useRef(null);
+
   // need to edit date & time ( throw to gabrielle hehe )
 
   const dateConvert = (dateString) => {
@@ -29,8 +34,8 @@ const OverLay = (props) => {
       id: props.id,
     });
     if (res.ok) {
+      setComments(res.data.comments);
       getUserDetails();
-      console.log(res);
     }
   };
 
@@ -44,13 +49,12 @@ const OverLay = (props) => {
 
     if (res.ok) {
       setUserPP(res.data.profilePicture);
-      console.log("done");
     }
   };
 
   const addComments = async () => {
     const res = await fetchData(
-      "/videos/comments",
+      "/videos/comments/" + props.id,
       "PUT",
       {
         username: userCtx.username,
@@ -59,54 +63,110 @@ const OverLay = (props) => {
       },
       undefined
     );
-    if (res.ok) console.log("added comments");
+    if (res.ok) {
+      getProfileData();
+    }
     // need to get new comments from userDetails (based on video ID)
   };
 
-  const handleSubmitComment = () => {
+  const handleSubmitComment = (e) => {
+    e.preventDefault();
     addComments();
+    setShowInput(false);
     commentRef.current.value = "";
   };
 
   useEffect(() => {
     getProfileData();
+    modalRef.current.value = document.querySelector("#outside");
   }, []);
+
+  const handleCloseModal = () => {
+    if (modalRef) {
+      modalRef.current.addEventListener("click", (e) => {
+        if (modalRef.current.value === e.target.value) {
+          props.setShowCommentsModal(false);
+        }
+      });
+    }
+  };
 
   return (
     <>
-      <div className={styles.backdrop}>
+      <div
+        id="outside"
+        className={styles.backdrop}
+        ref={modalRef}
+        onClick={() => handleCloseModal()}
+      >
         <div className={styles.modalContainer}>
-          <video className={styles.video} src={props.url}></video>
+          <video
+            className={styles.video}
+            src={props.url}
+            controls
+            autoPlay
+          ></video>
           <div className={styles.modal}>
             <div className={styles.commentsDiv}>
               <div className={styles.mainTitle}>
-                <div>
-                  <img className={styles.pp} src={userPP} />
-                </div>
+                <img className={styles.pp} src={userPP} />
                 <div className={styles.usernameTitle}>
                   <p style={{ fontWeight: "bold" }}>{props.username}</p>
                   <p>{props.title}</p>
                 </div>
               </div>
-              <p className={styles.dateTimeMain}>
-                {dateConvert(props.created_at)}
-              </p>
+              <div className={styles.bottomContainer}>
+                <p className={styles.dateTimeMain}>
+                  {dateConvert(props.created_at)}
+                </p>
+                <p
+                  className={styles.reply}
+                  onClick={() => {
+                    setShowInput(true);
+                  }}
+                >
+                  Reply
+                </p>
+              </div>
+
+              {showInput && (
+                <form onSubmit={(e) => handleSubmitComment(e)}>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    ref={commentRef}
+                    placeholder="comment"
+                  />
+                </form>
+              )}
               <hr />
 
               {/* comments */}
-              <input type="text" ref={commentRef} />
-              <button
-                type="submit"
-                onSubmit={() => handleSubmitComment()}
-              ></button>
 
-              <button
-                style={{ color: "black" }}
-                onClick={() => props.setShowCommentsModal(false)}
-              >
-                CANCEL
-              </button>
-              <p>TEST: {props.id}</p>
+              {comments
+                ? comments.map((item) => {
+                    return (
+                      <>
+                        <div className={styles.commentsDiv}>
+                          <div className={styles.mainTitle}>
+                            <img
+                              src={item.profilePicture}
+                              className={styles.pp}
+                            />
+                            <div className={styles.usernameTitle}>
+                              <p>{item.username}</p>
+                              <p>{item.content}</p>
+                            </div>
+                          </div>
+                        </div>
+                        <p className={styles.dateTimeComments}>
+                          {dateConvert(item.created_at)}
+                        </p>
+                        <hr />
+                      </>
+                    );
+                  })
+                : ""}
             </div>
           </div>
         </div>
@@ -126,6 +186,7 @@ const CommentsModal = (props) => {
           username={props.username}
           title={props.title}
           created_at={props.created_at}
+          showCommentsModal={props.showCommentsModal}
         />,
         document.querySelector("#modal-root")
       )}

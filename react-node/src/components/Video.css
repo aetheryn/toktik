@@ -55,10 +55,18 @@
   text-shadow: white 1px;
 }
 
+.commentsContainer {
+  display: flex;
+  flex-direction: column;
+}
 .comments {
   position: absolute;
   bottom: 24.5%;
   right: 6.3%;
   font-size: 12px;
   text-shadow: white 1px;
+}
+
+.commentLength {
+  font-size: 10px;
 }
