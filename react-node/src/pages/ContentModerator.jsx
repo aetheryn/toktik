@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import Video from "../components/Video";
 import "./ContentModerator.css";
+import Button from "@mui/material/Button";
 
 const ContentModerator = () => {
   const fetchData = useFetch();
@@ -27,8 +28,7 @@ const ContentModerator = () => {
   }, [videoStatus]);
 
   // function for confirming video is OK
-  const videoPass = async () => {
-    let flaggedId = flaggedVideos[0]._id;
+  const videoPass = async (flaggedId) => {
     console.log(flaggedId);
     const res = await fetchData(
       "/videos/flagged/" + flaggedId,
@@ -39,14 +39,17 @@ const ContentModerator = () => {
       undefined
     );
     if (res.ok) {
-      setVideoStatus(true);
-      console.log(videoStatus);
+      if (videoStatus === false) {
+        setVideoStatus(true);
+        console.log(videoStatus);
+      } else if (videoStatus === true) {
+        setVideoStatus(false);
+      }
     }
   };
 
   // function for confirming flagged video
-  const videoFail = async () => {
-    let flaggedId = flaggedVideos[0]._id;
+  const videoFail = async (flaggedId) => {
     const res = await fetchData(
       "/videos/" + flaggedId,
       "DELETE",
@@ -54,19 +57,40 @@ const ContentModerator = () => {
       undefined
     );
     if (res.ok) {
-      setVideoStatus(true);
+      if (videoStatus === false) {
+        setVideoStatus(true);
+        console.log(videoStatus);
+      } else if (videoStatus === true) {
+        setVideoStatus(false);
+      }
     }
   };
 
   return (
     <>
-      <button onClick={videoPass}>YES</button>
       <div className="flagged-videos">
         {flaggedVideos.map((video, index) => (
-          <Video key={index} video={video} id={index}></Video>
+          <div className="video-container" key={index}>
+            <Button
+              variant="contained"
+              color="success"
+              size="large"
+              onClick={() => videoPass(video._id)}
+            >
+              SAFE
+            </Button>
+            <Video video={video} id={index}></Video>
+            <Button
+              variant="outlined"
+              color="error"
+              size="large"
+              onClick={() => videoFail(video._id)}
+            >
+              DELETE
+            </Button>
+          </div>
         ))}
       </div>
-      <button onClick={videoFail}>NO</button>
     </>
   );
 };
