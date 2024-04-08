@@ -4,6 +4,8 @@ import useFetch from "../hooks/useFetch";
 import SocketContext from "../context/SocketContext";
 import styles from "./DM.module.css";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
+import { FamilyRestroomTwoTone } from "@mui/icons-material";
+import { formLabelClasses } from "@mui/material";
 
 const Chat = (props) => {
   const [messageThread, setMessageThread] = useState([]);
@@ -11,6 +13,7 @@ const Chat = (props) => {
   const messageRef = useRef();
   const newMessage = useFetch();
   const fetchProfile = useFetch();
+  const readMessages = useFetch();
   const SocketCtx = useContext(SocketContext);
 
   const getConversation = (messages) => {
@@ -23,7 +26,31 @@ const Chat = (props) => {
         convArray.push(message);
       }
     });
+    updateRead();
     setMessageThread(convArray);
+  };
+
+  const updateRead = async () => {
+    try {
+      const response = await readMessages(
+        `/messages`,
+        "PATCH",
+        {
+          senderId: props.selectedUser,
+          receiverId: props.loggedInUser,
+          read: false,
+        },
+        undefined
+      );
+
+      console.log(response);
+      if (response.ok) {
+      }
+    } catch (error) {
+      if (error.name !== "AbortError") {
+        console.error(error.message);
+      }
+    }
   };
 
   const getUserProfilePic = async (user) => {
