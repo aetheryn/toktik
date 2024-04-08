@@ -1,10 +1,13 @@
-import { React, useContext, useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { React, useContext, useEffect, useState, useRef } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import UserContext from "../context/user";
+import useFetch from "../hooks/useFetch";
 
 const Navbar = () => {
   const userCtx = useContext(UserContext);
+  const searchUserRef = useRef();
+  const navigate = useNavigate();
   const [adminView, setAdminView] = useState(false);
 
   useEffect(() => {}, [adminView]);
@@ -14,6 +17,12 @@ const Navbar = () => {
     userCtx.setRole("");
     userCtx.setUsername("");
     userCtx.setProfilePic("");
+  };
+
+  const handleSearchUser = (event) => {
+    if (event.key == "Enter") {
+      navigate(`/profile/${searchUserRef.current.value}`);
+    }
   };
 
   return (
@@ -62,6 +71,17 @@ const Navbar = () => {
                 </span>
               </NavLink>
             </button>
+
+            <div className={styles.navlinks}>
+              <input
+                placeholder="Search for Toktik users..."
+                ref={searchUserRef}
+                type="text"
+                onKeyDown={(event) => {
+                  handleSearchUser(event);
+                }}
+              ></input>
+            </div>
           </div>
         ) : (
           ""
