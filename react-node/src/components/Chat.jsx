@@ -26,7 +26,6 @@ const Chat = (props) => {
         convArray.push(message);
       }
     });
-    updateRead();
     setMessageThread(convArray);
   };
 
@@ -45,6 +44,7 @@ const Chat = (props) => {
 
       console.log(response);
       if (response.ok) {
+        props.getAllMessages();
       }
     } catch (error) {
       if (error.name !== "AbortError") {
@@ -75,14 +75,17 @@ const Chat = (props) => {
   useEffect(() => {
     getConversation(props.allMessages);
     getUserProfilePic(props.selectedUser);
+    setTimeout(updateRead, 2000);
   }, [props.selectedUser]);
 
   useEffect(() => {
     getConversation(props.allMessages);
+    setTimeout(updateRead, 2000);
   }, [props.allMessages]);
 
   useEffect(() => {
     SocketCtx.socket.on("newMessage", props.handleNewMessage);
+    setTimeout(updateRead, 2000);
     return () => SocketCtx.socket.off("newMessage");
   }, [SocketCtx.socket, props.allMessages]);
 
@@ -139,6 +142,10 @@ const Chat = (props) => {
                 nextMessage.created_at.slice(0, 15) !==
                   message.created_at.slice(0, 15)) ||
               index === messageThread.length - 1;
+            const isUnread =
+              nextMessage &&
+              message.sender_id == props.selectedUser &&
+              nextMessage.read !== message.read;
 
             if (message.sender_id == props.selectedUser) {
               return (
@@ -160,6 +167,11 @@ const Chat = (props) => {
                   {isNewDate && (
                     <div className={styles.date}>
                       <span> {message.created_at.slice(0, 15)}</span>
+                    </div>
+                  )}
+                  {isUnread && (
+                    <div className={styles.read}>
+                      <span> Unread Messages </span>
                     </div>
                   )}
                 </>
@@ -184,6 +196,11 @@ const Chat = (props) => {
                   {isNewDate && (
                     <div className={styles.date}>
                       <span> {message.created_at.slice(0, 15)} </span>
+                    </div>
+                  )}
+                  {isUnread && (
+                    <div className={styles.read}>
+                      <span> Unread Messages </span>
                     </div>
                   )}
                 </>
