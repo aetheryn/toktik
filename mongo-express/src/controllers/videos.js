@@ -253,6 +253,17 @@ const addComments = async (req, res) => {
   }
 };
 
+const findComments = async (req, res) => {
+  try {
+    await Videos.findOne({ _id: req.params.id });
+  } catch (error) {
+    console.log(error.message);
+    res
+      .status(400)
+      .json({ status: "error", msg: "error finding comment cuz RECUSIVE" });
+  }
+};
+
 module.exports = {
   seedVideo,
   getVideos,
@@ -266,4 +277,5 @@ module.exports = {
   getFlaggedVideos,
   updateFlaggedVideo,
   getSelectVideo,
+  findComments,
 };
