@@ -23,6 +23,7 @@ const Video = (props) => {
           setShowCommentsModal={setShowCommentsModal}
           title={props.video.title}
           created_at={props.video.created_at}
+          showCommentsModal={showCommentsModal}
         ></CommentsModal>
       )}
 

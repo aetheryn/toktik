@@ -11,6 +11,9 @@ const OverLay = (props) => {
   const [comments, setComments] = useState([]);
   const [showInput, setShowInput] = useState(false);
   const commentRef = useRef("");
+
+  const modalRef = useRef(null);
+
   // need to edit date & time ( throw to gabrielle hehe )
 
   const dateConvert = (dateString) => {
@@ -33,7 +36,6 @@ const OverLay = (props) => {
     if (res.ok) {
       setComments(res.data.comments);
       getUserDetails();
-      console.log(res);
     }
   };
 
@@ -76,11 +78,27 @@ const OverLay = (props) => {
 
   useEffect(() => {
     getProfileData();
+    modalRef.current.value = document.querySelector("#outside");
   }, []);
+
+  const handleCloseModal = () => {
+    if (modalRef) {
+      modalRef.current.addEventListener("click", (e) => {
+        if (modalRef.current.value === e.target.value) {
+          props.setShowCommentsModal(false);
+        }
+      });
+    }
+  };
 
   return (
     <>
-      <div id="outside" className={styles.backdrop}>
+      <div
+        id="outside"
+        className={styles.backdrop}
+        ref={modalRef}
+        onClick={() => handleCloseModal()}
+      >
         <div className={styles.modalContainer}>
           <video className={styles.video} src={props.url}></video>
           <div className={styles.modal}>
@@ -144,13 +162,6 @@ const OverLay = (props) => {
                     );
                   })
                 : ""}
-
-              <button
-                style={{ color: "black" }}
-                onClick={() => props.setShowCommentsModal(false)}
-              >
-                CANCEL
-              </button>
             </div>
           </div>
         </div>
@@ -170,6 +181,7 @@ const CommentsModal = (props) => {
           username={props.username}
           title={props.title}
           created_at={props.created_at}
+          showCommentsModal={props.showCommentsModal}
         />,
         document.querySelector("#modal-root")
       )}

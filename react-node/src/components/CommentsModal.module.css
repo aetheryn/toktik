@@ -16,8 +16,8 @@
   left: 50%;
   width: 24.5%;
   z-index: 10;
-  overflow: hidden;
   border-radius: 20px;
+  overflow-y: auto;
 }
 
 .video {
