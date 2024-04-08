@@ -16,7 +16,6 @@
   left: 30%;
   right: 30%;
   width: 40%;
-  /* z-index: 1; */
   overflow: hidden;
   border-radius: 20px;
 }
@@ -47,6 +46,7 @@
   justify-content: center;
   list-style-type: none;
   gap: 1vh;
+  position: relative;
 }
 
 .profileDiv {
@@ -88,22 +88,22 @@
 }
 
 .buttonDiv {
-  display: flex;
-  justify-content: end;
+  position: absolute;
   margin-right: 2vw;
-  margin-top: 5vh;
+  right: 1vw;
+  bottom: 4vh;
 }
 
 .cancelButton {
   background: transparent;
   border: transparent;
-  font-size: 1.5rem;
+  font-size: 1.5vw;
   color: #b0b0b0;
 }
 
 .cancelButton:hover {
   color: rgb(255, 255, 255);
-  scale: 1.1;
+  font-weight: 700;
 }
 
 .isActive {
