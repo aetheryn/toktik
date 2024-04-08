@@ -49,6 +49,7 @@ const OverLay = (props) => {
                 <div className={styles.usernameTitle}>
                   <p style={{ fontWeight: "bold" }}>{props.username}</p>
                   <p>{props.title}</p>
+                  <p>{props.created_at}</p>
                 </div>
               </div>
 
@@ -79,6 +80,7 @@ const CommentsModal = (props) => {
           url={props.url}
           username={props.username}
           title={props.title}
+          created_at={props.created_at}
         />,
         document.querySelector("#modal-root")
       )}
