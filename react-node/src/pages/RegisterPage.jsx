@@ -45,11 +45,10 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} centered`}>
       <div className={styles.loginContainer}>
-        <div id="heading title">
-          <h1 className={styles.toktikTitle}>TokTik</h1>
-        </div>
+        <h1>TokTik</h1>
+
         {/* username password 1 Login button 1  */}
         <div
           className={styles.inputContainer}
