@@ -57,9 +57,33 @@
   justify-content: center;
 }
 
+.bottomContainer {
+  display: flex;
+  justify-content: end;
+  flex-direction: column;
+  align-items: end;
+  height: fit-content;
+  margin-right: 1vw;
+}
+
 .dateTimeMain {
+  color: #b6b6b6;
+  font-size: 12px;
+}
+
+.dateTimeComments {
   color: #b6b6b6;
   font-size: 12px;
   align-self: flex-end;
   margin-right: 1vw;
+}
+
+.reply {
+  color: #ea284e;
+  font-weight: bold;
+}
+
+.input {
+  width: 100%;
+  color: black;
 }

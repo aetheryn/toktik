@@ -245,7 +245,12 @@ const addComments = async (req, res) => {
     );
 
     res.status(200).json({ status: "ok", msg: "added comments" });
-  } catch (error) {}
+  } catch (error) {
+    console.log(error.message);
+    res
+      .status(400)
+      .json({ status: "error", msg: "error adding comments weh weh" });
+  }
 };
 
 module.exports = {

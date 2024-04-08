@@ -9,6 +9,7 @@ const OverLay = (props) => {
   const userCtx = useContext(UserContext);
   const [userPP, setUserPP] = useState("");
   const [comments, setComments] = useState([]);
+  const [showInput, setShowInput] = useState(false);
   const commentRef = useRef("");
   // need to edit date & time ( throw to gabrielle hehe )
 
@@ -60,13 +61,16 @@ const OverLay = (props) => {
       },
       undefined
     );
-    if (res.ok) console.log("added comments");
+    if (res.ok) {
+      getProfileData();
+    }
     // need to get new comments from userDetails (based on video ID)
   };
 
-  const handleSubmitComment = () => {
-    console.log("working");
+  const handleSubmitComment = (e) => {
+    e.preventDefault();
     addComments();
+    setShowInput(false);
     commentRef.current.value = "";
   };
 
@@ -82,29 +86,62 @@ const OverLay = (props) => {
           <div className={styles.modal}>
             <div className={styles.commentsDiv}>
               <div className={styles.mainTitle}>
-                <div>
-                  <img className={styles.pp} src={userPP} />
-                </div>
+                <img className={styles.pp} src={userPP} />
                 <div className={styles.usernameTitle}>
                   <p style={{ fontWeight: "bold" }}>{props.username}</p>
                   <p>{props.title}</p>
                 </div>
               </div>
-              <p className={styles.dateTimeMain}>
-                {dateConvert(props.created_at)}
-              </p>
+              <div className={styles.bottomContainer}>
+                <p className={styles.dateTimeMain}>
+                  {dateConvert(props.created_at)}
+                </p>
+                <p
+                  className={styles.reply}
+                  onClick={() => {
+                    setShowInput(true);
+                  }}
+                >
+                  Reply
+                </p>
+              </div>
+
+              {showInput && (
+                <form onSubmit={(e) => handleSubmitComment(e)}>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    ref={commentRef}
+                    placeholder="comment"
+                  />
+                </form>
+              )}
               <hr />
 
               {/* comments */}
 
-              <input type="text" ref={commentRef} style={{ color: "black" }} />
-              <button type="submit" onClick={() => handleSubmitComment()}>
-                submit
-              </button>
-
               {comments
                 ? comments.map((item) => {
-                    return <p>{item.content}</p>;
+                    return (
+                      <>
+                        <div className={styles.commentsDiv}>
+                          <div className={styles.mainTitle}>
+                            <img
+                              src={item.profilePicture}
+                              className={styles.pp}
+                            />
+                            <div className={styles.usernameTitle}>
+                              <p>{item.username}</p>
+                              <p>{item.content}</p>
+                            </div>
+                          </div>
+                        </div>
+                        <p className={styles.dateTimeComments}>
+                          {dateConvert(item.created_at)}
+                        </p>
+                        <hr />
+                      </>
+                    );
                   })
                 : ""}
 
