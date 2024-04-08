@@ -9,6 +9,8 @@ const {
   getSpecificVideo,
   uploadFile,
   getVideoByUser,
+  getFlaggedVideos,
+  updateFlaggedVideo,
   getSelectVideo,
   addComments,
 } = require("../controllers/videos");
@@ -45,9 +47,5 @@ router.post("/", validateIdInBody, errorCheck, getSpecificVideo);
 router.post("/videoupload", uploadSingleFile, uploadFile);
 
 router.post("/:username", getVideoByUser);
-
-router.put("/getvideo", getSelectVideo);
-
-router.put("/comments", addComments);
 
 module.exports = router;

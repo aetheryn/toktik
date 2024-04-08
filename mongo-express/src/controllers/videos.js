@@ -80,6 +80,7 @@ const getVideos = async (req, res) => {
     const allVideos = await Videos.find();
 
     for (const video of allVideos) {
+      console.log(video.fileName);
       const getObjectParams = { Bucket: bucketNameBackup, Key: video.fileName };
       const command = new GetObjectCommand(getObjectParams);
 
@@ -210,6 +211,32 @@ const uploadFile = async (req, res) => {
   }
 };
 
+const getFlaggedVideos = async (req, res) => {
+  try {
+    const flaggedVideo = await Videos.find({ reported: true });
+    res.json(flaggedVideo);
+    // this works
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "can't find flagged videos" });
+  }
+};
+
+const updateFlaggedVideo = async (req, res) => {
+  try {
+    const updatedVideoStatus = {};
+    if ("reported" in req.body) updatedVideoStatus.reported = req.body.reported;
+    await Videos.findByIdAndUpdate(req.params.id, updatedVideoStatus);
+    console.log(updatedVideoStatus);
+    res.json({ status: "ok", msg: "video reported status changed" });
+  } catch (error) {
+    console.error(error.message);
+    res
+      .status(400)
+      .json({ status: "error", msg: "can't updated flagged video" });
+  }
+};
+
 const addComments = async (req, res) => {
   try {
     await Videos.create(req.body);
@@ -227,6 +254,4 @@ module.exports = {
   getSpecificVideo,
   uploadFile,
   getVideoByUser,
-  getSelectVideo,
-  addComments,
 };

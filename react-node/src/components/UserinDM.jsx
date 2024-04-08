@@ -66,8 +66,8 @@ const UserinDM = (props) => {
           <div style={{ fontSize: "x-small", overflow: "hidden" }}>
             {lastMessage}
           </div>
-          <div>{unreadCount}</div>
         </div>
+        {unreadCount > 0 && <div className={styles.badge}>{unreadCount}</div>}
       </div>
     </>
   );
