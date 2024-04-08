@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../components/Video.css";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CommentIcon from "@mui/icons-material/Comment";
 import ShareIcon from "@mui/icons-material/Share";
 import CommentsModal from "./CommentsModal";
+import UserContext from "../context/user";
 
 const Video = (props) => {
   const [showCommentsModal, setShowCommentsModal] = useState(false);
+  const userCtx = useContext(UserContext);
 
   useEffect(() => {
     console.log("value is changing");
@@ -15,7 +17,7 @@ const Video = (props) => {
 
   return (
     <>
-      {showCommentsModal && (
+      {showCommentsModal && userCtx.accessToken.length > 0 && (
         <CommentsModal
           id={props.id}
           username={props.video.username}
@@ -66,7 +68,7 @@ const Video = (props) => {
             fontSize: 28,
           }}
         ></ShareIcon>
-        <video className="video-player" src={props.video.url} />
+        <video className="video-player" src={props.video.url} controls />
       </div>
     </>
   );

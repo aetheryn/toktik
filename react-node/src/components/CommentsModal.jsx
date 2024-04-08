@@ -100,7 +100,12 @@ const OverLay = (props) => {
         onClick={() => handleCloseModal()}
       >
         <div className={styles.modalContainer}>
-          <video className={styles.video} src={props.url}></video>
+          <video
+            className={styles.video}
+            src={props.url}
+            controls
+            autoPlay
+          ></video>
           <div className={styles.modal}>
             <div className={styles.commentsDiv}>
               <div className={styles.mainTitle}>
