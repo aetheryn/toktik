@@ -55,11 +55,12 @@ const OverLay = (props) => {
   };
 
   const addComments = async (id) => {
-    if (commentRef.current.value !== "" && id === props.id) {
+    if (commentRef.current.value !== "" && props.id === id) {
       const res = await fetchData(
         "/videos/comments/" + props.id,
         "PUT",
         {
+          parentId: id,
           username: userCtx.username,
           profilePicture: userCtx.profilePic,
           content: commentRef.current.value,
@@ -67,6 +68,7 @@ const OverLay = (props) => {
         undefined
       );
       if (res.ok) {
+        console.log(id);
         getProfileData();
       }
     } else {
@@ -76,6 +78,7 @@ const OverLay = (props) => {
           "PUT",
           {
             replies: {
+              parentId: id,
               username: userCtx.username,
               profilePicture: userCtx.profilePic,
               content: commentRef.current.value,
@@ -92,6 +95,8 @@ const OverLay = (props) => {
   };
 
   const handleSubmitComment = (e, id) => {
+    console.log(id);
+    console.log(props.id);
     e.preventDefault();
     addComments(id);
     setShowInput(false);
@@ -153,7 +158,7 @@ const OverLay = (props) => {
               </div>
 
               {showInput && (
-                <form onSubmit={(e) => handleSubmitComment(e)}>
+                <form onSubmit={(e) => handleSubmitComment(e, props.id)}>
                   <input
                     className={styles.input}
                     type="text"

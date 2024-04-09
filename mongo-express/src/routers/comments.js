@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-const { findComments } = require("../controllers/videos.js");
+const { addReplies } = require("../controllers/videos.js");
 
-router.post("/replies/:id", findComments);
+router.post("/replies/:id", addReplies);
 
 module.exports = router;

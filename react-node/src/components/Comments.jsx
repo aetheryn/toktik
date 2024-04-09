@@ -56,17 +56,19 @@ const Comments = (props) => {
         </form>
       )}
 
-      {props.comments.replies?.map((item) => {
-        return (
-          <Comments
-            handleSubmitComment={props.handleSubmitComment}
-            comments={item}
-            commentRef={props.commentRef}
-            key={item._id}
-            id={item._id}
-          />
-        );
-      })}
+      <div style={{ paddingLeft: 25 }}>
+        {props.comments.replies?.map((item) => {
+          return (
+            <Comments
+              handleSubmitComment={props.handleSubmitComment}
+              comments={item}
+              commentRef={props.commentRef}
+              key={item._id}
+              id={item._id}
+            />
+          );
+        })}
+      </div>
     </>
   );
 };

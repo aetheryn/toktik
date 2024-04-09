@@ -7,6 +7,7 @@ RepliesSchema.add({
   profilePicture: { type: String },
   created_at: { type: Date, default: Date.now },
   replies: [RepliesSchema],
+  parentId: { type: String },
 });
 
 const CommentsSchema = new mongoose.Schema({
@@ -15,6 +16,7 @@ const CommentsSchema = new mongoose.Schema({
   profilePicture: { type: String },
   created_at: { type: Date, default: Date.now },
   replies: [RepliesSchema],
+  parentId: { type: String },
 });
 
 const VideosSchema = new mongoose.Schema({
