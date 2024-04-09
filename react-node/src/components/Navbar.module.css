@@ -1,24 +1,31 @@
 .navbar {
+  display: grid;
+  align-items: center;
   background-color: black;
-  height: 70px;
+  height: 10vh;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
 }
 
 .logo > a > img {
-  padding-left: 20px;
-  height: 70px;
+  padding-left: 2vw;
+  height: 8vh;
 }
 
 .navigation {
-  padding-right: 50px;
+  padding-right: 2vw;
 }
 
 .navlinks {
   float: right;
-  margin-left: 10px;
+  margin-left: 1vw;
   border: transparent;
   background-color: transparent;
-  height: 70px;
-  display: grid;
+  height: 10vh;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
@@ -26,13 +33,13 @@
 
 .navlinks > input {
   margin-right: 2vw;
-  border-radius: 50px;
+  border-radius: 20px;
   padding: 0.5rem;
-  padding-left: 20px;
+  text-align: right;
   font-size: smaller;
   width: 20vw;
   border-color: transparent;
-  color: black;
+  background-color: transparent;
 }
 
 .navlinks > a {
@@ -42,24 +49,23 @@
 
 .guestProfilePic {
   float: right;
-  margin-top: 10px;
-  margin-left: 10px;
-  margin-right: 5px;
-  scale: 1.7;
+  margin-top: 1.5vh;
+  margin-left: 0.5vw;
+  margin-right: 0.5vw;
+  scale: 1.5;
   border: transparent;
   background-color: transparent;
 }
 
 .userIcon {
   scale: 1.4;
-  margin-top: 5px;
-  margin-right: 15px;
-  /* color: #c60060; */
+  margin-top: 0.5vh;
+  margin-right: 1vw;
 }
 
 .userProfilePic {
   border-radius: 50%;
-  height: 55px;
+  height: 5vh;
   border-color: whitesmoke;
   border-style: solid;
   border-width: 3px;
@@ -68,7 +74,7 @@
 .dropdownlinks {
   display: none;
   text-align: center;
-  z-index: 10000;
+  z-index: 100;
 }
 
 .dropdownlinks > a {
@@ -77,8 +83,9 @@
   color: white;
   height: 100%;
   align-items: center;
-  padding: 5px;
+  padding: 10%;
   text-decoration: none;
+  background-color: #2f2f2f;
 }
 
 .dropdownlinks > a:hover {
@@ -88,39 +95,33 @@
 .dropdown:hover .dropdownlinks {
   display: grid;
   position: absolute;
-  top: 70px;
-  right: 20px;
-  height: 80px;
-  width: 120px;
-  background-color: #2f2f2f;
+  top: 10vh;
+  right: 0;
+  height: 10vh;
+  width: 8vw;
 }
 
 .dropdownuser {
   display: grid;
   position: absolute;
-  top: 70px;
+  top: 10vh;
   right: 20vw;
   width: 15vw;
-  z-index: 10000000;
+  z-index: 1000;
 }
 
 .dropdownuser > a {
   display: flex;
   height: 100%;
   align-items: center;
-  padding: 10px;
+  padding: 5%;
   text-decoration: none;
   font-size: 1rem;
   background-color: #2f2f2f;
 }
 
 .dropdownuser > a:hover {
-  /* font-weight: 700; */
   background-color: #ea284e;
-}
-
-.display {
-  display: flex;
 }
 
 .profilePic {
@@ -154,9 +155,9 @@
   background-color: #ea284e;
 }
 
-.cmdropdown:hover .cmdropdownlinks {
+.guestProfilePic:hover .cmdropdownlinks {
   display: grid;
-  position: fixed;
-  margin-top: 42px;
+  position: absolute;
+  top: 6.5vh;
   background-color: #2f2f2f;
 }

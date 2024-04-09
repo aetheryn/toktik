@@ -111,7 +111,7 @@ const Navbar = () => {
             <div className={styles.dropdown}>
               <div className={styles.navlinks}>
                 <input
-                  placeholder="Search for Toktik users..."
+                  placeholder="Search for Toktikers..."
                   ref={searchUserRef}
                   type="text"
                   onKeyUp={() => {
