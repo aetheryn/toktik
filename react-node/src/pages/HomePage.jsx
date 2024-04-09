@@ -37,7 +37,7 @@ const HomePage = () => {
 
   return (
     <div>
-      <div className="homepage">
+      <div className={styles.homepage}>
         {videos.map((video, index) => (
           <Video
             key={index}
