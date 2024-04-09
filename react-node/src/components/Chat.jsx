@@ -82,6 +82,7 @@ const Chat = (props) => {
 
   useEffect(() => {
     SocketCtx.socket.on("newMessage", props.handleNewMessage);
+    updateRead();
     return () => SocketCtx.socket.off("newMessage");
   }, [SocketCtx.socket, props.allMessages]);
 

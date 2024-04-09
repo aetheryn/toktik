@@ -19,7 +19,6 @@ function App() {
   const [profilePic, setProfilePic] = useState("");
 
   const [socket, setSocket] = useState(null);
-  const [onlineUsers, setOnlineUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState("");
 
   useEffect(() => {
@@ -27,11 +26,8 @@ function App() {
       const socket = io(import.meta.env.VITE_SERVER, {
         query: { userId: username },
       });
+      console.log(socket);
       setSocket(socket);
-
-      socket.on("getOnlineUsers", (users) => {
-        setOnlineUsers(users);
-      });
       return () => socket.close();
     } else {
       if (socket) {
@@ -61,8 +57,8 @@ function App() {
           value={{
             socket,
             setSocket,
-            onlineUsers,
-            setOnlineUsers,
+            // onlineUsers,
+            // setOnlineUsers,
           }}
         >
           <Navbar></Navbar>
