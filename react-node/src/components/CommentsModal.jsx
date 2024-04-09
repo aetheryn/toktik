@@ -35,6 +35,7 @@ const OverLay = (props) => {
       id: props.id,
     });
     if (res.ok) {
+      console.log(props.id);
       setComments(res.data.comments);
       console.log(comments);
       getUserDetails();
@@ -213,7 +214,6 @@ const CommentsModal = (props) => {
           username={props.username}
           title={props.title}
           created_at={props.created_at}
-          showCommentsModal={props.showCommentsModal}
         />,
         document.querySelector("#modal-root")
       )}

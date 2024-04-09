@@ -38,8 +38,6 @@ const Video = (props) => {
 
   // function to increase like
   const handleLikeClick = async (likeId, event) => {
-    event.preventDefault();
-
     const res = await fetchData(
       "/videos/likes/" + likeId,
       "PUT",
@@ -114,7 +112,10 @@ const Video = (props) => {
         >
           <FavoriteIcon
             style={{ fill: color, zIndex: 1000000 }}
-            onClick={(event) => handleLikeClick(props.video._id, event)}
+            onClick={(e) => {
+              e.preventDefault();
+              handleLikeClick(props.video._id);
+            }}
           ></FavoriteIcon>
           <p>{props.video.likes.length}</p>
         </button>
