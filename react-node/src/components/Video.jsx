@@ -16,6 +16,8 @@ const Video = (props) => {
   const [color, setColor] = useState("white");
   // state to track reported status
   const [reported, setReported] = useState(props.video.reported);
+  // state to track liked status
+  const [liked, setLiked] = useState(props.video.likes.length);
 
   const [showCommentsModal, setShowCommentsModal] = useState(false);
   const userCtx = useContext(UserContext);
@@ -32,6 +34,22 @@ const Video = (props) => {
   const colorChangeFavourite = () => {
     setColor((prevColor) => (prevColor === "white" ? "red" : "white"));
     console.log("change color");
+  };
+
+  // function to increase like
+  const handleLikeClick = async (likeId) => {
+    const res = await fetchData(
+      "/videos/likes/" + likeId,
+      "PUT",
+      { username: userCtx.username },
+      undefined
+    );
+    if (res.ok) {
+      const updatedVideo = await res.json();
+
+      setLiked(updatedVideo.likes.length);
+      console.log("liked, counter + 1");
+    }
   };
 
   // function for report button
@@ -54,7 +72,7 @@ const Video = (props) => {
     props.handleReportChange(flaggedId, !reported);
   };
 
-  useEffect(() => {}, [showCommentsModal]);
+  useEffect(() => {}, [showCommentsModal, liked]);
 
   return (
     <>
@@ -89,7 +107,10 @@ const Video = (props) => {
           }}
           onClick={colorChangeFavourite}
         >
-          <FavoriteIcon style={{ fill: color, zIndex: 1000000 }}></FavoriteIcon>
+          <FavoriteIcon
+            style={{ fill: color, zIndex: 1000000 }}
+            onClick={() => handleLikeClick(props.video._id)}
+          ></FavoriteIcon>
           <p>{props.video.likes.length}</p>
         </button>
 
