@@ -13,10 +13,6 @@ const Upload = () => {
   const [preview, setPreview] = useState(false);
 
   const inputRef = useRef();
-  // to track progress bar
-  const [progress, setProgress] = useState(0);
-  // to track upload status - "select", "uploading", "done"
-  const [uploadStatus, setUploadStatus] = useState("select");
 
   // post to backend
   const submit = async (event) => {
@@ -66,6 +62,7 @@ const Upload = () => {
       setPreview(undefined);
       return;
     }
+    // to generate the video preview
     const fileUrl = URL.createObjectURL(file);
     setPreview(fileUrl);
     return () => URL.revokeObjectURL(fileUrl);

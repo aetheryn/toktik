@@ -36,6 +36,8 @@ const HomePage = () => {
   // Function to update the number of likes for a video
   const updateLikes = (videoId, newLikesCount) => {
     setVideos(
+      // map through each video > checks if current video _id matches the videoId property
+      // shallow copy the video object with new properties of likes
       videos.map((video) =>
         video._id === videoId ? { ...video, likes: newLikesCount } : video
       )
