@@ -32,16 +32,14 @@ const Video = (props) => {
 
   useEffect(() => {
     const videoThing = videoRef.current;
-    if (inView) {
+    if (showCommentsModal) {
+      videoThing.pause();
+    } else if (inView) {
       videoThing.play();
-
-      console.log("hi");
-      console.log(ref);
     } else {
       videoThing.pause();
-      console.log("beye");
     }
-  }, [inView]);
+  }, [inView, showCommentsModal]);
 
   const handleCommentsClick = () => {
     if (userCtx.accessToken.length > 0) {
@@ -68,7 +66,6 @@ const Video = (props) => {
     );
     if (res.ok) {
       setLiked(res.data.likes);
-      console.log(res);
     }
   };
 
@@ -88,7 +85,6 @@ const Video = (props) => {
         // Update the likes count in the HomePage component
         // props.updateLikes(likeId, updatedLikesCount);
         setVideoLiked(true);
-        console.log("liked, counter + 1");
 
         getSpecificVideo();
       }
@@ -101,7 +97,7 @@ const Video = (props) => {
       );
       if (res.ok) {
         setVideoLiked(false);
-        console.log("idk, unliked");
+
         getSpecificVideo();
       }
     }
@@ -118,7 +114,6 @@ const Video = (props) => {
       undefined
     );
     if (res.ok) {
-      console.log("clicked, video reported smh");
       setReported(reported);
       // to change color
       colorChange();
@@ -140,6 +135,8 @@ const Video = (props) => {
           title={props.video.title}
           created_at={props.video.created_at}
           showCommentsModal={showCommentsModal}
+          likes={props.likes}
+          comments={props.comments}
         ></CommentsModal>
       )}
 
