@@ -60,8 +60,6 @@
 
 .button {
   color: white;
-  background-color: #ea284e;
-  border-color: transparent;
   border-radius: 10px;
   font-size: 1rem;
   padding: 0.5rem;
@@ -69,7 +67,35 @@
   width: 200px;
 }
 
-.button:hover {
+.unfollowBtn {
+  background-color: transparent;
+  border: white solid;
+}
+
+.unfollowBtn:hover {
+  background-color: white;
+  color: black;
+  font-weight: 700;
+}
+
+.followBtn {
+  background-color: transparent;
+  border: #ea284e solid;
+  color: #ea284e;
+}
+
+.followBtn:hover {
+  background-color: #ea284e;
+  color: white;
+  font-weight: 700;
+}
+
+.messageBtn {
+  background-color: #ea284e;
+  border: #ea284e solid;
+}
+
+.messageBtn:hover {
   font-weight: 700;
 }
 

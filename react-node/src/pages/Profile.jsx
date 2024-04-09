@@ -284,7 +284,7 @@ const Profile = () => {
             {followStatus ? (
               <div className="unfollowBtn">
                 <button
-                  className={styles.button}
+                  className={`${styles.button} ${styles.unfollowBtn}`}
                   onClick={() => handleUnfollow()}
                 >
                   Unfollow
@@ -293,7 +293,7 @@ const Profile = () => {
             ) : (
               <div className="followBtn">
                 <button
-                  className={styles.button}
+                  className={`${styles.button} ${styles.followBtn}`}
                   onClick={() => handleFollow()}
                 >
                   Follow
@@ -302,7 +302,10 @@ const Profile = () => {
             )}
 
             <div className="messageBtn">
-              <button className={styles.button} onClick={() => handleMessage()}>
+              <button
+                className={`${styles.button} ${styles.messageBtn}`}
+                onClick={() => handleMessage()}
+              >
                 Message
               </button>
             </div>
