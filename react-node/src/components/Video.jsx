@@ -17,7 +17,7 @@ const Video = (props) => {
   // state to track reported status
   const [reported, setReported] = useState(props.video.reported);
   // state to track liked status
-  const [liked, setLiked] = useState(props.video.likes.length);
+  const [liked, setLiked] = useState(0);
 
   const [showCommentsModal, setShowCommentsModal] = useState(false);
   const userCtx = useContext(UserContext);
@@ -37,17 +37,22 @@ const Video = (props) => {
   };
 
   // function to increase like
-  const handleLikeClick = async (likeId) => {
+  const handleLikeClick = async (likeId, event) => {
+    event.preventDefault();
+
     const res = await fetchData(
       "/videos/likes/" + likeId,
       "PUT",
       { username: userCtx.username },
       undefined
     );
-    if (res.ok) {
-      const updatedVideo = await res.json();
 
-      setLiked(updatedVideo.likes.length);
+    if (res.ok) {
+      props.getVideos();
+      const updatedLikesCount = props.video.likes.length;
+      setLiked(updatedLikesCount);
+      // Update the likes count in the HomePage component
+      props.updateLikes(likeId, updatedLikesCount);
       console.log("liked, counter + 1");
     }
   };
@@ -109,7 +114,7 @@ const Video = (props) => {
         >
           <FavoriteIcon
             style={{ fill: color, zIndex: 1000000 }}
-            onClick={() => handleLikeClick(props.video._id)}
+            onClick={(event) => handleLikeClick(props.video._id, event)}
           ></FavoriteIcon>
           <p>{props.video.likes.length}</p>
         </button>
