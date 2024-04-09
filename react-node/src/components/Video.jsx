@@ -8,11 +8,12 @@ import ShareIcon from "@mui/icons-material/Share";
 import useFetch from "../hooks/useFetch";
 import CommentsModal from "./CommentsModal";
 import UserContext from "../context/user";
+import { filledInputClasses } from "@mui/material";
 
 const Video = (props) => {
   const fetchData = useFetch();
   // state to track color
-  const [color, setColor] = useState("primary");
+  const [color, setColor] = useState("white");
   // state to track reported status
   const [reported, setReported] = useState(props.video.reported);
 
@@ -26,6 +27,11 @@ const Video = (props) => {
     } else {
       return navigate("/login");
     }
+  };
+  // function to change color
+  const colorChangeFavourite = () => {
+    setColor((prevColor) => (prevColor === "white" ? "red" : "white"));
+    console.log("change color");
   };
 
   // function for report button
@@ -41,14 +47,13 @@ const Video = (props) => {
     if (res.ok) {
       console.log("clicked, video reported smh");
       setReported(reported);
+      // to change color
+      colorChange();
     }
 
     props.handleReportChange(flaggedId, !reported);
-    // to change color
-    setColor((prevColor) =>
-      prevColor === "primary" ? "secondary" : "primary"
-    );
   };
+
   useEffect(() => {}, [showCommentsModal]);
 
   return (
@@ -77,12 +82,14 @@ const Video = (props) => {
             right: "1vw",
             bottom: "32vh",
             fontSize: "1rem",
+            zIndex: 100,
             backgroundColor: "transparent",
             borderColor: "transparent",
             height: "3rem",
           }}
+          onClick={colorChangeFavourite}
         >
-          <FavoriteIcon></FavoriteIcon>
+          <FavoriteIcon style={{ fill: color, zIndex: 1000000 }}></FavoriteIcon>
           <p>{props.video.likes.length}</p>
         </button>
 
@@ -110,11 +117,11 @@ const Video = (props) => {
             fontSize: "1rem",
             backgroundColor: "transparent",
             borderColor: "transparent",
-            zIndex: 1600,
+            zIndex: 1000000,
           }}
           onClick={() => reportVideo(props.video._id)}
         >
-          <FlagIcon style={{ color: color }}></FlagIcon>
+          <FlagIcon></FlagIcon>
         </button>
 
         <button
@@ -125,7 +132,7 @@ const Video = (props) => {
             fontSize: "1rem",
             backgroundColor: "transparent",
             borderColor: "transparent",
-            zIndex: 10,
+            zIndex: 1000000,
           }}
         >
           <ShareIcon></ShareIcon>
