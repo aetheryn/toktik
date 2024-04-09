@@ -6,8 +6,6 @@ import "./HomePage.css";
 
 const HomePage = () => {
   const [videos, setVideos] = useState([]);
-  // state for reported videos
-  const [reported, setReported] = useState(false);
 
   const getVideos = async () => {
     try {
@@ -15,11 +13,10 @@ const HomePage = () => {
       if (res.ok) {
         const data = await res.json();
         console.log(data);
-        for (let i = 0; i < data.length; i++) {
-          if (data[i].reported === false) {
-            setVideos(data);
-          }
-        }
+        // Filter videos with reported === false
+        const filteredVideos = data.filter((video) => video.reported === false);
+        // Set videos
+        setVideos(filteredVideos);
       }
     } catch (error) {
       if (error.name !== "AbortError") {
