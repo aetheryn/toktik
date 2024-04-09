@@ -222,6 +222,7 @@ const Video = (props) => {
           className="video-player"
           src={props.video.url}
           controls
+          loop={true}
         />
       </div>
     </>
