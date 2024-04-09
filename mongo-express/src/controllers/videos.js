@@ -245,12 +245,69 @@ const addComments = async (req, res) => {
       { $push: { comments: req.body } }
     );
 
+    console.log(req.body.replies.parentId);
+
     res.status(200).json({ status: "ok", msg: "added comments" });
   } catch (error) {
     console.log(error.message);
     res
       .status(400)
       .json({ status: "error", msg: "error adding comments weh weh" });
+  }
+};
+
+const findParent = (commentsobj, parentId) => {
+  // while loop to loop through everything in the comments
+  let commentsTotal = [...commentsobj]; // to create a shallow copy of the comments -
+
+  while (commentsTotal.length > 0) {
+    //if there are things in comments --> push to comment variable (creating the nesting thingy)
+    const comment = commentsTotal.shift();
+    // console.log(comment._id); comes out as objectId
+
+    if (comment._id.toString() === parentId) {
+      //toString() is to only get the value of the ObjectID
+      return comment;
+    }
+    if (comment.replies && comment.replies.length > 0) {
+      //after comment is iterated - look into comment.replies (if have push into commentsTotal)
+      commentsTotal = [...commentsTotal, ...comment.replies];
+    }
+  }
+
+  console.log("error orphan");
+};
+
+const addReplies = async (req, res) => {
+  try {
+    const check = await Videos.findById({
+      _id: req.params.id, // req.params.id finds the specific video to update the comments - videoSchema
+    });
+
+    const comments = check.comments; // only displays the comments subdoc in the video document
+
+    const parent = findParent(comments, req.body.parentId);
+
+    console.log(parent.replies);
+
+    const addReply = {
+      username: req.body.username,
+      content: req.body.content,
+      profilePicture: req.body.profilePicture,
+      parentId: req.body.parentId,
+      replies: [],
+    };
+
+    parent.replies.push(addReply);
+
+    await check.save();
+
+    res.status(200).json({ status: "ok", msg: "added new reply! :) " });
+  } catch (error) {
+    console.log(error.message);
+    res
+      .status(400)
+      .json({ status: "error", msg: "error finding comment cuz RECUSIVE" });
   }
 };
 
@@ -282,5 +339,6 @@ module.exports = {
   getFlaggedVideos,
   updateFlaggedVideo,
   getSelectVideo,
+  addReplies,
   addLikes,
 };

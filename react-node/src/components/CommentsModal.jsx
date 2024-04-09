@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import useFetch from "../hooks/useFetch";
 import styles from "./CommentsModal.module.css";
 import UserContext from "../context/user";
+import Comments from "./Comments";
 
 const OverLay = (props) => {
   const fetchData = useFetch();
@@ -35,6 +36,7 @@ const OverLay = (props) => {
     });
     if (res.ok) {
       setComments(res.data.comments);
+      console.log(comments);
       getUserDetails();
     }
   };
@@ -52,30 +54,56 @@ const OverLay = (props) => {
     }
   };
 
-  const addComments = async () => {
-    const res = await fetchData(
-      "/videos/comments/" + props.id,
-      "PUT",
-      {
-        username: userCtx.username,
-        profilePicture: userCtx.profilePic,
-        content: commentRef.current.value,
-      },
-      undefined
-    );
-    if (res.ok) {
-      getProfileData();
+  const addComments = async (id) => {
+    if (commentRef.current.value !== "" && props.id === id) {
+      const res = await fetchData(
+        "/videos/comments/" + props.id,
+        "PUT",
+        {
+          parentId: id,
+          username: userCtx.username,
+          profilePicture: userCtx.profilePic,
+          content: commentRef.current.value,
+        },
+        undefined
+      );
+      if (res.ok) {
+        console.log(id);
+        getProfileData();
+      }
     }
-    // need to get new comments from userDetails (based on video ID)
   };
 
-  const handleSubmitComment = (e) => {
+  const addReply = async (id) => {
+    if (commentRef.current.value) {
+      const res = await fetchData(
+        "/comments/replies/" + props.id,
+        "POST",
+        {
+          parentId: id,
+          username: userCtx.username,
+          profilePicture: userCtx.profilePic,
+          content: commentRef.current.value,
+        },
+        undefined
+      );
+      if (res.ok) {
+        console.log(id);
+        getProfileData();
+      }
+    }
+  };
+
+  const handleSubmitComment = (e, id) => {
+    console.log(id);
+    console.log(props.id);
     e.preventDefault();
-    addComments();
+    addComments(id);
     setShowInput(false);
     commentRef.current.value = "";
   };
 
+  // click outside and close modal
   useEffect(() => {
     getProfileData();
     modalRef.current.value = document.querySelector("#outside");
@@ -89,6 +117,13 @@ const OverLay = (props) => {
         }
       });
     }
+  };
+
+  const handleSubmitReply = (e, id) => {
+    e.preventDefault();
+    addReply(id);
+    setShowInput(false);
+    commentRef.current.value = "";
   };
 
   return (
@@ -130,7 +165,7 @@ const OverLay = (props) => {
               </div>
 
               {showInput && (
-                <form onSubmit={(e) => handleSubmitComment(e)}>
+                <form onSubmit={(e) => handleSubmitComment(e, props.id)}>
                   <input
                     className={styles.input}
                     type="text"
@@ -147,21 +182,13 @@ const OverLay = (props) => {
                 ? comments.map((item) => {
                     return (
                       <>
-                        <div className={styles.commentsDiv}>
-                          <div className={styles.mainTitle}>
-                            <img
-                              src={item.profilePicture}
-                              className={styles.pp}
-                            />
-                            <div className={styles.usernameTitle}>
-                              <p>{item.username}</p>
-                              <p>{item.content}</p>
-                            </div>
-                          </div>
-                        </div>
-                        <p className={styles.dateTimeComments}>
-                          {dateConvert(item.created_at)}
-                        </p>
+                        <Comments
+                          key={item._id}
+                          handleSubmitReply={handleSubmitReply}
+                          comments={item}
+                          commentRef={commentRef}
+                          id={item._id}
+                        ></Comments>{" "}
                         <hr />
                       </>
                     );

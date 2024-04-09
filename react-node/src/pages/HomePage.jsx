@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import Profile from "./Profile";
 import Video from "../components/Video";
 import styles from "./HomePage.module.css";
 

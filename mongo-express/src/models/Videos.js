@@ -1,10 +1,22 @@
 const mongoose = require("mongoose");
 
+const RepliesSchema = new mongoose.Schema();
+RepliesSchema.add({
+  username: { type: String },
+  content: { type: String },
+  profilePicture: { type: String },
+  created_at: { type: Date, default: Date.now },
+  replies: [RepliesSchema],
+  parentId: { type: String },
+});
+
 const CommentsSchema = new mongoose.Schema({
   username: { type: String },
   content: { type: String },
   profilePicture: { type: String },
   created_at: { type: Date, default: Date.now },
+  replies: [RepliesSchema],
+  parentId: { type: String },
 });
 
 const VideosSchema = new mongoose.Schema({
