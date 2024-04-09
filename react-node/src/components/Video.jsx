@@ -16,8 +16,10 @@ const Video = (props) => {
   const [color, setColor] = useState("white");
   // state to track reported status
   const [reported, setReported] = useState(props.video.reported);
-  // state to track liked status
+  // state to track number of likes
   const [liked, setLiked] = useState([]);
+  // state to track whether a video has been liked
+  const [videoLiked, setVideoLiked] = useState(false);
 
   const [showCommentsModal, setShowCommentsModal] = useState(false);
   const userCtx = useContext(UserContext);
@@ -55,20 +57,36 @@ const Video = (props) => {
 
   // function to increase like
   const handleLikeClick = async (likeId) => {
-    const res = await fetchData(
-      "/videos/likes/" + likeId,
-      "PUT",
-      { username: userCtx.username },
-      undefined
-    );
+    if (videoLiked === false) {
+      const res = await fetchData(
+        "/videos/likes/" + likeId,
+        "PUT",
+        { username: userCtx.username },
+        undefined
+      );
 
-    if (res.ok) {
-      // renders the page again
-      // props.getVideos();
-      // Update the likes count in the HomePage component
-      // props.updateLikes(likeId, updatedLikesCount);
-      console.log("liked, counter + 1");
-      getSpecificVideo();
+      if (res.ok) {
+        // renders the page again
+        // props.getVideos();
+        // Update the likes count in the HomePage component
+        // props.updateLikes(likeId, updatedLikesCount);
+        setVideoLiked(true);
+        console.log("liked, counter + 1");
+
+        getSpecificVideo();
+      }
+    } else if (videoLiked === true) {
+      const res = await fetchData(
+        "/videos/likes/remove/" + likeId,
+        "PUT",
+        { username: userCtx.username },
+        undefined
+      );
+      if (res.ok) {
+        setVideoLiked(false);
+        console.log("idk, unliked");
+        getSpecificVideo();
+      }
     }
   };
 

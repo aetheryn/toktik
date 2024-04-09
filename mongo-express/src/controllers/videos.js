@@ -324,6 +324,21 @@ const addLikes = async (req, res) => {
   }
 };
 
+const removeLikes = async (req, res) => {
+  try {
+    const tempArr = {};
+    if ("username" in req.body) tempArr.username = req.body.username;
+    await Videos.findByIdAndUpdate(
+      { _id: req.params.id },
+      { $pull: { likes: req.body.username } }
+    );
+    res.status(200).json({ status: "ok", msg: "user has already liked" });
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "error eugh brother eugh" });
+  }
+};
+
 module.exports = {
   seedVideo,
   getVideos,
@@ -339,4 +354,5 @@ module.exports = {
   getSelectVideo,
   addReplies,
   addLikes,
+  removeLikes,
 };

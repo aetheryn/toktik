@@ -14,6 +14,7 @@ const {
   addComments,
   getSelectVideo,
   addLikes,
+  removeLikes,
 } = require("../controllers/videos");
 const {
   validateIdInParam,
@@ -57,5 +58,7 @@ router.put("/comments/:id", addComments);
 router.put("/getvideo", getSelectVideo);
 
 router.put("/likes/:id", addLikes);
+
+router.put("/likes/remove/:id", removeLikes);
 
 module.exports = router;
