@@ -95,6 +95,43 @@
   background-color: #2f2f2f;
 }
 
+.dropdownuser {
+  display: grid;
+  position: absolute;
+  top: 70px;
+  right: 20vw;
+  width: 15vw;
+  z-index: 10000000;
+}
+
+.dropdownuser > a {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  padding: 10px;
+  text-decoration: none;
+  font-size: 1rem;
+  background-color: #2f2f2f;
+}
+
+.dropdownuser > a:hover {
+  /* font-weight: 700; */
+  background-color: #ea284e;
+}
+
+.display {
+  display: flex;
+}
+
+.profilePic {
+  height: 50px;
+  border-radius: 50%;
+}
+
+.username {
+  padding-left: 0.5vw;
+}
+
 /* Content moderator navbar  */
 
 .cmdropdownlinks {
