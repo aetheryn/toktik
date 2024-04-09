@@ -5,7 +5,7 @@ const UserProfile = require("../models/auth");
 const getAllUserProfile = async (req, res) => {
   try {
     const profiles = await UserProfile.find().select(
-      "username following followers liked_videos profilePicture"
+      "username following followers liked_videos profilePicture role"
     );
     res.json(profiles);
   } catch (error) {

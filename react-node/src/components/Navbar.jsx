@@ -8,9 +8,15 @@ const Navbar = () => {
   const userCtx = useContext(UserContext);
   const searchUserRef = useRef();
   const navigate = useNavigate();
+  const fetchProfile = useFetch();
   const [adminView, setAdminView] = useState(false);
+  const [allUsers, setAllUsers] = useState([]);
+  const [displayedUsers, setDisplayedUsers] = useState([]);
 
   useEffect(() => {}, [adminView]);
+  useEffect(() => {
+    getAllUsers();
+  }, []);
 
   const handleLogout = () => {
     userCtx.setaccessToken("");
@@ -19,9 +25,39 @@ const Navbar = () => {
     userCtx.setProfilePic("");
   };
 
-  const handleSearchUser = (event) => {
-    if (event.key == "Enter") {
-      navigate(`/profile/${searchUserRef.current.value}`);
+  const getAllUsers = async () => {
+    try {
+      const response = await fetchProfile(
+        "/users/",
+        "GET",
+        undefined,
+        undefined
+      );
+
+      if (response.ok) {
+        const filteredUsers = response.data.filter(
+          (user) => user.role === "user"
+        );
+
+        setAllUsers(filteredUsers);
+      }
+    } catch (error) {
+      if (error.name !== "AbortError") {
+        console.error(error.message);
+      }
+    }
+  };
+
+  const handleSearchUser = () => {
+    if (searchUserRef.current.value.length > 0) {
+      const tempArray = [...allUsers];
+      const filterSearch = tempArray.filter((user) =>
+        user.username.includes(searchUserRef.current.value)
+      );
+
+      setDisplayedUsers(filterSearch);
+    } else {
+      setDisplayedUsers([]);
     }
   };
 
@@ -72,15 +108,40 @@ const Navbar = () => {
               </NavLink>
             </button>
 
-            <div className={styles.navlinks}>
-              <input
-                placeholder="Search for Toktik users..."
-                ref={searchUserRef}
-                type="text"
-                onKeyDown={(event) => {
-                  handleSearchUser(event);
-                }}
-              ></input>
+            <div className={styles.dropdown}>
+              <div className={styles.navlinks}>
+                <input
+                  placeholder="Search for Toktik users..."
+                  ref={searchUserRef}
+                  type="text"
+                  onKeyUp={() => {
+                    handleSearchUser();
+                  }}
+                ></input>
+              </div>
+
+              {displayedUsers.length > 0 && (
+                <div className={styles.dropdownuser}>
+                  {displayedUsers.map((user) => {
+                    return (
+                      <Link
+                        to={`/profile/${user.username}`}
+                        onClick={() => {
+                          searchUserRef.current.value = "";
+                          setDisplayedUsers([]);
+                        }}
+                      >
+                        <img
+                          src={user.profilePicture}
+                          alt=""
+                          className={styles.profilePic}
+                        />
+                        <div className={styles.username}>{user.username}</div>
+                      </Link>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           </div>
         ) : (

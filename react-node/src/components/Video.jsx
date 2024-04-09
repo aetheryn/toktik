@@ -30,6 +30,7 @@ const Video = (props) => {
       return navigate("/login");
     }
   };
+
   // function to change color
   const colorChangeFavourite = () => {
     setColor((prevColor) => (prevColor === "white" ? "red" : "white"));
@@ -46,6 +47,7 @@ const Video = (props) => {
     );
 
     if (res.ok) {
+      // renders the page again
       props.getVideos();
       const updatedLikesCount = props.video.likes.length;
       setLiked(updatedLikesCount);
@@ -71,7 +73,7 @@ const Video = (props) => {
       // to change color
       colorChange();
     }
-
+    // to update source of truth in parent (homepage)
     props.handleReportChange(flaggedId, !reported);
   };
 
