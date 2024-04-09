@@ -35,6 +35,15 @@ const HomePage = () => {
     setVideos(videos.filter((video) => video._id !== videoId));
   };
 
+  // Function to update the number of likes for a video
+  const updateLikes = (videoId, newLikesCount) => {
+    setVideos(
+      videos.map((video) =>
+        video._id === videoId ? { ...video, likes: newLikesCount } : video
+      )
+    );
+  };
+
   return (
     <div className={styles.homepage}>
       {videos.map((video, index) => (
@@ -43,6 +52,8 @@ const HomePage = () => {
           video={video}
           id={index}
           handleReportChange={handleReportChange}
+          updateLikes={updateLikes}
+          getVideos={getVideos}
         />
       ))}
     </div>
