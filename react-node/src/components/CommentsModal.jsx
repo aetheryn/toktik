@@ -71,27 +71,27 @@ const OverLay = (props) => {
         console.log(id);
         getProfileData();
       }
-    } else {
-      if (commentRef.current.value !== "" && id !== props.id) {
-        const res = await fetchData(
-          "/videos/comments/" + props.id,
-          "PUT",
-          {
-            replies: {
-              parentId: id,
-              username: userCtx.username,
-              profilePicture: userCtx.profilePic,
-              content: commentRef.current.value,
-            },
-          },
-          undefined
-        );
-        if (res.ok) {
-          getProfileData();
-        }
+    }
+  };
+
+  const addReply = async (id) => {
+    if (commentRef.current.value) {
+      const res = await fetchData(
+        "/comments/replies/" + props.id,
+        "POST",
+        {
+          parentId: id,
+          username: userCtx.username,
+          profilePicture: userCtx.profilePic,
+          content: commentRef.current.value,
+        },
+        undefined
+      );
+      if (res.ok) {
+        console.log(id);
+        getProfileData();
       }
     }
-    // need to get new comments from userDetails (based on video ID)
   };
 
   const handleSubmitComment = (e, id) => {
@@ -117,6 +117,13 @@ const OverLay = (props) => {
         }
       });
     }
+  };
+
+  const handleSubmitReply = (e, id) => {
+    e.preventDefault();
+    addReply(id);
+    setShowInput(false);
+    commentRef.current.value = "";
   };
 
   return (
@@ -171,39 +178,13 @@ const OverLay = (props) => {
 
               {/* comments */}
 
-              {/* {comments.map((item) => {
-                if (item.parentId === props.id) {
-                  return (
-                    <>
-                      <div className={styles.commentsDiv}>
-                        <div className={styles.mainTitle}>
-                          <img
-                            src={item.profilePicture}
-                            className={styles.pp}
-                          />
-                          <div className={styles.usernameTitle}>
-                            <p>{item.username}</p>
-                            <p>{item.content}</p>
-                          </div>
-                        </div>
-                      </div>
-                      <p className={styles.dateTimeComments}>
-                        {dateConvert(item.created_at)}
-                      </p>
-
-                      <hr />
-                    </>
-                  );
-                }
-              })} */}
-
               {comments
                 ? comments.map((item) => {
                     return (
                       <>
                         <Comments
                           key={item._id}
-                          handleSubmitComment={handleSubmitComment}
+                          handleSubmitReply={handleSubmitReply}
                           comments={item}
                           commentRef={commentRef}
                           id={item._id}

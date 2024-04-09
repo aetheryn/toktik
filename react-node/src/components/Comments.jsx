@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./CommentsModal.module.css";
 
 const Comments = (props) => {
@@ -16,6 +16,10 @@ const Comments = (props) => {
     }).format(date);
     return formatDate;
   };
+
+  useEffect(() => {
+    console.log(showInput);
+  }, [showInput]);
 
   return (
     <>
@@ -41,26 +45,32 @@ const Comments = (props) => {
       </p>
 
       {showInput && (
-        <form>
-          <input
-            className={styles.input}
-            type="text"
-            ref={props.commentRef}
-            placeholder="comment"
-            id={props.id}
-          />
-          <button
-            onClick={(e) => props.handleSubmitComment(e, props.id)}
-          ></button>
-          <button onClick={() => console.log(props.id)}></button>
-        </form>
+        <>
+          <form
+            onSubmit={(e) => {
+              setShowInput(false);
+              props.handleSubmitReply(e, props.id);
+            }}
+          >
+            <input
+              className={styles.input}
+              type="text"
+              ref={props.commentRef}
+              placeholder="comment"
+              id={props.id}
+            />
+            {/* <button
+              onClick={(e) => props.handleSubmitReply(e, props.id)}
+            ></button> */}
+          </form>
+        </>
       )}
 
       <div style={{ paddingLeft: 25 }}>
         {props.comments.replies?.map((item) => {
           return (
             <Comments
-              handleSubmitComment={props.handleSubmitComment}
+              handleSubmitReply={props.handleSubmitReply}
               comments={item}
               commentRef={props.commentRef}
               key={item._id}
