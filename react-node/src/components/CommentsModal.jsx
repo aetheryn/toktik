@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import useFetch from "../hooks/useFetch";
 import styles from "./CommentsModal.module.css";
 import UserContext from "../context/user";
+import Comments from "./Comments";
 
 const OverLay = (props) => {
   const fetchData = useFetch();
@@ -35,6 +36,7 @@ const OverLay = (props) => {
     });
     if (res.ok) {
       setComments(res.data.comments);
+      console.log(comments);
       getUserDetails();
     }
   };
@@ -52,30 +54,51 @@ const OverLay = (props) => {
     }
   };
 
-  const addComments = async () => {
-    const res = await fetchData(
-      "/videos/comments/" + props.id,
-      "PUT",
-      {
-        username: userCtx.username,
-        profilePicture: userCtx.profilePic,
-        content: commentRef.current.value,
-      },
-      undefined
-    );
-    if (res.ok) {
-      getProfileData();
+  const addComments = async (id) => {
+    if (commentRef.current.value !== "" && id === props.id) {
+      const res = await fetchData(
+        "/videos/comments/" + props.id,
+        "PUT",
+        {
+          username: userCtx.username,
+          profilePicture: userCtx.profilePic,
+          content: commentRef.current.value,
+        },
+        undefined
+      );
+      if (res.ok) {
+        getProfileData();
+      }
+    } else {
+      if (commentRef.current.value !== "" && id !== props.id) {
+        const res = await fetchData(
+          "/videos/comments/" + props.id,
+          "PUT",
+          {
+            replies: {
+              username: userCtx.username,
+              profilePicture: userCtx.profilePic,
+              content: commentRef.current.value,
+            },
+          },
+          undefined
+        );
+        if (res.ok) {
+          getProfileData();
+        }
+      }
     }
     // need to get new comments from userDetails (based on video ID)
   };
 
-  const handleSubmitComment = (e) => {
+  const handleSubmitComment = (e, id) => {
     e.preventDefault();
-    addComments();
+    addComments(id);
     setShowInput(false);
     commentRef.current.value = "";
   };
 
+  // click outside and close modal
   useEffect(() => {
     getProfileData();
     modalRef.current.value = document.querySelector("#outside");
@@ -143,25 +166,43 @@ const OverLay = (props) => {
 
               {/* comments */}
 
+              {/* {comments.map((item) => {
+                if (item.parentId === props.id) {
+                  return (
+                    <>
+                      <div className={styles.commentsDiv}>
+                        <div className={styles.mainTitle}>
+                          <img
+                            src={item.profilePicture}
+                            className={styles.pp}
+                          />
+                          <div className={styles.usernameTitle}>
+                            <p>{item.username}</p>
+                            <p>{item.content}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <p className={styles.dateTimeComments}>
+                        {dateConvert(item.created_at)}
+                      </p>
+
+                      <hr />
+                    </>
+                  );
+                }
+              })} */}
+
               {comments
                 ? comments.map((item) => {
                     return (
                       <>
-                        <div className={styles.commentsDiv}>
-                          <div className={styles.mainTitle}>
-                            <img
-                              src={item.profilePicture}
-                              className={styles.pp}
-                            />
-                            <div className={styles.usernameTitle}>
-                              <p>{item.username}</p>
-                              <p>{item.content}</p>
-                            </div>
-                          </div>
-                        </div>
-                        <p className={styles.dateTimeComments}>
-                          {dateConvert(item.created_at)}
-                        </p>
+                        <Comments
+                          key={item._id}
+                          handleSubmitComment={handleSubmitComment}
+                          comments={item}
+                          commentRef={commentRef}
+                          id={item._id}
+                        ></Comments>{" "}
                         <hr />
                       </>
                     );

@@ -255,7 +255,9 @@ const addComments = async (req, res) => {
 
 const findComments = async (req, res) => {
   try {
-    await Videos.findOne({ _id: req.params.id });
+    const check = await Videos.find({ _id: req.params.id }).select("comments");
+
+    res.json(check);
   } catch (error) {
     console.log(error.message);
     res
