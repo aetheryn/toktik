@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Profile from "./Profile";
 import Video from "../components/Video";
 import styles from "./HomePage.module.css";
 
 const HomePage = () => {
   const [videos, setVideos] = useState([]);
-  const navigate = useNavigate();
 
   const getVideos = async () => {
     try {
@@ -14,7 +13,10 @@ const HomePage = () => {
       if (res.ok) {
         const data = await res.json();
         console.log(data);
-        setVideos(data);
+        // Filter videos with reported === false
+        const filteredVideos = data.filter((video) => video.reported === false);
+        // Set videos
+        setVideos(filteredVideos);
       }
     } catch (error) {
       if (error.name !== "AbortError") {
@@ -27,11 +29,24 @@ const HomePage = () => {
     getVideos();
   }, []);
 
+  // to remove the flagged video from the homepage
+  // creates a new array via filter -> checks the whether the videoid sent in exists in the current array
+  const handleReportChange = (videoId) => {
+    setVideos(videos.filter((video) => video._id !== videoId));
+  };
+
   return (
-    <div className={styles.homepage}>
-      {videos.map((video, index) => (
-        <Video key={index} video={video} id={video._id} />
-      ))}
+    <div>
+      <div className={styles.homepage}>
+        {videos.map((video, index) => (
+          <Video
+            key={index}
+            video={video}
+            id={index}
+            handleReportChange={handleReportChange}
+          />
+        ))}
+      </div>
     </div>
   );
 };

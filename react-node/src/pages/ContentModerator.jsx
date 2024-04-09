@@ -4,7 +4,7 @@ import Video from "../components/Video";
 import "./ContentModerator.css";
 import Button from "@mui/material/Button";
 
-const ContentModerator = () => {
+const ContentModerator = (props) => {
   const fetchData = useFetch();
   const [flaggedVideos, setFlaggedVideos] = useState([]);
   const [videoStatus, setVideoStatus] = useState(false);
@@ -29,7 +29,6 @@ const ContentModerator = () => {
 
   // function for confirming video is OK
   const videoPass = async (flaggedId) => {
-    console.log(flaggedId);
     const res = await fetchData(
       "/videos/flagged/" + flaggedId,
       "PATCH",
@@ -39,9 +38,9 @@ const ContentModerator = () => {
       undefined
     );
     if (res.ok) {
+      // to toggle the state of the video
       if (videoStatus === false) {
         setVideoStatus(true);
-        console.log(videoStatus);
       } else if (videoStatus === true) {
         setVideoStatus(false);
       }
@@ -57,9 +56,9 @@ const ContentModerator = () => {
       undefined
     );
     if (res.ok) {
+      // to toggle the state of the video
       if (videoStatus === false) {
         setVideoStatus(true);
-        console.log(videoStatus);
       } else if (videoStatus === true) {
         setVideoStatus(false);
       }
