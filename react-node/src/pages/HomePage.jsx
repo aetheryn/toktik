@@ -36,17 +36,15 @@ const HomePage = () => {
   };
 
   return (
-    <div>
-      <div className={styles.homepage}>
-        {videos.map((video, index) => (
-          <Video
-            key={index}
-            video={video}
-            id={index}
-            handleReportChange={handleReportChange}
-          />
-        ))}
-      </div>
+    <div className={styles.homepage}>
+      {videos.map((video, index) => (
+        <Video
+          key={index}
+          video={video}
+          id={index}
+          handleReportChange={handleReportChange}
+        />
+      ))}
     </div>
   );
 };

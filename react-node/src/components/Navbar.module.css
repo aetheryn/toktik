@@ -87,7 +87,7 @@
 
 .dropdown:hover .dropdownlinks {
   display: grid;
-  position: fixed;
+  position: absolute;
   top: 70px;
   right: 20px;
   height: 80px;
