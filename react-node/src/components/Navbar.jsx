@@ -1,15 +1,16 @@
-import { React, useContext, useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { React, useContext, useEffect, useState, useRef } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import UserContext from "../context/user";
+import useFetch from "../hooks/useFetch";
 
 const Navbar = () => {
   const userCtx = useContext(UserContext);
+  const searchUserRef = useRef();
+  const navigate = useNavigate();
   const [adminView, setAdminView] = useState(false);
 
-  useEffect(() => {
-    console.log(adminView);
-  }, [adminView]);
+  useEffect(() => {}, [adminView]);
 
   const handleLogout = () => {
     userCtx.setaccessToken("");
@@ -18,15 +19,18 @@ const Navbar = () => {
     userCtx.setProfilePic("");
   };
 
+  const handleSearchUser = (event) => {
+    if (event.key == "Enter") {
+      navigate(`/profile/${searchUserRef.current.value}`);
+    }
+  };
+
   return (
     <header className={styles.navbar}>
       <div className={`row ${styles.container}`}>
         <div className={`col ${styles.logo}`}>
           <Link to="/main">
-            <img
-              src="https://fontmeme.com/permalink/240402/d3d95be2d8e76c275d690618dd82def0.png"
-              alt=""
-            />
+            <img src="https://fontmeme.com/permalink/240402/d3d95be2d8e76c275d690618dd82def0.png" />
           </Link>
         </div>
         {userCtx.role === "user" ? (
@@ -67,6 +71,17 @@ const Navbar = () => {
                 </span>
               </NavLink>
             </button>
+
+            <div className={styles.navlinks}>
+              <input
+                placeholder="Search for Toktik users..."
+                ref={searchUserRef}
+                type="text"
+                onKeyDown={(event) => {
+                  handleSearchUser(event);
+                }}
+              ></input>
+            </div>
           </div>
         ) : (
           ""

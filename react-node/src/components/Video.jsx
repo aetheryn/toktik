@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "../components/Video.css";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CommentIcon from "@mui/icons-material/Comment";
@@ -34,11 +36,40 @@ const Video = (props) => {
     setColor((prevColor) =>
       prevColor === "primary" ? "secondary" : "primary"
     );
+import CommentsModal from "./CommentsModal";
+import UserContext from "../context/user";
+import styles from "./Video";
+
+const Video = (props) => {
+  const [showCommentsModal, setShowCommentsModal] = useState(false);
+  const userCtx = useContext(UserContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {}, [showCommentsModal]);
+
+  const handleCommentsClick = () => {
+    if (userCtx.accessToken.length > 0) {
+      return setShowCommentsModal(true);
+    } else {
+      return navigate("/login");
+    }
   };
 
   return (
     <>
-      <div className="video-display">
+      {showCommentsModal && (
+        <CommentsModal
+          id={props.id}
+          username={props.video.username}
+          url={props.video.url}
+          setShowCommentsModal={setShowCommentsModal}
+          title={props.video.title}
+          created_at={props.video.created_at}
+          showCommentsModal={showCommentsModal}
+        ></CommentsModal>
+      )}
+
+      <div className="videoDisplay">
         <div className="title">{props.video.title}</div>
         <Link to={`/profile/${props.video.username}`} className="username">
           {props.video.username}
@@ -54,12 +85,14 @@ const Video = (props) => {
         ></FavoriteIcon>
         <div className="likes">{props.video.likes.length}</div>
 
-        <CommentIcon
+        <button
           style={{
             position: "absolute",
-            right: 15,
-            top: 560,
-            fontSize: 28,
+            right: "1vw",
+            bottom: "24vh",
+            fontSize: "1rem",
+            backgroundColor: "transparent",
+            borderColor: "transparent",
           }}
         ></CommentIcon>
         <div className="comments">{props.video.comments.length}</div>
@@ -82,9 +115,42 @@ const Video = (props) => {
             right: 15,
             top: 670,
             fontSize: 28,
+        >
+          <FavoriteIcon></FavoriteIcon>
+          <p>{props.video.likes.length}</p>
+        </button>
+
+        <button
+          style={{
+            position: "absolute",
+            right: "1vw",
+            bottom: "16vh",
+            fontSize: "1rem",
+            zIndex: 1000000,
+            backgroundColor: "transparent",
+            borderColor: "transparent",
           }}
-        ></ShareIcon>
-        <video className="video-player" src={props.video.url} />
+          onClick={() => handleCommentsClick()}
+        >
+          <CommentIcon></CommentIcon>
+          <p>{props.video.comments.length}</p>
+        </button>
+
+        <button
+          style={{
+            position: "absolute",
+            right: "1vw",
+            bottom: "13vh",
+            fontSize: "1rem",
+            backgroundColor: "transparent",
+            borderColor: "transparent",
+            zIndex: 10,
+          }}
+        >
+          <ShareIcon></ShareIcon>
+        </button>
+
+        <video className="video-player" src={props.video.url} controls />
       </div>
     </>
   );

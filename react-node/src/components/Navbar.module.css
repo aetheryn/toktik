@@ -18,6 +18,21 @@
   border: transparent;
   background-color: transparent;
   height: 70px;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.navlinks > input {
+  margin-right: 2vw;
+  border-radius: 50px;
+  padding: 0.5rem;
+  padding-left: 20px;
+  font-size: smaller;
+  width: 20vw;
+  border-color: transparent;
+  color: black;
 }
 
 .navlinks > a {

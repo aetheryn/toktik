@@ -214,6 +214,7 @@ const Profile = () => {
   useEffect(() => {
     console.log("mounted");
   }, []);
+
   useEffect(() => {
     getProfileStatInfo();
     getUserVideos();
@@ -339,10 +340,18 @@ const Profile = () => {
           )}
         </div>
         <div className={styles.userVideoContainer}>
-          {userVideos.map((item) => {
+          {userVideos.map((item, idx) => {
             return (
               <>
-                <UserUpload url={item.url} title={item.title} />
+                <UserUpload
+                  url={item.url}
+                  title={item.title}
+                  id={item._id}
+                  username={item.username}
+                  created_at={item.created_at}
+                  idx={idx}
+                  key={item._id}
+                />
               </>
             );
           })}

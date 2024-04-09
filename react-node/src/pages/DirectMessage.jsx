@@ -100,7 +100,6 @@ const DirectMessage = () => {
 
   const handleNewMessage = () => {
     getAllMessages();
-    newMessageCount();
   };
 
   return (
