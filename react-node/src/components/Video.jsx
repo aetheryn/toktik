@@ -17,12 +17,13 @@ const Video = (props) => {
   // state to track reported status
   const [reported, setReported] = useState(props.video.reported);
   // state to track liked status
-  const [liked, setLiked] = useState(0);
+  const [liked, setLiked] = useState([]);
 
   const [showCommentsModal, setShowCommentsModal] = useState(false);
   const userCtx = useContext(UserContext);
   const navigate = useNavigate();
 
+  console.log(Boolean(liked));
   const handleCommentsClick = () => {
     if (userCtx.accessToken.length > 0) {
       return setShowCommentsModal(true);
@@ -37,10 +38,23 @@ const Video = (props) => {
     console.log("change color");
   };
 
-  // function to increase like
-  const handleLikeClick = async (likeId, event) => {
-    event.preventDefault();
+  const getSpecificVideo = async () => {
+    const res = await fetchData(
+      "/videos/getvideo/",
+      "PUT",
+      {
+        id: props.id,
+      },
+      undefined
+    );
+    if (res.ok) {
+      setLiked(res.data.likes);
+      console.log(res);
+    }
+  };
 
+  // function to increase like
+  const handleLikeClick = async (likeId) => {
     const res = await fetchData(
       "/videos/likes/" + likeId,
       "PUT",
@@ -50,12 +64,11 @@ const Video = (props) => {
 
     if (res.ok) {
       // renders the page again
-      props.getVideos();
-      const updatedLikesCount = props.video.likes.length;
-      setLiked(updatedLikesCount);
+      // props.getVideos();
       // Update the likes count in the HomePage component
-      props.updateLikes(likeId, updatedLikesCount);
+      // props.updateLikes(likeId, updatedLikesCount);
       console.log("liked, counter + 1");
+      getSpecificVideo();
     }
   };
 
@@ -116,9 +129,12 @@ const Video = (props) => {
         >
           <FavoriteIcon
             style={{ fill: color, zIndex: 1000000 }}
-            onClick={(event) => handleLikeClick(props.video._id, event)}
+            onClick={(e) => {
+              e.preventDefault();
+              handleLikeClick(props.video._id);
+            }}
           ></FavoriteIcon>
-          <p>{props.video.likes.length}</p>
+          <p>{liked.length > 0 ? liked.length : props.video.likes.length}</p>
         </button>
 
         <button

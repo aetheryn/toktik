@@ -121,8 +121,6 @@ const getVideoByUser = async (req, res) => {
 const getSelectVideo = async (req, res) => {
   try {
     const videos = await Videos.findOne({ _id: req.body.id });
-
-    console.log(videos);
     res.json(videos);
   } catch (error) {
     console.log(error.message);
