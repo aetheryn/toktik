@@ -254,6 +254,21 @@ const addComments = async (req, res) => {
   }
 };
 
+const addLikes = async (req, res) => {
+  try {
+    await Videos.findByIdAndUpdate(
+      { _id: req.params.id },
+      { $push: { likes: req.body.username } }
+    );
+    res.status(200).json({ status: "ok", msg: "user added to likes" });
+  } catch (error) {
+    console.error(error.message);
+    res
+      .status(400)
+      .json({ status: "error", msg: "error adding user to likes" });
+  }
+};
+
 module.exports = {
   seedVideo,
   getVideos,
@@ -267,4 +282,5 @@ module.exports = {
   getFlaggedVideos,
   updateFlaggedVideo,
   getSelectVideo,
+  addLikes,
 };

@@ -13,6 +13,7 @@ const {
   updateFlaggedVideo,
   addComments,
   getSelectVideo,
+  addLikes,
 } = require("../controllers/videos");
 const {
   validateIdInParam,
@@ -54,5 +55,7 @@ router.patch("/flagged/:id", updateFlaggedVideo);
 router.put("/comments/:id", addComments);
 
 router.put("/getvideo", getSelectVideo);
+
+router.put("/likes/:id", addLikes);
 
 module.exports = router;
