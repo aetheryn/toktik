@@ -1,13 +1,22 @@
 .video {
-  height: 40vh;
+  height: 60vh;
   width: fit-content;
   outline-color: crimson;
   border-radius: 20px;
+  align-self: center;
 }
 
 .video:hover {
   scale: 0.98;
   cursor: pointer;
+  box-shadow: 0 0 5rem black;
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
 }
 
 .title {
@@ -16,4 +25,6 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-weight: 700;
+  z-index: 50;
 }
