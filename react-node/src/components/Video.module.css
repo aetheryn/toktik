@@ -10,28 +10,60 @@
   align-items: center;
   scroll-snap-align: start;
   margin: 2vh;
+  box-shadow: 0 0 5rem black;
 }
 
-.video-player {
+.videoPlayer {
   object-fit: cover;
   border-radius: 20px;
   width: 100%;
   height: inherit;
+  display: flex;
+  position: relative;
+}
+
+@keyframes buttonDisplay {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.pauseBtn {
+  position: absolute;
+  margin: auto;
+  height: 10vh;
+  width: 10vh;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation-name: buttonDisplay;
+  animation-duration: 0.8s;
+}
+
+.pauseBtn > svg {
+  scale: 2;
 }
 
 .title {
   position: absolute;
-  bottom: 10vh;
+  bottom: 3vh;
   left: 2vw;
-  text-shadow: 0 0 1em black;
+  font-size: 0.8rem;
+  text-shadow: 0 0 1.5em black;
+  z-index: 111;
 }
 
 .username {
   position: absolute;
-  bottom: 13vh;
+  bottom: 5vh;
   left: 2vw;
-  font-weight: bold;
-  text-shadow: 0 0 1em black;
+  font-size: 1rem;
+  font-weight: 700;
+  text-shadow: 0 0 1.5em black;
   text-decoration: none;
   color: white;
   z-index: 10;

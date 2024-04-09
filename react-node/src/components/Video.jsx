@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "../components/Video.css";
+import styles from "./Video.module.css";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CommentIcon from "@mui/icons-material/Comment";
 import FlagIcon from "@mui/icons-material/Flag";
@@ -10,6 +10,8 @@ import CommentsModal from "./CommentsModal";
 import UserContext from "../context/user";
 import { filledInputClasses } from "@mui/material";
 import { useInView } from "react-intersection-observer";
+import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
+import PauseRoundedIcon from "@mui/icons-material/PauseRounded";
 
 const Video = (props) => {
   const fetchData = useFetch();
@@ -21,7 +23,7 @@ const Video = (props) => {
   const [liked, setLiked] = useState([]);
   // state to track whether a video has been liked
   const [videoLiked, setVideoLiked] = useState(false);
-
+  const [isPaused, setIsPaused] = useState(false);
   const [showCommentsModal, setShowCommentsModal] = useState(false);
   const userCtx = useContext(UserContext);
   const navigate = useNavigate();
@@ -33,13 +35,27 @@ const Video = (props) => {
   useEffect(() => {
     const videoThing = videoRef.current;
     if (showCommentsModal) {
+      setIsPaused(true);
       videoThing.pause();
     } else if (inView) {
+      setIsPaused(false);
       videoThing.play();
     } else {
+      setIsPaused(true);
       videoThing.pause();
     }
   }, [inView, showCommentsModal]);
+
+  const handlePlayer = (event) => {
+    event.preventDefault();
+    if (event.currentTarget.paused) {
+      setIsPaused(false);
+      event.target.play();
+    } else {
+      setIsPaused(true);
+      event.target.pause();
+    }
+  };
 
   const handleCommentsClick = () => {
     if (userCtx.accessToken.length > 0) {
@@ -140,9 +156,12 @@ const Video = (props) => {
         ></CommentsModal>
       )}
 
-      <div ref={ref} className="videoDisplay">
-        <div className="title">{props.video.title}</div>
-        <Link to={`/profile/${props.video.username}`} className="username">
+      <div ref={ref} className={styles.videoDisplay}>
+        <div className={styles.title}>{props.video.title}</div>
+        <Link
+          to={`/profile/${props.video.username}`}
+          className={styles.username}
+        >
           {props.video.username}
         </Link>
 
@@ -150,7 +169,7 @@ const Video = (props) => {
           style={{
             position: "absolute",
             right: "1vw",
-            bottom: "32vh",
+            bottom: "25vh",
             fontSize: "1rem",
             zIndex: 100,
             backgroundColor: "transparent",
@@ -173,7 +192,7 @@ const Video = (props) => {
           style={{
             position: "absolute",
             right: "1vw",
-            bottom: "24vh",
+            bottom: "17vh",
             fontSize: "1rem",
             zIndex: 1000000,
             backgroundColor: "transparent",
@@ -189,7 +208,7 @@ const Video = (props) => {
           style={{
             position: "absolute",
             right: "1vw",
-            bottom: "18vh",
+            bottom: "11vh",
             fontSize: "1rem",
             backgroundColor: "transparent",
             borderColor: "transparent",
@@ -204,7 +223,7 @@ const Video = (props) => {
           style={{
             position: "absolute",
             right: "1vw",
-            bottom: "12vh",
+            bottom: "5vh",
             fontSize: "1rem",
             backgroundColor: "transparent",
             borderColor: "transparent",
@@ -216,11 +235,19 @@ const Video = (props) => {
 
         <video
           ref={videoRef}
-          className="video-player"
+          className={styles.videoPlayer}
           src={props.video.url}
-          controls
+          onClick={(event) => {
+            handlePlayer(event);
+          }}
           loop={true}
-        />
+        ></video>
+
+        {isPaused && (
+          <div className={styles.pauseBtn}>
+            <PauseRoundedIcon></PauseRoundedIcon>
+          </div>
+        )}
       </div>
     </>
   );
