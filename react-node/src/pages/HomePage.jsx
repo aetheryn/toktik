@@ -1,9 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Video from "../components/Video";
 import styles from "./HomePage.module.css";
+import { useInView } from "react-intersection-observer";
 
 const HomePage = () => {
   const [videos, setVideos] = useState([]);
+  const { ref, inView } = useInView({
+    threshold: 0,
+  });
+
+  useEffect(() => {
+    if (inView) {
+      console.log("inview");
+    } else {
+      console.log("beye");
+    }
+  }, [inView]);
 
   const getVideos = async () => {
     try {
@@ -54,6 +66,7 @@ const HomePage = () => {
           handleReportChange={handleReportChange}
           updateLikes={updateLikes}
           getVideos={getVideos}
+          videoRef={ref}
         />
       ))}
     </div>

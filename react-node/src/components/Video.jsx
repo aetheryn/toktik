@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../components/Video.css";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -9,6 +9,7 @@ import useFetch from "../hooks/useFetch";
 import CommentsModal from "./CommentsModal";
 import UserContext from "../context/user";
 import { filledInputClasses } from "@mui/material";
+import { useInView } from "react-intersection-observer";
 
 const Video = (props) => {
   const fetchData = useFetch();
@@ -24,8 +25,24 @@ const Video = (props) => {
   const [showCommentsModal, setShowCommentsModal] = useState(false);
   const userCtx = useContext(UserContext);
   const navigate = useNavigate();
+  const { ref, inView } = useInView({
+    threshold: 0.5,
+  });
+  const videoRef = useRef(null);
 
-  console.log(Boolean(liked));
+  useEffect(() => {
+    const videoThing = videoRef.current;
+    if (inView) {
+      videoThing.play();
+
+      console.log("hi");
+      console.log(ref);
+    } else {
+      videoThing.pause();
+      console.log("beye");
+    }
+  }, [inView]);
+
   const handleCommentsClick = () => {
     if (userCtx.accessToken.length > 0) {
       return setShowCommentsModal(true);
@@ -126,7 +143,7 @@ const Video = (props) => {
         ></CommentsModal>
       )}
 
-      <div className="videoDisplay">
+      <div ref={ref} className="videoDisplay">
         <div className="title">{props.video.title}</div>
         <Link to={`/profile/${props.video.username}`} className="username">
           {props.video.username}
@@ -200,7 +217,12 @@ const Video = (props) => {
           <ShareIcon></ShareIcon>
         </button>
 
-        <video className="video-player" src={props.video.url} controls />
+        <video
+          ref={videoRef}
+          className="video-player"
+          src={props.video.url}
+          controls
+        />
       </div>
     </>
   );
