@@ -75,10 +75,11 @@ const Video = (props) => {
           style={{
             position: "absolute",
             right: "1vw",
-            bottom: "24vh",
+            bottom: "32vh",
             fontSize: "1rem",
             backgroundColor: "transparent",
             borderColor: "transparent",
+            height: "3rem",
           }}
         >
           <FavoriteIcon></FavoriteIcon>
@@ -89,11 +90,12 @@ const Video = (props) => {
           style={{
             position: "absolute",
             right: "1vw",
-            bottom: "16vh",
+            bottom: "24vh",
             fontSize: "1rem",
             zIndex: 1000000,
             backgroundColor: "transparent",
             borderColor: "transparent",
+            height: "3rem",
           }}
           onClick={() => handleCommentsClick()}
         >
@@ -104,7 +106,7 @@ const Video = (props) => {
           style={{
             position: "absolute",
             right: "1vw",
-            bottom: "13vh",
+            bottom: "18vh",
             fontSize: "1rem",
             backgroundColor: "transparent",
             borderColor: "transparent",
@@ -119,7 +121,7 @@ const Video = (props) => {
           style={{
             position: "absolute",
             right: "1vw",
-            bottom: "8vh",
+            bottom: "12vh",
             fontSize: "1rem",
             backgroundColor: "transparent",
             borderColor: "transparent",
