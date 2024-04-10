@@ -11,6 +11,6 @@ const {
 
 router.post("/replies/:id", authUser, addReplies);
 router.put("/:id", authUser, addComments);
-router.delete("/:id", deleteComments);
+router.delete("/:id", authUser, deleteComments);
 
 module.exports = router;
