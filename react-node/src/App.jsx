@@ -11,6 +11,8 @@ import ContentModerator from "./pages/ContentModerator";
 import UserContext from "./context/user";
 import SocketContext from "./context/SocketContext";
 import io from "socket.io-client";
+import useFetch from "./hooks/useFetch";
+import { jwtDecode } from "jwt-decode";
 
 function App() {
   const [accessToken, setAccessToken] = useState("");
@@ -20,13 +22,14 @@ function App() {
 
   const [socket, setSocket] = useState(null);
   const [selectedUser, setSelectedUser] = useState("");
+  const fetchData = useFetch();
 
   useEffect(() => {
     if (username) {
       const socket = io(import.meta.env.VITE_SERVER, {
         query: { userId: username },
       });
-      console.log(socket);
+
       setSocket(socket);
       return () => socket.close();
     } else {
@@ -36,6 +39,32 @@ function App() {
       }
     }
   }, [username]);
+
+  const access = async () => {
+    const refreshToken = localStorage.getItem("refresh");
+
+    if (refreshToken) {
+      const res = await fetchData(
+        "/auth/refresh",
+        "POST",
+        {
+          refresh: refreshToken,
+        },
+        undefined
+      );
+      if (res.ok) {
+        setAccessToken(res.data.access);
+        const decoded = jwtDecode(res.data.access);
+        setRole(decoded.role);
+        setUsername(decoded.username);
+        setProfilePic(decoded.profilePicture);
+      }
+    }
+  };
+
+  useEffect(() => {
+    access();
+  }, []);
 
   return (
     <>
@@ -68,9 +97,10 @@ function App() {
             <Route path="login" element={<LoginPage></LoginPage>} />
             <Route path="register" element={<RegisterPage></RegisterPage>} />
             <Route path="dm" element={<DirectMessage></DirectMessage>} />
-            <Route path="profile/:currentUser" element={<Profile></Profile>} />
-            <Route path="upload" element={<Upload></Upload>} />
-            <Route path="cm" element={<ContentModerator></ContentModerator>} />
+            <Route path="dm" element={<DirectMessage />} />
+            <Route path="profile/:currentUser" element={<Profile />} />
+            <Route path="upload" element={<Upload />} />
+            <Route path="cm" element={<ContentModerator />} />
           </Routes>
         </SocketContext.Provider>
       </UserContext.Provider>

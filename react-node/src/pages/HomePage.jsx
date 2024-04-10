@@ -14,7 +14,6 @@ const HomePage = () => {
     try {
       const res = await fetchData("/videos", "GET", undefined, undefined);
       if (res.ok) {
-        console.log(res);
         // Filter videos with reported === false
         const filteredVideos = res.data.filter(
           (video) => video.reported === false

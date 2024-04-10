@@ -18,9 +18,9 @@ const Navbar = () => {
   }, []);
 
   const handleLogout = () => {
-    userCtx.setaccessToken("");
+    localStorage.clear("refresh");
     userCtx.setRole("");
-    userCtx.setUsername("");
+    userCtx.setAccessToken("");
     userCtx.setProfilePic("");
   };
 
@@ -80,7 +80,12 @@ const Navbar = () => {
 
               <div className={styles.dropdownlinks}>
                 <Link to={`/profile/${userCtx.username}`}> Profile </Link>
-                <Link to="/login" onClick={{ handleLogout }}>
+                <Link
+                  to="/login"
+                  onClick={() => {
+                    handleLogout();
+                  }}
+                >
                   Logout
                 </Link>
               </div>
@@ -178,7 +183,7 @@ const Navbar = () => {
                   local_police
                 </span>
                 <div className={styles.cmdropdownlinks}>
-                  <Link to="/login" onClick={() => handleLogout()}>
+                  <Link to="/login" onClick={(e) => handleLogout()}>
                     Logout
                   </Link>
                 </div>
