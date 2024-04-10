@@ -193,10 +193,6 @@ const OverLay = (props) => {
     }
   };
 
-  useEffect(() => {
-    console.log(comments);
-  }, [comments]);
-
   return (
     <>
       <div
