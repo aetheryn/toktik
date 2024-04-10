@@ -87,25 +87,27 @@ const Chat = (props) => {
   }, [SocketCtx.socket, props.allMessages]);
 
   const createMessage = async () => {
-    try {
-      const response = await newMessage(
-        `/messages`,
-        "PUT",
-        {
-          receiverId: props.selectedUser,
-          senderId: props.loggedInUser,
-          content: messageRef.current.value,
-        },
-        undefined
-      );
-      if (response.ok) {
-        props.getAllMessages();
-        updateRead();
-        messageRef.current.value = "";
-      }
-    } catch (error) {
-      if (error.name !== "AbortError") {
-        console.error(error.message);
+    if (messageRef.current.value.length > 0) {
+      try {
+        const response = await newMessage(
+          `/messages`,
+          "PUT",
+          {
+            receiverId: props.selectedUser,
+            senderId: props.loggedInUser,
+            content: messageRef.current.value,
+          },
+          undefined
+        );
+        if (response.ok) {
+          props.getAllMessages();
+          updateRead();
+          messageRef.current.value = "";
+        }
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          console.error(error.message);
+        }
       }
     }
   };
