@@ -1,12 +1,16 @@
 .video {
   height: 60vh;
-  width: fit-content;
-  outline-color: crimson;
-  border-radius: 20px;
   align-self: center;
+  display: block;
+  padding: 5%;
 }
 
-.video:hover {
+.video > video {
+  width: 100%;
+  border-radius: 20px;
+}
+
+.video > video:hover {
   scale: 0.98;
   cursor: pointer;
   box-shadow: 0 0 5rem black;

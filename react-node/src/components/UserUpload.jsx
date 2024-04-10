@@ -18,8 +18,8 @@ const UserUpload = (props) => {
           handleReportChange={props.handleReportChange}
         ></CommentsModal>
       )}
-      <div className="video" onClick={() => setShowCommentsModal(true)}>
-        <video className={styles.video} src={props.url}></video>
+      <div className={styles.video} onClick={() => setShowCommentsModal(true)}>
+        <video src={props.url}></video>
         <div className={styles.titleContainer}>
           <p className={styles.title}>{props.title}</p>
         </div>
