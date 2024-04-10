@@ -64,22 +64,23 @@ const OverLay = (props) => {
   };
 
   const addComments = async (id) => {
-    if (commentRef.current.value !== "" && props.id === id) {
-      const res = await fetchData(
-        "/videos/comments/" + props.id,
-        "PUT",
-        {
-          parentId: id,
-          username: userCtx.username,
-          profilePicture: userCtx.profilePic,
-          content: commentRef.current.value,
-        },
-        undefined
-      );
-      if (res.ok) {
-        console.log(id);
-        getProfileData();
-      }
+    const res = await fetchData(
+      "/comments/" + props.id,
+      "PUT",
+      {
+        parentId: id,
+        username: userCtx.username,
+        profilePicture: userCtx.profilePic,
+        content: commentRef.current.value,
+        replies: [],
+      },
+      undefined
+    );
+    if (res.ok) {
+      console.log(res.data);
+      getProfileData();
+    } else {
+      console.log(props.id);
     }
   };
 
@@ -103,10 +104,7 @@ const OverLay = (props) => {
     }
   };
 
-  const handleSubmitComment = (e, id) => {
-    console.log(id);
-    console.log(props.id);
-    e.preventDefault();
+  const handleSubmitComment = (id) => {
     addComments(id);
     setShowInput(false);
     commentRef.current.value = "";
@@ -195,6 +193,10 @@ const OverLay = (props) => {
     }
   };
 
+  useEffect(() => {
+    console.log(comments);
+  }, [comments]);
+
   return (
     <>
       <div
@@ -261,6 +263,7 @@ const OverLay = (props) => {
             src={props.url}
             controls
             autoPlay
+            loop={true}
           ></video>
           <div className={styles.modal}>
             <div className={styles.commentsDiv}>
@@ -286,7 +289,12 @@ const OverLay = (props) => {
               </div>
 
               {showInput && (
-                <form onSubmit={(e) => handleSubmitComment("")}>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    handleSubmitComment(props.id);
+                  }}
+                >
                   <input
                     className={styles.input}
                     type="text"
@@ -309,7 +317,7 @@ const OverLay = (props) => {
                           comments={item}
                           commentRef={commentRef}
                           id={item._id}
-                        ></Comments>{" "}
+                        ></Comments>
                         <hr />
                       </>
                     );
