@@ -198,7 +198,11 @@ const Video = (props) => {
 
       <div ref={ref} className={styles.videoDisplay}>
         <div className={styles.uploadDetails}>
-          <img className={styles.pp} src={profilePic} alt="" />
+          <img
+            className={profilePic ? styles.pp : ""}
+            src={profilePic}
+            alt=""
+          />
 
           {userCtx.accessToken ? (
             <Link
