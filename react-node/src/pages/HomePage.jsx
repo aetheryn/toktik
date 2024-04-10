@@ -51,18 +51,20 @@ const HomePage = () => {
 
   return (
     <div className={styles.homepage}>
-      {videos.map((video, index) => (
-        <Video
-          id={video._id}
-          key={index}
-          video={video}
-          handleReportChange={handleReportChange}
-          updateLikes={updateLikes}
-          getVideos={getVideos}
-          likes={video.likes}
-          comments={video.comments}
-        />
-      ))}
+      {videos
+        .map((video, index) => (
+          <Video
+            id={video._id}
+            key={index}
+            video={video}
+            handleReportChange={handleReportChange}
+            updateLikes={updateLikes}
+            getVideos={getVideos}
+            likes={video.likes}
+            comments={video.comments}
+          />
+        ))
+        .reverse()}
     </div>
   );
 };
