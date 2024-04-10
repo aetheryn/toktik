@@ -156,7 +156,7 @@ const OverLay = (props) => {
       {
         reported: !reported,
       },
-      undefined
+      userCtx.accessToken
     );
     if (res.ok) {
       setReported(reported);
@@ -171,7 +171,7 @@ const OverLay = (props) => {
         "/videos/likes/" + likeId,
         "PUT",
         { username: userCtx.username },
-        undefined
+        userCtx.accessToken
       );
 
       if (res.ok) {
@@ -184,7 +184,7 @@ const OverLay = (props) => {
         "/videos/likes/remove/" + likeId,
         "PUT",
         { username: userCtx.username },
-        undefined
+        userCtx.accessToken
       );
       if (res.ok) {
         setVideoLiked(false);
