@@ -121,6 +121,12 @@ const Navbar = () => {
                   onKeyUp={() => {
                     handleSearchUser();
                   }}
+                  onBlur={() => {
+                    {
+                      searchUserRef.current.value = "";
+                      setDisplayedUsers([]);
+                    }
+                  }}
                 ></input>
               </div>
 

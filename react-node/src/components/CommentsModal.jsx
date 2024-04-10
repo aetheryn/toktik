@@ -330,6 +330,11 @@ const OverLay = (props) => {
                   type="text"
                   ref={commentRef}
                   placeholder="comment"
+                  autoFocus
+                  onBlur={() => {
+                    commentRef.current.value = "";
+                    setShowInput(false);
+                  }}
                 />
               </form>
             )}

@@ -88,7 +88,7 @@ button > p {
 
 .pp {
   position: absolute;
-  z-index: 100;
+  z-index: 10;
   width: 3vw;
   border-radius: 50px;
   border: whitesmoke solid;

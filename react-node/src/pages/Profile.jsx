@@ -341,6 +341,10 @@ const Profile = () => {
                 defaultValue={profileDescription}
                 type="text"
                 placeholder="Enter your profile description"
+                onBlur={() => {
+                  descriptionRef.current.value === profileDescription;
+                  setUpdateProfileStatus(false);
+                }}
               />
             </form>
           )}
