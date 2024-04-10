@@ -4,7 +4,7 @@ import Video from "../components/Video";
 import "./ContentModerator.css";
 import Button from "@mui/material/Button";
 
-const ContentModerator = (props) => {
+const ContentModerator = () => {
   const fetchData = useFetch();
   const [flaggedVideos, setFlaggedVideos] = useState([]);
   const [videoStatus, setVideoStatus] = useState(false);
@@ -20,7 +20,6 @@ const ContentModerator = (props) => {
     if (res.ok) {
       console.log(res.data);
       setFlaggedVideos(res.data);
-      console.log(flaggedVideos);
     }
   };
   useEffect(() => {
@@ -78,7 +77,13 @@ const ContentModerator = (props) => {
             >
               SAFE
             </Button>
-            <Video video={video} id={index}></Video>
+            <Video
+              video={video}
+              id={video._id}
+              key={video._id}
+              likes={video.likes}
+              comments={video.comments}
+            ></Video>
             <Button
               variant="outlined"
               color="error"
