@@ -13,6 +13,42 @@
   box-shadow: 0 0 5rem black;
 }
 
+.uploadDetails {
+  position: absolute;
+  left: 2vw;
+  bottom: 3vh;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  text-wrap: none;
+  text-align: left;
+  display: grid;
+  max-width: 80%;
+  text-overflow: ellipsis;
+  overflow: visible;
+}
+
+.pp {
+  z-index: 10;
+  width: 2vw;
+  border-radius: 50px;
+  border: whitesmoke solid;
+}
+
+.title {
+  font-size: 0.8rem;
+  text-shadow: 0px 0px 1rem black;
+  z-index: 10;
+}
+
+.username {
+  font-size: 1rem;
+  font-weight: 700;
+  text-shadow: 0px 0px 1rem black;
+  text-decoration: none;
+  color: white;
+  z-index: 10;
+}
+
 .videoPlayer {
   object-fit: cover;
   border-radius: 20px;
@@ -48,27 +84,6 @@
   scale: 2;
 }
 
-.title {
-  position: absolute;
-  bottom: 3vh;
-  left: 2vw;
-  font-size: 0.8rem;
-  text-shadow: 0 0 1.5em black;
-  z-index: 10;
-}
-
-.username {
-  position: absolute;
-  bottom: 5vh;
-  left: 2vw;
-  font-size: 1rem;
-  font-weight: 700;
-  text-shadow: 0 0 1.5em black;
-  text-decoration: none;
-  color: white;
-  z-index: 10;
-}
-
 .commentsContainer {
   display: flex;
   flex-direction: column;
@@ -84,14 +99,4 @@ button > svg {
 
 button > p {
   text-shadow: 0 0 1em black;
-}
-
-.pp {
-  position: absolute;
-  z-index: 10;
-  width: 3vw;
-  border-radius: 50px;
-  border: whitesmoke solid;
-  bottom: 4vw;
-  left: 1.6vw;
 }
