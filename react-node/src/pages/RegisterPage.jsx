@@ -12,6 +12,7 @@ const RegisterPage = () => {
 
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [alert, setAlert] = useState(false);
 
   const register = async () => {
     const res = await fetchData(
@@ -22,6 +23,8 @@ const RegisterPage = () => {
     );
     if (res.ok) {
       login();
+    } else {
+      setAlert(true);
     }
   };
 
@@ -59,7 +62,10 @@ const RegisterPage = () => {
                 className={styles.userInput}
                 type="text"
                 placeholder="username"
-                onChange={(e) => setUserName(e.target.value)}
+                onChange={(e) => {
+                  setUserName(e.target.value);
+                  setAlert(false);
+                }}
               />
             </div>
 
@@ -68,12 +74,24 @@ const RegisterPage = () => {
                 className={styles.userInput}
                 type="password"
                 placeholder="password"
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  setAlert(false);
+                }}
                 minLength={8}
                 maxLength={16}
               />
             </div>
           </div>
+
+          {alert && (
+            <div className={styles.alert}>
+              Username should be less than 16 characters, <br />
+              and contain only letters & numbers. <br />
+              Password should be 8-16 characters long.
+            </div>
+          )}
+
           <div id="login">
             <button
               className={styles.loginBtn}
