@@ -55,7 +55,7 @@ const OverLay = (props) => {
       "/users/user/" + props.username,
       "POST",
       undefined,
-      undefined
+      userCtx.accessToken
     );
 
     if (res.ok) {
@@ -74,7 +74,7 @@ const OverLay = (props) => {
         content: commentRef.current.value,
         replies: [],
       },
-      undefined
+      userCtx.accessToken
     );
     if (res.ok) {
       console.log(res.data);
@@ -95,7 +95,7 @@ const OverLay = (props) => {
           profilePicture: userCtx.profilePic,
           content: commentRef.current.value,
         },
-        undefined
+        userCtx.accessToken
       );
       if (res.ok) {
         console.log(id);

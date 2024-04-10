@@ -23,7 +23,7 @@ const DirectMessage = () => {
         `/messages/${loggedInUser}`,
         "POST",
         undefined,
-        undefined
+        userCtx.accessToken
       );
       if (response.ok) {
         const data = [...response.data];
@@ -78,7 +78,7 @@ const DirectMessage = () => {
         "/users/",
         "GET",
         undefined,
-        undefined
+        userCtx.accessToken
       );
 
       if (response.ok) {
