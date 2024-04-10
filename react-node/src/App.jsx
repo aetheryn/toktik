@@ -29,7 +29,7 @@ function App() {
       const socket = io(import.meta.env.VITE_SERVER, {
         query: { userId: username },
       });
-      console.log(socket);
+
       setSocket(socket);
       return () => socket.close();
     } else {

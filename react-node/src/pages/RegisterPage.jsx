@@ -21,8 +21,6 @@ const RegisterPage = () => {
       undefined
     );
     if (res.ok) {
-      console.log("Registration successful!");
-      console.log(res.data);
       login();
     }
   };
