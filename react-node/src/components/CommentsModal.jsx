@@ -256,7 +256,7 @@ const OverLay = (props) => {
         <div className={`${styles.modalContainer} row`}>
           <div className={`${styles.videoContainer} col`}>
             <div className={styles.buttonContainer}>
-              <button style={{ bottom: "15vh" }}>
+              <button>
                 <FavoriteIcon
                   style={{ fill: color, zIndex: 1000000 }}
                   onClick={(e) => {
@@ -267,16 +267,13 @@ const OverLay = (props) => {
                 <p>{likes.length}</p>
               </button>
 
-              <button
-                style={{ bottom: "9vh" }}
-                onClick={() => reportVideo(props.id)}
-              >
+              <button onClick={() => reportVideo(props.id)}>
                 <FlagIcon
                   style={{ fill: reportColor, zIndex: 1000 }}
                 ></FlagIcon>
               </button>
 
-              <button style={{ bottom: "3vh" }}>
+              <button>
                 <ShareIcon></ShareIcon>
               </button>
             </div>
@@ -299,7 +296,6 @@ const OverLay = (props) => {
           </div>
 
           <div className={`${styles.modal} col`}>
-            {/* <div className={styles.commentsDiv}> */}
             <div className={styles.mainTitle}>
               <img className={styles.pp} src={userPP} />
               <div className={styles.usernameTitle}>
@@ -360,7 +356,6 @@ const OverLay = (props) => {
                   : ""}
               </div>
             </div>
-            {/* </div> */}
           </div>
         </div>
       </div>
