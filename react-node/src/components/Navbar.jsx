@@ -124,7 +124,7 @@ const Navbar = () => {
                   onBlur={() => {
                     {
                       searchUserRef.current.value = "";
-                      setDisplayedUsers([]);
+                      // setDisplayedUsers([]);
                     }
                   }}
                 ></input>
