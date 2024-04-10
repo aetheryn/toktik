@@ -54,7 +54,7 @@
   left: 2vw;
   font-size: 0.8rem;
   text-shadow: 0 0 1.5em black;
-  z-index: 111;
+  z-index: 10;
 }
 
 .username {

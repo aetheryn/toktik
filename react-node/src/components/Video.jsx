@@ -205,7 +205,7 @@ const Video = (props) => {
           onClick={colorChangeFavourite}
         >
           <FavoriteIcon
-            style={{ fill: color, zIndex: 1000000 }}
+            style={{ fill: color, zIndex: 10 }}
             onClick={(e) => {
               e.preventDefault();
               handleLikeClick(props.video._id);
@@ -220,7 +220,7 @@ const Video = (props) => {
             right: "1vw",
             bottom: "17vh",
             fontSize: "1rem",
-            zIndex: 1000000,
+            zIndex: 10,
             backgroundColor: "transparent",
             borderColor: "transparent",
             height: "3rem",
@@ -238,7 +238,7 @@ const Video = (props) => {
             fontSize: "1rem",
             backgroundColor: "transparent",
             borderColor: "transparent",
-            zIndex: 1000000,
+            zIndex: 10,
           }}
           onClick={() => reportVideo(props.video._id)}
         >
@@ -253,7 +253,7 @@ const Video = (props) => {
             fontSize: "1rem",
             backgroundColor: "transparent",
             borderColor: "transparent",
-            zIndex: 1000000,
+            zIndex: 10,
           }}
         >
           <ShareIcon></ShareIcon>
