@@ -209,7 +209,7 @@ const OverLay = (props) => {
               style={{
                 position: "absolute",
                 right: "51vw",
-                bottom: "50vh",
+                bottom: "44vh",
                 fontSize: "1rem",
                 zIndex: 100,
                 backgroundColor: "transparent",
