@@ -346,22 +346,24 @@ const Profile = () => {
           )}
         </div>
         <div className={styles.userVideoContainer}>
-          {videos.map((item, idx) => {
-            return (
-              <>
-                <UserUpload
-                  url={item.url}
-                  title={item.title}
-                  id={item._id}
-                  username={item.username}
-                  created_at={item.created_at}
-                  idx={idx}
-                  key={item._id}
-                  handleReportChange={handleReportChange}
-                />
-              </>
-            );
-          })}
+          {videos
+            .map((item, idx) => {
+              return (
+                <>
+                  <UserUpload
+                    url={item.url}
+                    title={item.title}
+                    id={item._id}
+                    username={item.username}
+                    created_at={item.created_at}
+                    idx={idx}
+                    key={item._id}
+                    handleReportChange={handleReportChange}
+                  />
+                </>
+              );
+            })
+            .reverse()}
         </div>
       </div>
     </div>
