@@ -33,6 +33,12 @@ const Video = (props) => {
   const videoRef = useRef(null);
 
   useEffect(() => {
+    if (!showCommentsModal) {
+      getSpecificVideo();
+    }
+  }, [showCommentsModal]);
+
+  useEffect(() => {
     const videoThing = videoRef.current;
     if (showCommentsModal) {
       setIsPaused(true);

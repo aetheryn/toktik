@@ -224,25 +224,6 @@ const OverLay = (props) => {
               style={{
                 position: "absolute",
                 right: "51vw",
-                bottom: "43vh",
-                fontSize: "1rem",
-                zIndex: 1000000,
-                backgroundColor: "transparent",
-                borderColor: "transparent",
-                height: "3rem",
-              }}
-              onClick={() => handleCommentsClick()}
-            >
-              <CommentIcon></CommentIcon>
-              <p>
-                {comments.length > 0 ? comments.length : props.comments.length}
-              </p>
-            </button>
-
-            <button
-              style={{
-                position: "absolute",
-                right: "51vw",
                 bottom: "38vh",
                 fontSize: "1rem",
                 backgroundColor: "transparent",
