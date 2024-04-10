@@ -197,21 +197,24 @@ const Video = (props) => {
       )}
 
       <div ref={ref} className={styles.videoDisplay}>
-        <div className={styles.title}>{props.video.title}</div>
-        <img className={styles.pp} src={profilePic} alt="" />
+        <div className={styles.uploadDetails}>
+          <img className={styles.pp} src={profilePic} alt="" />
 
-        {userCtx.accessToken ? (
-          <Link
-            to={`/profile/${props.video.username}`}
-            className={styles.username}
-          >
-            {props.video.username}
-          </Link>
-        ) : (
-          <Link to={"/login"} className={styles.username}>
-            {props.video.username}
-          </Link>
-        )}
+          {userCtx.accessToken ? (
+            <Link
+              to={`/profile/${props.video.username}`}
+              className={styles.username}
+            >
+              {props.video.username}
+            </Link>
+          ) : (
+            <Link to={"/login"} className={styles.username}>
+              {props.video.username}
+            </Link>
+          )}
+
+          <div className={styles.title}>{props.video.title}</div>
+        </div>
 
         <button
           style={{
