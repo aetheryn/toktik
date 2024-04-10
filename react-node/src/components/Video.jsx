@@ -8,9 +8,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import useFetch from "../hooks/useFetch";
 import CommentsModal from "./CommentsModal";
 import UserContext from "../context/user";
-import { filledInputClasses } from "@mui/material";
 import { useInView } from "react-intersection-observer";
-import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
 import PauseRoundedIcon from "@mui/icons-material/PauseRounded";
 
 const Video = (props) => {
@@ -28,6 +26,7 @@ const Video = (props) => {
   const userCtx = useContext(UserContext);
   const navigate = useNavigate();
   const [comments, setComments] = useState([]);
+  const [profilePic, setProfilePic] = useState("");
 
   const { ref, inView } = useInView({
     threshold: 0.5,
@@ -56,6 +55,7 @@ const Video = (props) => {
 
   useEffect(() => {
     setLiked(props.likes);
+    getUserDetails();
   }, []);
 
   useEffect(() => {
@@ -163,6 +163,19 @@ const Video = (props) => {
     props.handleReportChange(flaggedId, !reported);
   };
 
+  const getUserDetails = async () => {
+    const res = await fetchData(
+      "/users/user/" + props.video.username,
+      "POST",
+      undefined,
+      userCtx.accessToken
+    );
+
+    if (res.ok) {
+      setProfilePic(res.data.profilePicture);
+    }
+  };
+
   useEffect(() => {}, [showCommentsModal, liked]);
 
   return (
@@ -185,6 +198,7 @@ const Video = (props) => {
 
       <div ref={ref} className={styles.videoDisplay}>
         <div className={styles.title}>{props.video.title}</div>
+        <img className={styles.pp} src={profilePic} alt="" />
 
         {userCtx.accessToken ? (
           <Link
