@@ -176,17 +176,17 @@ const Navbar = () => {
         {userCtx.role === "admin" && !adminView ? (
           <div className={`col ${styles.navigation}`}>
             <div className={styles.cmdropdown}>
-              <button className={styles.guestProfilePic}>
-                <span
-                  className={`material-symbols-outlined ${styles.guestProfilePic}`}
-                >
-                  local_police
-                </span>
-                <div className={styles.cmdropdownlinks}>
-                  <Link to="/login" onClick={(e) => handleLogout()}>
-                    Logout
-                  </Link>
-                </div>
+              <button
+                className={styles.guestProfilePic}
+                onClick={() => handleLogout()}
+              >
+                <Link to="/login">
+                  <span
+                    className={`material-symbols-outlined ${styles.guestProfilePic}`}
+                  >
+                    local_police
+                  </span>
+                </Link>
               </button>
             </div>
             <button className={styles.navlinks}>
@@ -201,17 +201,17 @@ const Navbar = () => {
         {userCtx.role === "admin" && adminView ? (
           <div className={`col ${styles.navigation}`}>
             <div className={styles.cmdropdown}>
-              <button className={styles.guestProfilePic}>
-                <span
-                  className={`material-symbols-outlined ${styles.guestProfilePic}`}
-                >
-                  local_police
-                </span>
-                <div className={styles.cmdropdownlinks}>
-                  <Link to="/login" onClick={() => handleLogout()}>
-                    Logout
-                  </Link>
-                </div>
+              <button
+                className={styles.guestProfilePic}
+                onClick={() => handleLogout()}
+              >
+                <Link to="/login">
+                  <span
+                    className={`material-symbols-outlined ${styles.guestProfilePic}`}
+                  >
+                    local_police
+                  </span>
+                </Link>
               </button>
             </div>
             <button className={styles.navlinks}>
