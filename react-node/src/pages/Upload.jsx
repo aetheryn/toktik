@@ -26,6 +26,8 @@ const Upload = () => {
     formData.append("title", title);
     formData.append("username", userCtx.username);
 
+    console.log(formData);
+
     try {
       const res = await fetch("http://127.0.0.1:6001/videos/videoupload", {
         method: "POST",

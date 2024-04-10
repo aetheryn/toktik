@@ -7,10 +7,12 @@ const {
   addReplies,
   addComments,
   deleteComments,
+  deleteReply,
 } = require("../controllers/videos.js");
 
 router.post("/replies/:id", authUser, addReplies);
 router.put("/:id", authUser, addComments);
 router.delete("/:id", authUser, deleteComments);
+router.patch("/delete/:id", authUser, deleteComments);
 
 module.exports = router;

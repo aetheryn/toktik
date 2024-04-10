@@ -163,9 +163,7 @@ const Video = (props) => {
     props.handleReportChange(flaggedId, !reported);
   };
 
-  useEffect(() => {
-    console.log(videoLiked);
-  }, [showCommentsModal, liked]);
+  useEffect(() => {}, [showCommentsModal, liked]);
 
   return (
     <>
