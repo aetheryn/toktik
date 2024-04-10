@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import Video from "../components/Video";
 import "./ContentModerator.css";
 import Button from "@mui/material/Button";
+import UserContext from "../context/user";
 
 const ContentModerator = () => {
   const fetchData = useFetch();
   const [flaggedVideos, setFlaggedVideos] = useState([]);
   const [videoStatus, setVideoStatus] = useState(false);
+  const userCtx = useContext(UserContext);
 
   // fetchData for videoes that are flagged
   const getFlaggedVideos = async () => {
@@ -15,7 +17,7 @@ const ContentModerator = () => {
       "/videos/flagged/",
       "GET",
       undefined,
-      undefined
+      userCtx.accessToken
     );
     if (res.ok) {
       console.log(res.data);
@@ -34,7 +36,7 @@ const ContentModerator = () => {
       {
         reported: false,
       },
-      undefined
+      userCtx.accessToken
     );
     if (res.ok) {
       // to toggle the state of the video
@@ -52,7 +54,7 @@ const ContentModerator = () => {
       "/videos/" + flaggedId,
       "DELETE",
       undefined,
-      undefined
+      userCtx.accessToken
     );
     if (res.ok) {
       // to toggle the state of the video
@@ -66,35 +68,39 @@ const ContentModerator = () => {
 
   return (
     <>
-      <div className="flagged-videos">
-        {flaggedVideos.map((video, index) => (
-          <div className="video-container" key={index}>
-            <Button
-              variant="contained"
-              color="success"
-              size="large"
-              onClick={() => videoPass(video._id)}
-            >
-              SAFE
-            </Button>
-            <Video
-              video={video}
-              id={video._id}
-              key={video._id}
-              likes={video.likes}
-              comments={video.comments}
-            ></Video>
-            <Button
-              variant="outlined"
-              color="error"
-              size="large"
-              onClick={() => videoFail(video._id)}
-            >
-              DELETE
-            </Button>
-          </div>
-        ))}
-      </div>
+      {userCtx.role === "admin" ? (
+        <div className="flagged-videos">
+          {flaggedVideos.map((video, index) => (
+            <div className="video-container" key={index}>
+              <Button
+                variant="contained"
+                color="success"
+                size="large"
+                onClick={() => videoPass(video._id)}
+              >
+                SAFE
+              </Button>
+              <Video
+                video={video}
+                id={video._id}
+                key={video._id}
+                likes={video.likes}
+                comments={video.comments}
+              ></Video>
+              <Button
+                variant="outlined"
+                color="error"
+                size="large"
+                onClick={() => videoFail(video._id)}
+              >
+                DELETE
+              </Button>
+            </div>
+          ))}
+        </div>
+      ) : (
+        ""
+      )}
     </>
   );
 };

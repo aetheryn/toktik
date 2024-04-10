@@ -3,9 +3,12 @@ import "./Upload.css";
 import UserContext from "../context/user";
 import { useNavigate } from "react-router-dom";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import useFetch from "../hooks/useFetch";
 
 const Upload = () => {
   const userCtx = useContext(UserContext);
+
+  // const fetchData = useFetch();
   const navigate = useNavigate();
 
   const [file, setFile] = useState("");
@@ -23,9 +26,12 @@ const Upload = () => {
     formData.append("title", title);
     formData.append("username", userCtx.username);
 
+    console.log(formData);
+
     try {
       const res = await fetch("http://127.0.0.1:6001/videos/videoupload", {
         method: "POST",
+        headers: { Authorization: "Bearer " + userCtx.accessToken },
         body: formData,
       });
       if (!res.ok) {
@@ -58,6 +64,10 @@ const Upload = () => {
   };
 
   useEffect(() => {
+    if (userCtx.accessToken.length === 0) {
+      return navigate("/login");
+    }
+
     if (!file) {
       setPreview(undefined);
       return;

@@ -1,19 +1,24 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Video from "../components/Video";
 import styles from "./HomePage.module.css";
 import { useInView } from "react-intersection-observer";
+import UserContext from "../context/user";
+import useFetch from "../hooks/useFetch";
 
 const HomePage = () => {
   const [videos, setVideos] = useState([]);
+  const userCtx = useContext(UserContext);
+  const fetchData = useFetch();
 
   const getVideos = async () => {
     try {
-      const res = await fetch(import.meta.env.VITE_SERVER + "/videos");
+      const res = await fetchData("/videos", "GET", undefined, undefined);
       if (res.ok) {
-        const data = await res.json();
-        console.log(data);
+        console.log(res);
         // Filter videos with reported === false
-        const filteredVideos = data.filter((video) => video.reported === false);
+        const filteredVideos = res.data.filter(
+          (video) => video.reported === false
+        );
         // Set videos
         setVideos(filteredVideos);
       }

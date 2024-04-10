@@ -55,7 +55,7 @@ const OverLay = (props) => {
       "/users/user/" + props.username,
       "POST",
       undefined,
-      undefined
+      userCtx.accessToken
     );
 
     if (res.ok) {
@@ -74,13 +74,10 @@ const OverLay = (props) => {
         content: commentRef.current.value,
         replies: [],
       },
-      undefined
+      userCtx.accessToken
     );
     if (res.ok) {
-      console.log(res.data);
       getProfileData();
-    } else {
-      console.log(props.id);
     }
   };
 
@@ -95,7 +92,7 @@ const OverLay = (props) => {
           profilePicture: userCtx.profilePic,
           content: commentRef.current.value,
         },
-        undefined
+        userCtx.accessToken
       );
       if (res.ok) {
         console.log(id);
@@ -110,7 +107,7 @@ const OverLay = (props) => {
     commentRef.current.value = "";
   };
 
-  // click outside and close modal
+  // click outside and close modal and reported set
   useEffect(() => {
     getProfileData();
     modalRef.current.value = document.querySelector("#outside");
@@ -135,7 +132,7 @@ const OverLay = (props) => {
   const handleCloseModal = () => {
     if (modalRef) {
       modalRef.current.addEventListener("click", (e) => {
-        if (modalRef.current.value === e.target.value) {
+        if (modalRef.current === e.target.value) {
           props.setShowCommentsModal(false);
         }
       });
@@ -156,7 +153,7 @@ const OverLay = (props) => {
       {
         reported: !reported,
       },
-      undefined
+      userCtx.accessToken
     );
     if (res.ok) {
       setReported(reported);
@@ -171,7 +168,7 @@ const OverLay = (props) => {
         "/videos/likes/" + likeId,
         "PUT",
         { username: userCtx.username },
-        undefined
+        userCtx.accessToken
       );
 
       if (res.ok) {
@@ -184,13 +181,55 @@ const OverLay = (props) => {
         "/videos/likes/remove/" + likeId,
         "PUT",
         { username: userCtx.username },
-        undefined
+        userCtx.accessToken
       );
       if (res.ok) {
         setVideoLiked(false);
         getProfileData();
       }
     }
+  };
+
+  //delete fetch
+  const deleteComment = async (id, parentId) => {
+    const res = await fetchData(
+      "/comments/delete/" + props.id,
+      "PATCH",
+      {
+        parentId: parentId,
+        id: id,
+      },
+      undefined
+    );
+    if (res.ok) {
+      getProfileData();
+    } else {
+      console.log("ERROR IN DELETE COMMENT");
+    }
+  };
+
+  const deleteReply = async (id, parentId) => {
+    const res = await fetchData(
+      "/comments/" + props.id,
+      "DELETE",
+      {
+        parentId: parentId,
+        id: id,
+      },
+      undefined
+    );
+    if (res.ok) {
+      console.log(res);
+      getProfileData();
+    }
+  };
+
+  const handleDeleteComments = (id, parentId) => {
+    deleteComment(id, parentId);
+  };
+
+  const handleDeleteReplies = (id, parentId) => {
+    deleteReply(id, parentId);
   };
 
   return (
@@ -313,7 +352,11 @@ const OverLay = (props) => {
                           comments={item}
                           commentRef={commentRef}
                           id={item._id}
-                        ></Comments>
+                          handleDeleteReplies={handleDeleteReplies}
+                          handleDeleteComments={handleDeleteComments}
+                          parentId={item.parentId}
+                          username={props.username}
+                        />
                         <hr />
                       </>
                     );

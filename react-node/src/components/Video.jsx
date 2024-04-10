@@ -102,7 +102,7 @@ const Video = (props) => {
       {
         id: props.id,
       },
-      undefined
+      userCtx.accessToken
     );
     if (res.ok) {
       setLiked(res.data.likes);
@@ -120,7 +120,7 @@ const Video = (props) => {
         "/videos/likes/" + likeId,
         "PUT",
         { username: userCtx.username },
-        undefined
+        userCtx.accessToken
       );
 
       if (res.ok) {
@@ -132,7 +132,7 @@ const Video = (props) => {
         "/videos/likes/remove/" + likeId,
         "PUT",
         { username: userCtx.username },
-        undefined
+        userCtx.accessToken
       );
       if (res.ok) {
         setVideoLiked(false);
@@ -143,13 +143,16 @@ const Video = (props) => {
 
   // function for report button
   const reportVideo = async (flaggedId) => {
+    if (userCtx.accessToken.length === 0) {
+      return navigate("/login");
+    }
     const res = await fetchData(
       "/videos/flagged/" + flaggedId,
       "PATCH",
       {
         reported: !reported,
       },
-      undefined
+      userCtx.accessToken
     );
     if (res.ok) {
       setReported(reported);
@@ -160,9 +163,7 @@ const Video = (props) => {
     props.handleReportChange(flaggedId, !reported);
   };
 
-  useEffect(() => {
-    console.log(videoLiked);
-  }, [showCommentsModal, liked]);
+  useEffect(() => {}, [showCommentsModal, liked]);
 
   return (
     <>
@@ -184,12 +185,19 @@ const Video = (props) => {
 
       <div ref={ref} className={styles.videoDisplay}>
         <div className={styles.title}>{props.video.title}</div>
-        <Link
-          to={`/profile/${props.video.username}`}
-          className={styles.username}
-        >
-          {props.video.username}
-        </Link>
+
+        {userCtx.accessToken ? (
+          <Link
+            to={`/profile/${props.video.username}`}
+            className={styles.username}
+          >
+            {props.video.username}
+          </Link>
+        ) : (
+          <Link to={"/login"} className={styles.username}>
+            {props.video.username}
+          </Link>
+        )}
 
         <button
           style={{

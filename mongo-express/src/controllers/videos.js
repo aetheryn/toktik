@@ -180,6 +180,8 @@ const getSpecificVideo = async (req, res) => {
 
 const uploadFile = async (req, res) => {
   try {
+    console.log(req.file);
+    console.log(req.body);
     req.file.buffer;
 
     const fileName = req.file.originalname;
@@ -251,6 +253,33 @@ const addComments = async (req, res) => {
   }
 };
 
+const deleteReply = async (req, res) => {
+  try {
+    const video = await Videos.findOne({
+      _id: req.params.id,
+    });
+
+    const comments = video.comments;
+
+    const replyParent = findParent(comments, req.body.parentId);
+
+    const index = replyParent.replies.findIndex(
+      (reply) => reply._id.toString() === req.body.id
+    );
+
+    replyParent.replies.splice(index, 1);
+
+    await video.save();
+
+    res.json({ status: "ok", msg: "reply deleted" });
+  } catch (error) {
+    console.log(error.message);
+    res
+      .status(400)
+      .json({ status: "error", msg: "unable to delete reply :( " });
+  }
+};
+
 const deleteComments = async (req, res) => {
   try {
     const video = await Videos.findOne({
@@ -259,16 +288,15 @@ const deleteComments = async (req, res) => {
 
     const comments = video.comments;
 
-    const comment = findParent(comments, req.body.id);
-
-    const delComment = await Videos.findOneAndUpdate(
-      {
-        _id: req.params.id,
-      },
-      { $pull: { comments: comment } }
+    const index = comments.findIndex(
+      (comment) => comment._id.toString() === req.body.id
     );
 
-    res.json(delComment);
+    comments.splice(index, 1);
+
+    await video.save();
+
+    res.json({ status: "ok", msg: "deleted comment" });
   } catch (error) {
     console.log(error.message);
     res
@@ -378,4 +406,5 @@ module.exports = {
   addLikes,
   removeLikes,
   deleteComments,
+  deleteReply,
 };

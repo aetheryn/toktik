@@ -4,6 +4,7 @@ import useFetch from "../hooks/useFetch";
 import SocketContext from "../context/SocketContext";
 import styles from "./DM.module.css";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
+import UserContext from "../context/user";
 
 const Chat = (props) => {
   const [messageThread, setMessageThread] = useState([]);
@@ -13,6 +14,7 @@ const Chat = (props) => {
   const fetchProfile = useFetch();
   const readMessages = useFetch();
   const SocketCtx = useContext(SocketContext);
+  const userCtx = useContext(UserContext);
 
   const getConversation = (messages) => {
     const convArray = [];
@@ -37,7 +39,7 @@ const Chat = (props) => {
           receiverId: props.loggedInUser,
           read: false,
         },
-        undefined
+        userCtx.accessToken
       );
 
       console.log(response);
@@ -57,7 +59,7 @@ const Chat = (props) => {
         "/users/user/" + user,
         "POST",
         undefined,
-        undefined
+        userCtx.accessToken
       );
 
       if (response.ok) {
@@ -97,7 +99,7 @@ const Chat = (props) => {
             senderId: props.loggedInUser,
             content: messageRef.current.value,
           },
-          undefined
+          userCtx.accessToken
         );
         if (response.ok) {
           props.getAllMessages();
