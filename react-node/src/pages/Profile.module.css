@@ -1,0 +1,130 @@
+.container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.profileContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30vw;
+}
+
+.profileContainer > h1 {
+  font-size: 2rem;
+}
+
+.profilePicture {
+  display: block;
+  border-radius: 50%;
+  border-style: solid;
+  border-color: whitesmoke;
+  border-width: thick;
+  width: 80%;
+  margin: auto;
+  margin-bottom: 1rem;
+}
+
+.profileStats {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.profileStats > div {
+  width: 60%;
+}
+
+.profileStats > div:hover {
+  cursor: pointer;
+}
+
+.profileStats > div > h4 {
+  font-size: large;
+  margin-bottom: 0;
+}
+
+.profileStats > div > h3 {
+  font-size: x-large;
+}
+
+.profileButtons {
+  display: flex;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  gap: 1rem;
+}
+
+.button {
+  color: white;
+  border-radius: 10px;
+  font-size: 1rem;
+  padding: 0.5rem;
+  text-align: center;
+  width: 200px;
+}
+
+.unfollowBtn {
+  background-color: transparent;
+  border: white solid;
+}
+
+.unfollowBtn:hover {
+  background-color: white;
+  color: black;
+  font-weight: 700;
+}
+
+.followBtn {
+  background-color: transparent;
+  border: #ea284e solid;
+  color: #ea284e;
+}
+
+.followBtn:hover {
+  background-color: #ea284e;
+  color: white;
+  font-weight: 700;
+}
+
+.messageBtn {
+  background-color: #ea284e;
+  border: #ea284e solid;
+}
+
+.messageBtn:hover {
+  font-weight: 700;
+}
+
+.descriptionContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 0.5rem 0.5rem 8rem 0.5rem;
+}
+
+.description {
+  text-align: center;
+  font-size: large;
+}
+
+.descriptionInput {
+  text-align: center;
+  font-size: large;
+  border-radius: transparent;
+  background-color: transparent;
+  color: white;
+  width: 30vw;
+}
+
+.userVideoContainer {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: repeat(3, 20vw);
+  grid-template-rows: 50vh;
+  row-gap: 10vh;
+}

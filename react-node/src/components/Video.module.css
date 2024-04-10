@@ -1,0 +1,102 @@
+.videoDisplay {
+  position: relative;
+  height: 90vh;
+  background-color: black;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  scroll-snap-align: start;
+  margin: 2vh;
+  box-shadow: 0 0 5rem black;
+}
+
+.uploadDetails {
+  position: absolute;
+  left: 2vw;
+  bottom: 3vh;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  text-wrap: none;
+  text-align: left;
+  display: grid;
+  max-width: 80%;
+  text-overflow: ellipsis;
+  overflow: visible;
+}
+
+.pp {
+  z-index: 10;
+  width: 2vw;
+  border-radius: 50px;
+  border: whitesmoke solid;
+}
+
+.title {
+  font-size: 0.8rem;
+  text-shadow: 0px 0px 1rem black;
+  z-index: 10;
+}
+
+.username {
+  font-size: 1rem;
+  font-weight: 700;
+  text-shadow: 0px 0px 1rem black;
+  text-decoration: none;
+  color: white;
+  z-index: 10;
+}
+
+.videoPlayer {
+  object-fit: cover;
+  border-radius: 20px;
+  width: 100%;
+  height: inherit;
+  display: flex;
+  position: relative;
+}
+
+@keyframes buttonDisplay {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.pauseBtn {
+  position: absolute;
+  margin: auto;
+  height: 10vh;
+  width: 10vh;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation-name: buttonDisplay;
+  animation-duration: 0.8s;
+}
+
+.pauseBtn > svg {
+  scale: 2;
+}
+
+.commentsContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.commentLength {
+  font-size: 10px;
+}
+
+button > svg {
+  filter: drop-shadow(0px 0px 10px rgb(0 0 0 / 0.5));
+}
+
+button > p {
+  text-shadow: 0 0 1em black;
+}

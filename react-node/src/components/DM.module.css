@@ -1,0 +1,204 @@
+.container {
+  background-color: black;
+  margin: 5px;
+  border-radius: 20px;
+  display: block;
+  position: relative;
+  height: 90vh;
+  overflow-y: auto;
+}
+
+.container > button {
+  display: block;
+  color: white;
+  margin: auto;
+  background: transparent;
+  border: transparent;
+  border-radius: 100px;
+  padding: 5px;
+  width: 10%;
+}
+
+.container > button:hover {
+  color: black;
+  background: white;
+}
+
+.container > h1 {
+  text-align: center;
+  margin: 30px;
+  font-size: 1.5em;
+}
+
+.searchUser {
+  display: flex;
+  width: 100%;
+  padding: 0 5px 5px;
+  justify-content: center;
+  background-color: black;
+  font-size: 1em;
+}
+
+.searchUser > input {
+  width: 90%;
+  padding: 5px 20px;
+  background-color: #333333;
+  margin: 5px;
+  border-radius: 100px;
+  border: transparent;
+  font-size: 0.8rem;
+}
+
+.searchUser > button {
+  margin: 5px;
+  padding: 5px;
+  width: 10%;
+  background-color: #ea284e;
+  border-radius: 100px;
+  border: transparent;
+}
+
+.users {
+  display: flex;
+  background-color: transparent;
+  height: 70px;
+  align-items: center;
+  padding: 0 20px;
+  width: 100%;
+}
+
+.users:hover {
+  background-color: #ea284e;
+  cursor: pointer;
+}
+
+.profilePic {
+  border-radius: 50%;
+  height: 50px;
+}
+
+.userDetails {
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  text-wrap: none;
+  text-align: left;
+  padding-left: 20px;
+  display: grid;
+}
+
+.badge {
+  position: absolute;
+  right: 2vw;
+  background-color: #ea284e;
+  border-radius: 50%;
+  font-size: 0.8em;
+  height: 1.5em;
+  width: 1.5em;
+  text-align: center;
+  color: black;
+}
+
+.userBanner {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  padding: 0 20px;
+  text-decoration: none;
+}
+
+.chatbox {
+  display: flex;
+  flex-direction: column;
+  height: 75%;
+  padding: 0 20px;
+  position: relative;
+}
+
+.chatbox > div {
+  display: flex;
+  flex-direction: column-reverse;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.timestamp {
+  align-self: flex-end;
+  font-size: 0.5em;
+  padding-bottom: 1em;
+}
+
+.date {
+  align-self: center;
+  width: 95%;
+  text-align: center;
+  border-bottom: 1px solid #333333;
+  line-height: 0.1em;
+  margin: 20px;
+}
+
+.date > span {
+  background: black;
+  padding: 0 10px;
+  font-size: smaller;
+  color: #333333;
+}
+
+.read {
+  align-self: center;
+  width: 95%;
+  text-align: center;
+  border-bottom: 1px solid #ea284e;
+  line-height: 0.1em;
+  margin: 20px;
+}
+
+.read > span {
+  background: black;
+  padding: 0 10px;
+  font-size: smaller;
+  color: #ea284e;
+}
+
+.chatbubble {
+  inline-size: fit-content;
+  margin: 5px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  color: black;
+  max-width: 30vw;
+  overflow-wrap: break-word;
+  background: linear-gradient(
+    to top,
+    rgba(80, 80, 80, 0.5),
+    rgba(80, 80, 80, 0)
+  );
+}
+
+.bottomBanner {
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px 0 20px;
+  justify-content: center;
+  background-color: black;
+  border-radius: 20px;
+}
+
+.bottomBanner > input {
+  width: 80%;
+  padding: 5px;
+  background-color: #333333;
+  margin: 5px;
+  border-radius: 10px;
+  border: transparent;
+}
+
+.bottomBanner > button {
+  margin: 5px;
+  padding: 5px;
+  width: 5%;
+  background-color: #ea284e;
+  border-radius: 10px;
+  border: transparent;
+}

@@ -1,0 +1,163 @@
+.navbar {
+  display: grid;
+  align-items: center;
+  background-color: black;
+  height: 10vh;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+}
+
+.logo > a > img {
+  padding-left: 2vw;
+  height: 8vh;
+}
+
+.navigation {
+  padding-right: 2vw;
+}
+
+.navlinks {
+  float: right;
+  margin-left: 1vw;
+  border: transparent;
+  background-color: transparent;
+  height: 10vh;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.navlinks > input {
+  margin-right: 2vw;
+  border-radius: 20px;
+  padding: 0.5rem;
+  text-align: right;
+  font-size: smaller;
+  width: 20vw;
+  border-color: transparent;
+  background-color: transparent;
+}
+
+.navlinks > a {
+  color: white;
+  text-decoration: none;
+}
+
+.guestProfilePic {
+  float: right;
+  margin-top: 1.5vh;
+  margin-left: 0.5vw;
+  margin-right: 0.5vw;
+  scale: 1.5;
+  border: transparent;
+  background-color: transparent;
+}
+
+.userIcon {
+  scale: 1.4;
+  margin-top: 0.5vh;
+  margin-right: 1vw;
+}
+
+.userProfilePic {
+  border-radius: 50%;
+  height: 5vh;
+  border-color: whitesmoke;
+  border-style: solid;
+  border-width: 3px;
+}
+
+.dropdownlinks {
+  display: none;
+  text-align: center;
+  z-index: 100;
+}
+
+.dropdownlinks > a {
+  float: none;
+  display: grid;
+  color: white;
+  height: 100%;
+  align-items: center;
+  padding: 10%;
+  text-decoration: none;
+  background-color: #2f2f2f;
+}
+
+.dropdownlinks > a:hover {
+  background-color: #ea284e;
+}
+
+.dropdown:hover .dropdownlinks {
+  display: grid;
+  position: absolute;
+  top: 10vh;
+  right: 0;
+  height: 10vh;
+  width: 8vw;
+}
+
+.dropdownuser {
+  display: grid;
+  position: absolute;
+  top: 10vh;
+  right: 20vw;
+  width: 15vw;
+  z-index: 1000;
+}
+
+.dropdownuser > a {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  padding: 5%;
+  text-decoration: none;
+  font-size: 1rem;
+  background-color: #2f2f2f;
+}
+
+.dropdownuser > a:hover {
+  background-color: #ea284e;
+}
+
+.profilePic {
+  height: 50px;
+  border-radius: 50%;
+}
+
+.username {
+  padding-left: 0.5vw;
+}
+
+/* Content moderator navbar  */
+
+.cmdropdownlinks {
+  text-align: left;
+  display: none;
+}
+
+.cmdropdownlinks > a {
+  float: none;
+  display: grid;
+  color: white;
+  height: 100%;
+  align-items: center;
+  padding: 5px;
+  text-decoration: none;
+  font-size: 11px;
+}
+
+.cmdropdownlinks > a:hover {
+  background-color: #ea284e;
+}
+
+.guestProfilePic:hover .cmdropdownlinks {
+  display: grid;
+  position: absolute;
+  top: 6.5vh;
+  background-color: #2f2f2f;
+}

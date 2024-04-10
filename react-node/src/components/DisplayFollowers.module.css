@@ -1,0 +1,112 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 1;
+  background: rgba(33, 33, 33, 0.7);
+}
+
+.modal {
+  position: fixed;
+  background: #383838;
+  top: 10vh;
+  bottom: 10vh;
+  left: 30%;
+  right: 30%;
+  width: 40%;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.modalHeading {
+  display: flex;
+  justify-content: center;
+  gap: 4vw;
+  padding-top: 2vw;
+}
+
+.headingButton {
+  background: transparent;
+  border-color: transparent;
+  font-size: 2vw;
+}
+
+.modalDisplay {
+  display: flex;
+  justify-content: center;
+  height: 50vh;
+}
+
+.displayItems {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  list-style-type: none;
+  gap: 1vh;
+  position: relative;
+}
+
+.profileDiv {
+  display: flex;
+  width: 15vw;
+  background-color: transparent;
+  padding: 1vh;
+  border-radius: 10px;
+  border: #ea284e solid;
+  align-items: center;
+}
+
+.profileDiv:hover {
+  background-color: #ea284e;
+  font-weight: bold;
+}
+
+.username {
+  margin-left: 1vw;
+}
+
+.profileNames {
+  display: flex;
+  color: white;
+  text-decoration: none;
+  font-size: 0.8rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.userProfilePic {
+  display: flex;
+  border-radius: 50%;
+  height: 50px;
+  border-color: white;
+  border-style: solid;
+  border-width: 3px;
+  align-items: start;
+}
+
+.buttonDiv {
+  position: absolute;
+  margin-right: 2vw;
+  right: 1vw;
+  bottom: 4vh;
+}
+
+.cancelButton {
+  background: transparent;
+  border: transparent;
+  font-size: 1.5vw;
+  color: #b0b0b0;
+}
+
+.cancelButton:hover {
+  color: rgb(255, 255, 255);
+  font-weight: 700;
+}
+
+.isActive {
+  text-decoration: underline;
+  text-underline-offset: 1rem;
+}

@@ -1,0 +1,71 @@
+.container {
+  display: flex;
+  margin: auto;
+  height: 80vh;
+  padding: 10% 0 10% 0;
+  background-color: black;
+  border-radius: 50px;
+  justify-content: center;
+  width: 25vw;
+  position: relative;
+}
+
+.loginContainer {
+  flex-direction: column;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginContainer > h1 {
+  font-size: 7vw;
+  color: white;
+  font-weight: bold;
+  margin-bottom: 2vw;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.userInput {
+  border-radius: 15px;
+  border: transparent;
+  text-align: center;
+  margin-bottom: 1vh;
+  color: black;
+  font-size: 1.5vw;
+  padding: 0.2vw;
+}
+
+.loginBtn {
+  width: 80%;
+  border-radius: 15px;
+  border-color: transparent;
+  color: whitesmoke;
+  background-color: #ea284e;
+  margin-top: 3vh;
+  font-size: 1.2vw;
+  padding: 0.2vw;
+}
+
+.signUp {
+  font-size: 0.8vw;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.signUp > a {
+  text-decoration: none;
+}
+
+.signUp > a:hover {
+  text-decoration: underline;
+  color: #ea284e;
+}
+
+.signUpText {
+  color: #ea284e;
+  font-weight: bolder;
+}

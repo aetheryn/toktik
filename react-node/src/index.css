@@ -1,16 +1,17 @@
-@import url("https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
 * {
   box-sizing: border-box;
+  color: white;
 }
 
 html {
-  font-family: "Oxygen", sans-serif;
+  font-family: "Montserrat";
 }
 
 body {
   margin: 0;
-  background-color: whitesmoke;
+  background-color: #1d1d1d;
 }
 
 .centered {
@@ -19,4 +20,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.row {
+  --bs-gutter-x: 0;
 }
