@@ -220,73 +220,75 @@ const Video = (props) => {
           <div className={styles.title}>{props.video.title}</div>
         </div>
 
-        <button
-          style={{
-            position: "absolute",
-            right: "1vw",
-            bottom: "25vh",
-            fontSize: "1rem",
-            zIndex: 10,
-            backgroundColor: "transparent",
-            borderColor: "transparent",
-            height: "3rem",
-          }}
-          onClick={colorChangeFavourite}
-        >
-          <FavoriteIcon
-            style={{ fill: color }}
-            onClick={(e) => {
-              e.preventDefault();
-              handleLikeClick(props.video._id);
-            }}
-          ></FavoriteIcon>
-          <p>{liked.length}</p>
-        </button>
-
-        <button
-          style={{
-            position: "absolute",
-            right: "1vw",
-            bottom: "17vh",
-            fontSize: "1rem",
-            zIndex: 10,
-            backgroundColor: "transparent",
-            borderColor: "transparent",
-            height: "3rem",
-          }}
-          onClick={() => handleCommentsClick()}
-        >
-          <CommentIcon></CommentIcon>
-          <p>{comments.length}</p>
-        </button>
-        <button
-          style={{
-            position: "absolute",
-            right: "1vw",
-            bottom: "11vh",
-            fontSize: "1rem",
-            backgroundColor: "transparent",
-            borderColor: "transparent",
-            zIndex: 10,
-          }}
-          onClick={() => reportVideo(props.video._id)}
-        >
-          <FlagIcon></FlagIcon>
-        </button>
-
-        <button
-          style={{
-            position: "absolute",
-            right: "1vw",
-            bottom: "5vh",
-            fontSize: "1rem",
-            backgroundColor: "transparent",
-            borderColor: "transparent",
-            zIndex: 10,
-          }}
-        >
-          <ShareIcon></ShareIcon>
-        </button>
+        {userCtx.role === "user" && (
+          <>
+            <button
+              style={{
+                position: "absolute",
+                right: "1vw",
+                bottom: "25vh",
+                fontSize: "1rem",
+                zIndex: 10,
+                backgroundColor: "transparent",
+                borderColor: "transparent",
+                height: "3rem",
+              }}
+              onClick={colorChangeFavourite}
+            >
+              <FavoriteIcon
+                style={{ fill: color }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleLikeClick(props.video._id);
+                }}
+              ></FavoriteIcon>
+              <p>{liked.length}</p>
+            </button>
+            <button
+              style={{
+                position: "absolute",
+                right: "1vw",
+                bottom: "17vh",
+                fontSize: "1rem",
+                zIndex: 10,
+                backgroundColor: "transparent",
+                borderColor: "transparent",
+                height: "3rem",
+              }}
+              onClick={() => handleCommentsClick()}
+            >
+              <CommentIcon></CommentIcon>
+              <p>{comments.length}</p>
+            </button>
+            <button
+              style={{
+                position: "absolute",
+                right: "1vw",
+                bottom: "11vh",
+                fontSize: "1rem",
+                backgroundColor: "transparent",
+                borderColor: "transparent",
+                zIndex: 10,
+              }}
+              onClick={() => reportVideo(props.video._id)}
+            >
+              <FlagIcon></FlagIcon>
+            </button>
+            <button
+              style={{
+                position: "absolute",
+                right: "1vw",
+                bottom: "5vh",
+                fontSize: "1rem",
+                backgroundColor: "transparent",
+                borderColor: "transparent",
+                zIndex: 10,
+              }}
+            >
+              <ShareIcon></ShareIcon>
+            </button>{" "}
+          </>
+        )}
 
         <video
           ref={videoRef}

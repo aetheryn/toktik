@@ -72,6 +72,8 @@ const Profile = () => {
     const checkFollowStatus = followers.map((item) => item.username);
     if (checkFollowStatus.includes(userCtx.username)) {
       setFollowStatus(true);
+    } else {
+      setFollowStatus(false);
     }
   }, [followers]);
 
