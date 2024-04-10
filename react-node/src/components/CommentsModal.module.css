@@ -14,7 +14,7 @@
   height: 80%;
   width: 60%;
   position: fixed;
-  gap: 5%;
+  gap: 2%;
 }
 
 .videoContainer {
@@ -23,6 +23,7 @@
   height: 80vh;
   position: relative;
   overflow: hidden;
+  max-width: 40%;
 }
 
 .video {

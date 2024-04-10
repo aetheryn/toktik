@@ -13,6 +13,7 @@ const LoginPage = () => {
   const userCtx = useContext(UserContext);
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [alert, setAlert] = useState(false);
 
   const login = async () => {
     const res = await fetchData(
@@ -30,6 +31,8 @@ const LoginPage = () => {
       userCtx.setProfilePic(decoded.profilePicture);
 
       navigate("/main");
+    } else {
+      setAlert(true);
     }
   };
 
@@ -44,7 +47,10 @@ const LoginPage = () => {
               className={styles.userInput}
               type="text"
               placeholder="username"
-              onChange={(e) => setUserName(e.target.value)}
+              onChange={(e) => {
+                setUserName(e.target.value);
+                setAlert(false);
+              }}
             />
           </div>
 
@@ -53,10 +59,18 @@ const LoginPage = () => {
               className={styles.userInput}
               type="password"
               placeholder="password"
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setAlert(false);
+              }}
             />
           </div>
         </div>
+
+        {alert && (
+          <div className={styles.alert}>Incorrect username or password!</div>
+        )}
+
         <div id="login">
           <button className={styles.loginBtn} type="submit" onClick={login}>
             Login
