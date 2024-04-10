@@ -355,6 +355,7 @@ const OverLay = (props) => {
                           handleDeleteReplies={handleDeleteReplies}
                           handleDeleteComments={handleDeleteComments}
                           parentId={item.parentId}
+                          username={props.username}
                         />
                         <hr />
                       </>

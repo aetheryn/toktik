@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import styles from "./CommentsModal.module.css";
-
+import UserContext from "../context/user";
 const Comments = (props) => {
   const [showInput, setShowInput] = useState(false);
+  const userCtx = useContext(UserContext);
 
   const dateConvert = (dateString) => {
     const isoDate = dateString;
@@ -17,9 +18,7 @@ const Comments = (props) => {
     return formatDate;
   };
 
-  useEffect(() => {
-    console.log(showInput);
-  }, [showInput]);
+  useEffect(() => {}, [showInput]);
 
   return (
     <>
@@ -63,35 +62,39 @@ const Comments = (props) => {
         </>
       )}
 
-      {!props.isReply && (
-        <button
-          style={{
-            backgroundColor: "transparent",
-            borderColor: "transparent",
-            color: "whitesmoke",
-          }}
-          onClick={() => {
-            props.handleDeleteComments(props.id, props.parentId);
-          }}
-        >
-          delete comment
-        </button>
-      )}
+      {!props.isReply &&
+        (props.comments.username === userCtx.username ||
+          userCtx.username === props.username) && (
+          <button
+            style={{
+              backgroundColor: "transparent",
+              borderColor: "transparent",
+              color: "whitesmoke",
+            }}
+            onClick={() => {
+              props.handleDeleteComments(props.id, props.parentId);
+            }}
+          >
+            delete comment
+          </button>
+        )}
 
-      {props.isReply && (
-        <button
-          style={{
-            backgroundColor: "transparent",
-            borderColor: "transparent",
-            color: "whitesmoke",
-          }}
-          onClick={() => {
-            props.handleDeleteReplies(props.id, props.parentId);
-          }}
-        >
-          delete reply
-        </button>
-      )}
+      {props.isReply &&
+        (props.comments.username === userCtx.username ||
+          userCtx.username === props.username) && (
+          <button
+            style={{
+              backgroundColor: "transparent",
+              borderColor: "transparent",
+              color: "whitesmoke",
+            }}
+            onClick={() => {
+              props.handleDeleteReplies(props.id, props.parentId);
+            }}
+          >
+            delete reply
+          </button>
+        )}
 
       <div style={{ paddingLeft: 25 }}>
         {props.comments.replies?.map((item) => {
@@ -106,6 +109,7 @@ const Comments = (props) => {
                 handleDeleteReplies={props.handleDeleteReplies}
                 isReply={true}
                 parentId={item.parentId}
+                username={props.username}
               ></Comments>
             </>
           );
