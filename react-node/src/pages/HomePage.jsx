@@ -55,8 +55,8 @@ const HomePage = () => {
           handleReportChange={handleReportChange}
           updateLikes={updateLikes}
           getVideos={getVideos}
-          likes={video.likes.length}
-          comments={video.comments.length}
+          likes={video.likes}
+          comments={video.comments}
         />
       ))}
     </div>

@@ -33,6 +33,12 @@ const Video = (props) => {
   const videoRef = useRef(null);
 
   useEffect(() => {
+    if (!showCommentsModal) {
+      getSpecificVideo();
+    }
+  }, [showCommentsModal]);
+
+  useEffect(() => {
     const videoThing = videoRef.current;
     if (showCommentsModal) {
       setIsPaused(true);
@@ -45,6 +51,19 @@ const Video = (props) => {
       videoThing.pause();
     }
   }, [inView, showCommentsModal]);
+
+  useEffect(() => {
+    setLiked(props.likes);
+  }, []);
+
+  useEffect(() => {
+    if (liked.includes(userCtx.username)) {
+      setVideoLiked(true);
+      setColor("red");
+    } else {
+      setColor("white");
+    }
+  }, [liked]);
 
   const handlePlayer = (event) => {
     event.preventDefault();
@@ -67,8 +86,11 @@ const Video = (props) => {
 
   // function to change color
   const colorChangeFavourite = () => {
-    setColor((prevColor) => (prevColor === "white" ? "red" : "white"));
-    console.log("change color");
+    if (videoLiked) {
+      setColor("red");
+    } else {
+      setColor("white");
+    }
   };
 
   const getSpecificVideo = async () => {
@@ -87,6 +109,9 @@ const Video = (props) => {
 
   // function to increase like
   const handleLikeClick = async (likeId) => {
+    if (userCtx.accessToken.length === 0) {
+      return navigate("/login");
+    }
     if (videoLiked === false) {
       const res = await fetchData(
         "/videos/likes/" + likeId,
@@ -96,12 +121,7 @@ const Video = (props) => {
       );
 
       if (res.ok) {
-        // renders the page again
-        // props.getVideos();
-        // Update the likes count in the HomePage component
-        // props.updateLikes(likeId, updatedLikesCount);
         setVideoLiked(true);
-
         getSpecificVideo();
       }
     } else if (videoLiked === true) {
@@ -113,7 +133,6 @@ const Video = (props) => {
       );
       if (res.ok) {
         setVideoLiked(false);
-
         getSpecificVideo();
       }
     }
@@ -132,13 +151,15 @@ const Video = (props) => {
     if (res.ok) {
       setReported(reported);
       // to change color
-      colorChange();
+      // colorChange();
     }
     // to update source of truth in parent (homepage)
     props.handleReportChange(flaggedId, !reported);
   };
 
-  useEffect(() => {}, [showCommentsModal, liked]);
+  useEffect(() => {
+    console.log(videoLiked);
+  }, [showCommentsModal, liked]);
 
   return (
     <>
@@ -153,6 +174,8 @@ const Video = (props) => {
           showCommentsModal={showCommentsModal}
           likes={props.likes}
           comments={props.comments}
+          handleReportChange={props.handleReportChange}
+          reported={props.video.reported}
         ></CommentsModal>
       )}
 
