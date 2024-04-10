@@ -91,8 +91,6 @@ const Video = (props) => {
     } else {
       setColor("white");
     }
-    // setColor((prevColor) => (prevColor === "white" ? "red" : "white"));
-    // console.log("change color");
   };
 
   const getSpecificVideo = async () => {
@@ -153,7 +151,7 @@ const Video = (props) => {
     if (res.ok) {
       setReported(reported);
       // to change color
-      colorChange();
+      // colorChange();
     }
     // to update source of truth in parent (homepage)
     props.handleReportChange(flaggedId, !reported);
@@ -176,6 +174,8 @@ const Video = (props) => {
           showCommentsModal={showCommentsModal}
           likes={props.likes}
           comments={props.comments}
+          handleReportChange={props.handleReportChange}
+          reported={props.video.reported}
         ></CommentsModal>
       )}
 

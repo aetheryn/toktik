@@ -18,6 +18,8 @@ const OverLay = (props) => {
   const [likes, setLikes] = useState([]);
   const [color, setColor] = useState("white");
   const [videoLiked, setVideoLiked] = useState(false);
+  const [reported, setReported] = useState(false);
+  const [reportColor, setReportColor] = useState("white");
 
   const commentRef = useRef("");
   const modalRef = useRef(null);
@@ -114,6 +116,7 @@ const OverLay = (props) => {
   useEffect(() => {
     getProfileData();
     modalRef.current.value = document.querySelector("#outside");
+    setReported(props.reported);
   }, []);
 
   useEffect(() => {
@@ -123,7 +126,13 @@ const OverLay = (props) => {
     } else {
       setColor("white");
     }
-  }, [likes]);
+
+    if (reported) {
+      setReportColor("yellow");
+    } else {
+      setReportColor("white");
+    }
+  }, [likes, reported]);
 
   const handleCloseModal = () => {
     if (modalRef) {
@@ -153,11 +162,9 @@ const OverLay = (props) => {
     );
     if (res.ok) {
       setReported(reported);
-      // to change color
-      colorChange();
     }
-    // to update source of truth in parent (homepage)
     props.handleReportChange(flaggedId, !reported);
+    // to update source of truth in parent (homepage)
   };
 
   const handleLikeClick = async (likeId) => {
@@ -230,9 +237,9 @@ const OverLay = (props) => {
                 borderColor: "transparent",
                 zIndex: 1000000,
               }}
-              onClick={() => ""}
+              onClick={() => reportVideo(props.id)}
             >
-              <FlagIcon></FlagIcon>
+              <FlagIcon style={{ fill: reportColor, zIndex: 1000 }}></FlagIcon>
             </button>
 
             <button
@@ -329,6 +336,7 @@ const CommentsModal = (props) => {
           created_at={props.created_at}
           likes={props.likes}
           comments={props.comments}
+          handleReportChange={props.handleReportChange}
         />,
         document.querySelector("#modal-root")
       )}
