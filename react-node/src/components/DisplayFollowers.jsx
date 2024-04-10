@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import styles from "./DisplayFollowers.module.css";
 import { Link } from "react-router-dom";
@@ -7,8 +7,11 @@ const OverLay = (props) => {
   const [showFollowers, setShowFollowers] = useState(false);
   const [showFollowing, setShowFollowing] = useState(false);
   const [showLikedVideos, setShowLikedVideos] = useState(false);
+  const modalRef = useRef(null);
 
-  const backdrop = document.getElementById("backdrop");
+  useEffect(() => {
+    modalRef.current.value = document.querySelector("#backdrop");
+  }, []);
 
   const handleClick = (event) => {
     const elements = document.getElementsByClassName("headerBtn");
@@ -17,6 +20,16 @@ const OverLay = (props) => {
     }
 
     event.target.classList.add(styles["isActive"]);
+  };
+
+  const handleCloseModal = () => {
+    if (modalRef) {
+      modalRef.current.addEventListener("click", (e) => {
+        if (modalRef.current.value === e.target.value) {
+          props.setShowModal(true);
+        }
+      });
+    }
   };
 
   useEffect(() => {
@@ -43,116 +56,126 @@ const OverLay = (props) => {
   //   backdrop.addEventListener(onClick, props.setShowModal(true));
 
   return (
-    <div id="backdrop" className={styles.backdrop}>
-      <div className={styles.modal}>
-        <div className={styles.modalHeading}>
-          <button
-            className={`headerBtn ${styles.headingButton}`}
-            onClick={(event) => {
-              setShowFollowers(true);
-              handleClick(event);
-            }}
-          >
-            Followers
-          </button>
-          <button
-            className={`headerBtn ${styles.headingButton}`}
-            onClick={(event) => {
-              setShowFollowing(true);
-              handleClick(event);
-            }}
-          >
-            Following
-          </button>
-          <button
-            value="LikedVideos"
-            className={`headerBtn ${styles.headingButton}`}
-            onClick={(event) => {
-              setShowLikedVideos(true);
-              handleClick(event);
-            }}
-          >
-            Likes
-          </button>
-        </div>
-        <hr />
+    <>
+      <div
+        id="backdrop"
+        ref={modalRef}
+        className={styles.backdrop}
+        onClick={(e) => handleCloseModal(e)}
+      >
+        <div className={styles.modal}>
+          <div className={styles.modalHeading}>
+            <button
+              className={`headerBtn ${styles.headingButton}`}
+              onClick={(event) => {
+                setShowFollowers(true);
+                handleClick(event);
+              }}
+            >
+              Followers
+            </button>
+            <button
+              className={`headerBtn ${styles.headingButton}`}
+              onClick={(event) => {
+                setShowFollowing(true);
+                handleClick(event);
+              }}
+            >
+              Following
+            </button>
+            <button
+              value="LikedVideos"
+              className={`headerBtn ${styles.headingButton}`}
+              onClick={(event) => {
+                setShowLikedVideos(true);
+                handleClick(event);
+              }}
+            >
+              Likes
+            </button>
+          </div>
+          <hr />
 
-        {/* <div className={styles.bodyContainer}> */}
-        {/* followers display */}
-        {showFollowers ? (
-          <div className={styles.modalDisplay}>
-            <div className={styles.displayItems}>
-              {props.followers.map((item) => {
-                return (
-                  <Link
-                    to={`/profile/${item.username}`}
-                    onClick={() => props.setShowModal(true)}
-                    className={styles.profileNames}
-                  >
-                    <button className={styles.profileDiv}>
-                      <img
-                        className={styles.userProfilePic}
-                        src={item.profilePicture}
-                      />
-                      <span className={styles.username}>{item.username}</span>
-                    </button>
-                  </Link>
-                );
-              })}
+          {/* <div className={styles.bodyContainer}> */}
+          {/* followers display */}
+          {showFollowers ? (
+            <div className={styles.modalDisplay}>
+              <div className={styles.displayItems}>
+                {props.followers.map((item) => {
+                  return (
+                    <Link
+                      to={`/profile/${item.username}`}
+                      onClick={() => props.setShowModal(true)}
+                      className={styles.profileNames}
+                    >
+                      <button className={styles.profileDiv}>
+                        <img
+                          className={styles.userProfilePic}
+                          src={item.profilePicture}
+                        />
+                        <span className={styles.username}>{item.username}</span>
+                      </button>
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        ) : (
-          ""
-        )}
+          ) : (
+            ""
+          )}
 
-        {/* following display */}
-        {showFollowing ? (
-          <div className={styles.modalDisplay}>
-            <div className={styles.displayItems}>
-              {props.following.map((item) => {
-                return (
-                  <Link
-                    to={`/profile/${item.username}`}
-                    onClick={() => props.setShowModal(true)}
-                    className={styles.profileNames}
-                  >
-                    <button className={styles.profileDiv}>
-                      <img
-                        className={styles.userProfilePic}
-                        src={item.profilePicture}
-                      />
-                      <span className={styles.username}>{item.username}</span>
-                    </button>
-                  </Link>
-                );
-              })}
+          {/* following display */}
+          {showFollowing ? (
+            <div className={styles.modalDisplay}>
+              <div className={styles.displayItems}>
+                {props.following.map((item) => {
+                  return (
+                    <Link
+                      to={`/profile/${item.username}`}
+                      onClick={() => props.setShowModal(true)}
+                      className={styles.profileNames}
+                    >
+                      <button className={styles.profileDiv}>
+                        <img
+                          className={styles.userProfilePic}
+                          src={item.profilePicture}
+                        />
+                        <span className={styles.username}>{item.username}</span>
+                      </button>
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        ) : (
-          ""
-        )}
+          ) : (
+            ""
+          )}
 
-        {/* liked video display */}
-        {showLikedVideos ? (
-          <div className={styles.modalDisplay}>
-            <ul className={styles.displayItems}> Liked Videos Placeholder </ul>
+          {/* liked video display */}
+          {showLikedVideos ? (
+            <div className={styles.modalDisplay}>
+              <ul className={styles.displayItems}>
+                {" "}
+                Liked Videos Placeholder{" "}
+              </ul>
+            </div>
+          ) : (
+            ""
+          )}
+          {/* </div> */}
+          <div className={styles.buttonDiv}>
+            <button
+              className={styles.cancelButton}
+              onClick={() => {
+                props.setShowModal(true);
+              }}
+            >
+              CANCEL
+            </button>
           </div>
-        ) : (
-          ""
-        )}
-        {/* </div> */}
-        <div className={styles.buttonDiv}>
-          <button
-            className={styles.cancelButton}
-            onClick={() => {
-              props.setShowModal(true);
-            }}
-          >
-            CANCEL
-          </button>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -27,6 +27,8 @@ const Video = (props) => {
   const [showCommentsModal, setShowCommentsModal] = useState(false);
   const userCtx = useContext(UserContext);
   const navigate = useNavigate();
+  const [comments, setComments] = useState([]);
+
   const { ref, inView } = useInView({
     threshold: 0.5,
   });
@@ -104,6 +106,7 @@ const Video = (props) => {
     );
     if (res.ok) {
       setLiked(res.data.likes);
+      setComments(res.data.comments);
     }
   };
 
@@ -208,7 +211,7 @@ const Video = (props) => {
               handleLikeClick(props.video._id);
             }}
           ></FavoriteIcon>
-          <p>{liked.length > 0 ? liked.length : props.video.likes.length}</p>
+          <p>{liked.length}</p>
         </button>
 
         <button
@@ -225,7 +228,7 @@ const Video = (props) => {
           onClick={() => handleCommentsClick()}
         >
           <CommentIcon></CommentIcon>
-          <p>{props.video.comments.length}</p>
+          <p>{comments.length}</p>
         </button>
         <button
           style={{

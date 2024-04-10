@@ -36,8 +36,12 @@ const Profile = () => {
     profilePicture: "",
   });
 
-  const [userVideos, setUserVideos] = useState([]);
+  const [videos, setVideos] = useState([]);
   const [videoIsLoading, setVideoIsLoading] = useState(false);
+
+  const handleReportChange = (videoId) => {
+    setVideos(videos.filter((video) => video._id !== videoId));
+  };
 
   // getting stats of user
   const getProfileStatInfo = async () => {
@@ -203,8 +207,7 @@ const Profile = () => {
       undefined
     );
     if (res.ok) {
-      setUserVideos(res.data);
-      console.log(userVideos);
+      setVideos(res.data);
       setVideoIsLoading(false);
     } else {
       console.log("an error has occured");
@@ -343,7 +346,7 @@ const Profile = () => {
           )}
         </div>
         <div className={styles.userVideoContainer}>
-          {userVideos.map((item, idx) => {
+          {videos.map((item, idx) => {
             return (
               <>
                 <UserUpload
@@ -354,6 +357,7 @@ const Profile = () => {
                   created_at={item.created_at}
                   idx={idx}
                   key={item._id}
+                  handleReportChange={handleReportChange}
                 />
               </>
             );

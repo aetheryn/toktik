@@ -15,6 +15,7 @@ const UserUpload = (props) => {
           title={props.title}
           created_at={props.created_at}
           username={props.username}
+          handleReportChange={props.handleReportChange}
         ></CommentsModal>
       )}
       <div className="video" onClick={() => setShowCommentsModal(true)}>

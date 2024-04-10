@@ -1,5 +1,5 @@
 import { React, useContext, useEffect, useState, useRef } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import UserContext from "../context/user";
 import useFetch from "../hooks/useFetch";
@@ -7,7 +7,6 @@ import useFetch from "../hooks/useFetch";
 const Navbar = () => {
   const userCtx = useContext(UserContext);
   const searchUserRef = useRef();
-  const navigate = useNavigate();
   const fetchProfile = useFetch();
   const [adminView, setAdminView] = useState(false);
   const [allUsers, setAllUsers] = useState([]);
