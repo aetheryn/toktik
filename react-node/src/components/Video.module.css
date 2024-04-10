@@ -85,3 +85,13 @@ button > svg {
 button > p {
   text-shadow: 0 0 1em black;
 }
+
+.pp {
+  position: absolute;
+  z-index: 100;
+  width: 3vw;
+  border-radius: 50px;
+  border: whitesmoke solid;
+  bottom: 4vw;
+  left: 1.6vw;
+}
