@@ -22,26 +22,53 @@ const Comments = (props) => {
 
   return (
     <>
-      <div className={styles.commentsDiv}>
-        <div className={styles.mainTitle}>
-          <img src={props.comments.profilePicture} className={styles.pp} />
-          <div className={styles.usernameTitle}>
-            <p>{props.comments.username}</p>
-            <p>{props.comments.content}</p>
+      <div className={styles.mainTitle}>
+        <img src={props.comments.profilePicture} className={styles.ppComment} />
+        <div className={styles.usernameTitle}>
+          <div style={{ fontWeight: "bold" }}>{props.comments.username}</div>
+          <div>{props.comments.content}</div>
+
+          <div className={styles.miscellaneous}>
+            <div className={styles.dateTime}>
+              {dateConvert(props.comments.created_at)}
+            </div>
+            <div
+              className={styles.reply}
+              onClick={() => {
+                setShowInput(true);
+              }}
+            >
+              Reply
+            </div>
+
+            {!props.isReply &&
+              (props.comments.username === userCtx.username ||
+                userCtx.username === props.username) && (
+                <div
+                  className={styles.reply}
+                  onClick={() => {
+                    props.handleDeleteComments(props.id, props.parentId);
+                  }}
+                >
+                  Delete Comment
+                </div>
+              )}
+
+            {props.isReply &&
+              (props.comments.username === userCtx.username ||
+                userCtx.username === props.username) && (
+                <div
+                  className={styles.reply}
+                  onClick={() => {
+                    props.handleDeleteReplies(props.id, props.parentId);
+                  }}
+                >
+                  Delete Reply
+                </div>
+              )}
           </div>
         </div>
       </div>
-      <p className={styles.dateTimeComments}>
-        {dateConvert(props.comments.created_at)}
-      </p>
-      <p
-        className={styles.reply}
-        onClick={() => {
-          setShowInput(true);
-        }}
-      >
-        Reply
-      </p>
 
       {showInput && (
         <>
@@ -62,41 +89,7 @@ const Comments = (props) => {
         </>
       )}
 
-      {!props.isReply &&
-        (props.comments.username === userCtx.username ||
-          userCtx.username === props.username) && (
-          <button
-            style={{
-              backgroundColor: "transparent",
-              borderColor: "transparent",
-              color: "whitesmoke",
-            }}
-            onClick={() => {
-              props.handleDeleteComments(props.id, props.parentId);
-            }}
-          >
-            delete comment
-          </button>
-        )}
-
-      {props.isReply &&
-        (props.comments.username === userCtx.username ||
-          userCtx.username === props.username) && (
-          <button
-            style={{
-              backgroundColor: "transparent",
-              borderColor: "transparent",
-              color: "whitesmoke",
-            }}
-            onClick={() => {
-              props.handleDeleteReplies(props.id, props.parentId);
-            }}
-          >
-            delete reply
-          </button>
-        )}
-
-      <div style={{ paddingLeft: 25 }}>
+      <div style={{ paddingLeft: "25", scale: "0.8" }}>
         {props.comments.replies?.map((item) => {
           return (
             <>

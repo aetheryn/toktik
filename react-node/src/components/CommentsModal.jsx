@@ -8,6 +8,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import CommentIcon from "@mui/icons-material/Comment";
 import FlagIcon from "@mui/icons-material/Flag";
 import ShareIcon from "@mui/icons-material/Share";
+import PauseRoundedIcon from "@mui/icons-material/PauseRounded";
 
 const OverLay = (props) => {
   const fetchData = useFetch();
@@ -20,6 +21,7 @@ const OverLay = (props) => {
   const [videoLiked, setVideoLiked] = useState(false);
   const [reported, setReported] = useState(false);
   const [reportColor, setReportColor] = useState("white");
+  const [isPaused, setIsPaused] = useState(false);
 
   const commentRef = useRef("");
   const modalRef = useRef(null);
@@ -190,6 +192,17 @@ const OverLay = (props) => {
     }
   };
 
+  const handlePlayer = (event) => {
+    event.preventDefault();
+    if (event.currentTarget.paused) {
+      setIsPaused(false);
+      event.target.play();
+    } else {
+      setIsPaused(true);
+      event.target.pause();
+    }
+  };
+
   //delete fetch
   const deleteComment = async (id, parentId) => {
     const res = await fetchData(
@@ -199,7 +212,7 @@ const OverLay = (props) => {
         parentId: parentId,
         id: id,
       },
-      undefined
+      userCtx.accessToken
     );
     if (res.ok) {
       getProfileData();
@@ -216,7 +229,7 @@ const OverLay = (props) => {
         parentId: parentId,
         id: id,
       },
-      undefined
+      userCtx.accessToken
     );
     if (res.ok) {
       console.log(res);
@@ -240,112 +253,97 @@ const OverLay = (props) => {
         ref={modalRef}
         onClick={() => handleCloseModal()}
       >
-        <div className={styles.modalContainer}>
-          <div className={styles.buttonContainer}>
-            <button
-              style={{
-                position: "absolute",
-                right: "51vw",
-                bottom: "44vh",
-                fontSize: "1rem",
-                zIndex: 100,
-                backgroundColor: "transparent",
-                borderColor: "transparent",
-                height: "3rem",
-              }}
-            >
-              <FavoriteIcon
-                style={{ fill: color, zIndex: 1000000 }}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleLikeClick(props.id);
-                }}
-              ></FavoriteIcon>
-              <p>{likes.length}</p>
-            </button>
+        <div className={`${styles.modalContainer} row`}>
+          <div className={`${styles.videoContainer} col`}>
+            <div className={styles.buttonContainer}>
+              <button style={{ bottom: "15vh" }}>
+                <FavoriteIcon
+                  style={{ fill: color, zIndex: 1000000 }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleLikeClick(props.id);
+                  }}
+                ></FavoriteIcon>
+                <p>{likes.length}</p>
+              </button>
 
-            <button
-              style={{
-                position: "absolute",
-                right: "51vw",
-                bottom: "38vh",
-                fontSize: "1rem",
-                backgroundColor: "transparent",
-                borderColor: "transparent",
-                zIndex: 1000000,
-              }}
-              onClick={() => reportVideo(props.id)}
-            >
-              <FlagIcon style={{ fill: reportColor, zIndex: 1000 }}></FlagIcon>
-            </button>
+              <button
+                style={{ bottom: "9vh" }}
+                onClick={() => reportVideo(props.id)}
+              >
+                <FlagIcon
+                  style={{ fill: reportColor, zIndex: 1000 }}
+                ></FlagIcon>
+              </button>
 
-            <button
-              style={{
-                position: "absolute",
-                right: "51vw",
-                bottom: "32vh",
-                fontSize: "1rem",
-                backgroundColor: "transparent",
-                borderColor: "transparent",
-                zIndex: 1000000,
+              <button style={{ bottom: "3vh" }}>
+                <ShareIcon></ShareIcon>
+              </button>
+            </div>
+
+            <video
+              className={styles.video}
+              src={props.url}
+              onClick={(event) => {
+                handlePlayer(event);
               }}
-            >
-              <ShareIcon></ShareIcon>
-            </button>
+              autoPlay
+              loop={true}
+            ></video>
+
+            {isPaused && (
+              <div className={styles.pauseBtn}>
+                <PauseRoundedIcon></PauseRoundedIcon>
+              </div>
+            )}
           </div>
-          <video
-            className={styles.video}
-            src={props.url}
-            controls
-            autoPlay
-            loop={true}
-          ></video>
-          <div className={styles.modal}>
-            <div className={styles.commentsDiv}>
-              <div className={styles.mainTitle}>
-                <img className={styles.pp} src={userPP} />
-                <div className={styles.usernameTitle}>
-                  <p style={{ fontWeight: "bold" }}>{props.username}</p>
-                  <p>{props.title}</p>
+
+          <div className={`${styles.modal} col`}>
+            {/* <div className={styles.commentsDiv}> */}
+            <div className={styles.mainTitle}>
+              <img className={styles.pp} src={userPP} />
+              <div className={styles.usernameTitle}>
+                <div style={{ fontWeight: "bold" }}>{props.username}</div>
+                <div>{props.title}</div>
+
+                <div className={styles.miscellaneous}>
+                  <div className={styles.dateTime}>
+                    {dateConvert(props.created_at)}
+                  </div>
+                  <div
+                    className={styles.reply}
+                    onClick={() => {
+                      setShowInput(true);
+                    }}
+                  >
+                    Reply
+                  </div>
                 </div>
               </div>
-              <div className={styles.bottomContainer}>
-                <p className={styles.dateTimeMain}>
-                  {dateConvert(props.created_at)}
-                </p>
-                <p
-                  className={styles.reply}
-                  onClick={() => {
-                    setShowInput(true);
-                  }}
-                >
-                  Reply
-                </p>
-              </div>
+            </div>
 
-              {showInput && (
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    handleSubmitComment(props.id);
-                  }}
-                >
-                  <input
-                    className={styles.input}
-                    type="text"
-                    ref={commentRef}
-                    placeholder="comment"
-                  />
-                </form>
-              )}
-              <hr />
+            {showInput && (
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleSubmitComment(props.id);
+                }}
+              >
+                <input
+                  className={`${styles.input}`}
+                  type="text"
+                  ref={commentRef}
+                  placeholder="comment"
+                />
+              </form>
+            )}
 
-              {/* comments */}
-
-              {comments
-                ? comments.map((item) => {
-                    return (
-                      <>
+            {/* comments */}
+            <div className={styles.commentsContainer}>
+              <div>
+                {comments
+                  ? comments.map((item) => {
+                      return (
                         <Comments
                           key={item._id}
                           handleSubmitReply={handleSubmitReply}
@@ -356,13 +354,13 @@ const OverLay = (props) => {
                           handleDeleteComments={handleDeleteComments}
                           parentId={item.parentId}
                           username={props.username}
-                        />
-                        <hr />
-                      </>
-                    );
-                  })
-                : ""}
+                        ></Comments>
+                      );
+                    })
+                  : ""}
+              </div>
             </div>
+            {/* </div> */}
           </div>
         </div>
       </div>
