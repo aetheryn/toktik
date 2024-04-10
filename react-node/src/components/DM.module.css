@@ -78,7 +78,7 @@
 }
 
 .userDetails {
-  overflow-x: hidden;
+  overflow-x: ellipsis;
   text-wrap: none;
   text-align: left;
   padding-left: 20px;
