@@ -199,7 +199,7 @@ const OverLay = (props) => {
         parentId: parentId,
         id: id,
       },
-      undefined
+      userCtx.accessToken
     );
     if (res.ok) {
       getProfileData();
@@ -216,7 +216,7 @@ const OverLay = (props) => {
         parentId: parentId,
         id: id,
       },
-      undefined
+      userCtx.accessToken
     );
     if (res.ok) {
       console.log(res);

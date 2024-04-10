@@ -22,7 +22,7 @@ const RegisterPage = () => {
     );
     if (res.ok) {
       console.log("Registration successful!");
-      console.log(res);
+      console.log(res.data);
       login();
     }
   };
@@ -36,6 +36,7 @@ const RegisterPage = () => {
     );
     if (res.ok) {
       userCtx.setAccessToken(res.data.access);
+      localStorage.setItem("refresh", res.data.refresh);
       const decoded = jwtDecode(res.data.access);
       userCtx.setRole(decoded.role);
       userCtx.setUsername(decoded.username);
