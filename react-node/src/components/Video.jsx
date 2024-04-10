@@ -197,7 +197,7 @@ const Video = (props) => {
             right: "1vw",
             bottom: "25vh",
             fontSize: "1rem",
-            zIndex: 100,
+            zIndex: 10,
             backgroundColor: "transparent",
             borderColor: "transparent",
             height: "3rem",
@@ -205,7 +205,7 @@ const Video = (props) => {
           onClick={colorChangeFavourite}
         >
           <FavoriteIcon
-            style={{ fill: color, zIndex: 10 }}
+            style={{ fill: color }}
             onClick={(e) => {
               e.preventDefault();
               handleLikeClick(props.video._id);
