@@ -102,7 +102,7 @@ const Video = (props) => {
       {
         id: props.id,
       },
-      undefined
+      userCtx.accessToken
     );
     if (res.ok) {
       setLiked(res.data.likes);
@@ -185,12 +185,19 @@ const Video = (props) => {
 
       <div ref={ref} className={styles.videoDisplay}>
         <div className={styles.title}>{props.video.title}</div>
-        <Link
-          to={`/profile/${props.video.username}`}
-          className={styles.username}
-        >
-          {props.video.username}
-        </Link>
+
+        {userCtx.accessToken ? (
+          <Link
+            to={`/profile/${props.video.username}`}
+            className={styles.username}
+          >
+            {props.video.username}
+          </Link>
+        ) : (
+          <Link to={"/login"} className={styles.username}>
+            {props.video.username}
+          </Link>
+        )}
 
         <button
           style={{
