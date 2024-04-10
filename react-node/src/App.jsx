@@ -29,7 +29,6 @@ function App() {
       const socket = io(import.meta.env.VITE_SERVER, {
         query: { userId: username },
       });
-
       setSocket(socket);
       return () => socket.close();
     } else {
@@ -43,7 +42,7 @@ function App() {
   const access = async () => {
     const refreshToken = localStorage.getItem("refresh");
 
-    if (refreshToken) {
+    if (!accessToken) {
       const res = await fetchData(
         "/auth/refresh",
         "POST",
