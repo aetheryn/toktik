@@ -1,5 +1,5 @@
 .video {
-  height: 60vh;
+  height: fit-content;
   align-self: center;
   display: block;
   padding: 5%;
@@ -25,7 +25,7 @@
 
 .title {
   text-align: center;
-  width: 10vw;
+  width: 20vw;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
