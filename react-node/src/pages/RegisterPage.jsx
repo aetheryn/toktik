@@ -69,6 +69,8 @@ const RegisterPage = () => {
                 type="password"
                 placeholder="password"
                 onChange={(e) => setPassword(e.target.value)}
+                minLength={8}
+                maxLength={16}
               />
             </div>
           </div>

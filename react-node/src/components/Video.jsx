@@ -198,7 +198,7 @@ const Video = (props) => {
 
       <div ref={ref} className={styles.videoDisplay}>
         <div className={styles.title}>{props.video.title}</div>
-        <img className={styles.pp} src={profilePic} alt="" />
+        <img className={profilePic ? styles.pp : ""} src={profilePic} alt="" />
 
         {userCtx.accessToken ? (
           <Link
