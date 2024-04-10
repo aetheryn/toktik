@@ -7,6 +7,7 @@ import useFetch from "../hooks/useFetch";
 
 const Upload = () => {
   const userCtx = useContext(UserContext);
+
   // const fetchData = useFetch();
   const navigate = useNavigate();
 
@@ -61,6 +62,10 @@ const Upload = () => {
   };
 
   useEffect(() => {
+    if (userCtx.accessToken.length === 0) {
+      return navigate("/login");
+    }
+
     if (!file) {
       setPreview(undefined);
       return;
