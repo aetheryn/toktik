@@ -84,6 +84,11 @@ const Comments = (props) => {
               ref={props.commentRef}
               placeholder="comment"
               id={props.id}
+              autoFocus
+              onBlur={() => {
+                props.commentRef.current.value = "";
+                setShowInput(false);
+              }}
             />
           </form>
         </>
