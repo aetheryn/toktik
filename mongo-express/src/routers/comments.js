@@ -12,7 +12,7 @@ const {
 
 router.post("/replies/:id", authUser, addReplies);
 router.put("/:id", authUser, addComments);
-router.delete("/:id", authUser, deleteComments);
+router.delete("/:id", authUser, deleteReply);
 router.patch("/delete/:id", authUser, deleteComments);
 
 module.exports = router;
