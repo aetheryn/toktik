@@ -259,16 +259,32 @@ const deleteComments = async (req, res) => {
 
     const comments = video.comments;
 
-    const comment = findParent(comments, req.body.id);
+    if (req.body.id && !req.body.parentId) {
+      console.log(req.body.id);
+      const comment = findParent(comments, req.body.id);
+      console.log(comment);
+      await Videos.findOneAndUpdate(
+        {
+          _id: req.params.id,
+        },
+        { $pull: { comments: comment } }
+      );
+      return res.json({ status: "ok", msg: "deleted comment" });
+    } else if (req.body.parentId) {
+      const replyParent = findParent(comments, req.body.parentId);
 
-    const delComment = await Videos.findOneAndUpdate(
-      {
-        _id: req.params.id,
-      },
-      { $pull: { comments: comment } }
-    );
+      const index = replyParent.replies.findIndex(
+        (reply) => reply._id.toString() === req.body.id
+      );
 
-    res.json(delComment);
+      console.log(index);
+
+      replyParent.replies.splice(index, 1);
+
+      await video.save();
+
+      return res.json({ status: "ok", msg: "reply deleted" });
+    }
   } catch (error) {
     console.log(error.message);
     res

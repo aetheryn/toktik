@@ -59,12 +59,12 @@ const Comments = (props) => {
               placeholder="comment"
               id={props.id}
             />
-            {/* <button
-              onClick={(e) => props.handleSubmitReply(e, props.id)}
-            ></button> */}
           </form>
         </>
       )}
+      <button onClick={() => props.handleDeleteComments(props.id)}>
+        delete
+      </button>
 
       <div style={{ paddingLeft: 25 }}>
         {props.comments.replies?.map((item) => {
@@ -75,6 +75,7 @@ const Comments = (props) => {
               commentRef={props.commentRef}
               key={item._id}
               id={item._id}
+              handleDeleteComments={props.handleDeleteComments}
             />
           );
         })}

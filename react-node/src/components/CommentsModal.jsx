@@ -77,10 +77,7 @@ const OverLay = (props) => {
       undefined
     );
     if (res.ok) {
-      console.log(res.data);
       getProfileData();
-    } else {
-      console.log(props.id);
     }
   };
 
@@ -110,7 +107,7 @@ const OverLay = (props) => {
     commentRef.current.value = "";
   };
 
-  // click outside and close modal
+  // click outside and close modal and reported set
   useEffect(() => {
     getProfileData();
     modalRef.current.value = document.querySelector("#outside");
@@ -135,7 +132,7 @@ const OverLay = (props) => {
   const handleCloseModal = () => {
     if (modalRef) {
       modalRef.current.addEventListener("click", (e) => {
-        if (modalRef.current.value === e.target.value) {
+        if (modalRef.current === e.target.value) {
           props.setShowCommentsModal(false);
         }
       });
@@ -192,6 +189,45 @@ const OverLay = (props) => {
       }
     }
   };
+
+  //delete fetch
+  const deleteComment = async (id) => {
+    const res = await fetchData(
+      "/comments/" + props.id,
+      "DELETE",
+      {
+        id: id,
+      },
+      undefined
+    );
+    if (res.ok) {
+      getProfileData();
+    } else {
+      console.log("ERROR IN DELETE COMMENT");
+    }
+  };
+
+  const deleteReply = async (id) => {
+    const res = await fetchData(
+      "/comments/" + props.id,
+      "DELETE",
+      {
+        parentId: id,
+      },
+      undefined
+    );
+    if (res.ok) {
+      getProfileData();
+    }
+  };
+
+  const handleDeleteComments = (id) => {
+    deleteComment(id);
+  };
+
+  // const handleDeleteReplies = (id) => {
+  //   deleteComment(id);
+  // };
 
   return (
     <>
@@ -313,6 +349,8 @@ const OverLay = (props) => {
                           comments={item}
                           commentRef={commentRef}
                           id={item._id}
+                          handleDeleteComments={handleDeleteComments}
+                          // handleDeleteReplies={handleDeleteReplies}
                         ></Comments>
                         <hr />
                       </>
