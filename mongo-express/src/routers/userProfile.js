@@ -11,11 +11,12 @@ const {
 
 const { errorCheck } = require("../validators/errorCheck");
 const { checkFollowInput } = require("../validators/userProfile");
+const { authUser } = require("../middleware/auth");
 
 router.get("/", getAllUserProfile);
-router.post("/user/:username", getProfileById);
-router.put("/:username", errorCheck, addProfileData);
-router.put("/description/:username", errorCheck, updateDescription);
-router.put("/rm/:username", errorCheck, removeProfileData);
+router.post("/user/:username", authUser, getProfileById);
+router.put("/:username", authUser, errorCheck, addProfileData);
+router.put("/description/:username", authUser, errorCheck, updateDescription);
+router.put("/rm/:username", authUser, errorCheck, removeProfileData);
 
 module.exports = router;

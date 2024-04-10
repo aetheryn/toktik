@@ -32,7 +32,7 @@ const UserinDM = (props) => {
         "/users/user/" + user,
         "POST",
         undefined,
-        undefined
+        userCtx.accessToken
       );
 
       if (response.ok) {

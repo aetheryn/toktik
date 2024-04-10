@@ -49,7 +49,7 @@ const Profile = () => {
       "/users/user/" + currentUser,
       "POST",
       undefined,
-      undefined
+      userCtx.accessToken
     );
 
     if (res.ok) {
@@ -84,7 +84,7 @@ const Profile = () => {
         {
           followers: follow,
         },
-        undefined
+        userCtx.accessToken
       );
 
       if (res.ok) {
@@ -107,7 +107,7 @@ const Profile = () => {
       {
         following: currUser,
       },
-      undefined
+      userCtx.accessToken
     );
 
     if (res.ok) {
@@ -134,7 +134,7 @@ const Profile = () => {
         {
           followers: unfollow,
         },
-        undefined
+        userCtx.accessToken
       );
 
       if (res.ok) {
@@ -164,7 +164,7 @@ const Profile = () => {
       {
         following: currUser,
       },
-      undefined
+      userCtx.accessToken
     );
 
     if (res.ok) {
@@ -183,7 +183,7 @@ const Profile = () => {
       {
         description: descriptionRef.current.value,
       },
-      undefined
+      userCtx.accessToken
     );
     if (res.ok) {
       getProfileStatInfo();
@@ -204,7 +204,7 @@ const Profile = () => {
       "/videos/" + currentUser,
       "POST",
       undefined,
-      undefined
+      userCtx.accessToken
     );
     if (res.ok) {
       setVideos(res.data);

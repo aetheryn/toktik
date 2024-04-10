@@ -55,7 +55,7 @@ const OverLay = (props) => {
       "/users/user/" + props.username,
       "POST",
       undefined,
-      undefined
+      userCtx.accessToken
     );
 
     if (res.ok) {
@@ -74,7 +74,7 @@ const OverLay = (props) => {
         content: commentRef.current.value,
         replies: [],
       },
-      undefined
+      userCtx.accessToken
     );
     if (res.ok) {
       getProfileData();
@@ -92,7 +92,7 @@ const OverLay = (props) => {
           profilePicture: userCtx.profilePic,
           content: commentRef.current.value,
         },
-        undefined
+        userCtx.accessToken
       );
       if (res.ok) {
         console.log(id);
@@ -153,7 +153,7 @@ const OverLay = (props) => {
       {
         reported: !reported,
       },
-      undefined
+      userCtx.accessToken
     );
     if (res.ok) {
       setReported(reported);
@@ -168,7 +168,7 @@ const OverLay = (props) => {
         "/videos/likes/" + likeId,
         "PUT",
         { username: userCtx.username },
-        undefined
+        userCtx.accessToken
       );
 
       if (res.ok) {
@@ -181,7 +181,7 @@ const OverLay = (props) => {
         "/videos/likes/remove/" + likeId,
         "PUT",
         { username: userCtx.username },
-        undefined
+        userCtx.accessToken
       );
       if (res.ok) {
         setVideoLiked(false);

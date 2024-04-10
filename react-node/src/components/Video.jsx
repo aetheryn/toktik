@@ -120,7 +120,7 @@ const Video = (props) => {
         "/videos/likes/" + likeId,
         "PUT",
         { username: userCtx.username },
-        undefined
+        userCtx.accessToken
       );
 
       if (res.ok) {
@@ -132,7 +132,7 @@ const Video = (props) => {
         "/videos/likes/remove/" + likeId,
         "PUT",
         { username: userCtx.username },
-        undefined
+        userCtx.accessToken
       );
       if (res.ok) {
         setVideoLiked(false);
@@ -143,13 +143,16 @@ const Video = (props) => {
 
   // function for report button
   const reportVideo = async (flaggedId) => {
+    if (userCtx.accessToken.length === 0) {
+      return navigate("/login");
+    }
     const res = await fetchData(
       "/videos/flagged/" + flaggedId,
       "PATCH",
       {
         reported: !reported,
       },
-      undefined
+      userCtx.accessToken
     );
     if (res.ok) {
       setReported(reported);
