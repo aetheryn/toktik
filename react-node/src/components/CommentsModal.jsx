@@ -191,11 +191,12 @@ const OverLay = (props) => {
   };
 
   //delete fetch
-  const deleteComment = async (id) => {
+  const deleteComment = async (id, parentId) => {
     const res = await fetchData(
-      "/comments/" + props.id,
-      "DELETE",
+      "/comments/delete/" + props.id,
+      "PATCH",
       {
+        parentId: parentId,
         id: id,
       },
       undefined
@@ -207,27 +208,29 @@ const OverLay = (props) => {
     }
   };
 
-  const deleteReply = async (id) => {
+  const deleteReply = async (id, parentId) => {
     const res = await fetchData(
       "/comments/" + props.id,
       "DELETE",
       {
-        parentId: id,
+        parentId: parentId,
+        id: id,
       },
       undefined
     );
     if (res.ok) {
+      console.log(res);
       getProfileData();
     }
   };
 
-  const handleDeleteComments = (id) => {
-    deleteComment(id);
+  const handleDeleteComments = (id, parentId) => {
+    deleteComment(id, parentId);
   };
 
-  // const handleDeleteReplies = (id) => {
-  //   deleteComment(id);
-  // };
+  const handleDeleteReplies = (id, parentId) => {
+    deleteReply(id, parentId);
+  };
 
   return (
     <>
@@ -349,9 +352,10 @@ const OverLay = (props) => {
                           comments={item}
                           commentRef={commentRef}
                           id={item._id}
+                          handleDeleteReplies={handleDeleteReplies}
                           handleDeleteComments={handleDeleteComments}
-                          // handleDeleteReplies={handleDeleteReplies}
-                        ></Comments>
+                          parentId={item.parentId}
+                        />
                         <hr />
                       </>
                     );

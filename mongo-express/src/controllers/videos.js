@@ -180,6 +180,8 @@ const getSpecificVideo = async (req, res) => {
 
 const uploadFile = async (req, res) => {
   try {
+    console.log(req.file);
+    console.log(req.body);
     req.file.buffer;
 
     const fileName = req.file.originalname;
@@ -251,6 +253,33 @@ const addComments = async (req, res) => {
   }
 };
 
+const deleteReply = async (req, res) => {
+  try {
+    const video = await Videos.findOne({
+      _id: req.params.id,
+    });
+
+    const comments = video.comments;
+
+    const replyParent = findParent(comments, req.body.parentId);
+
+    const index = replyParent.replies.findIndex(
+      (reply) => reply._id.toString() === req.body.id
+    );
+
+    replyParent.replies.splice(index, 1);
+
+    await video.save();
+
+    res.json({ status: "ok", msg: "reply deleted" });
+  } catch (error) {
+    console.log(error.message);
+    res
+      .status(400)
+      .json({ status: "error", msg: "unable to delete reply :( " });
+  }
+};
+
 const deleteComments = async (req, res) => {
   try {
     const video = await Videos.findOne({
@@ -259,32 +288,15 @@ const deleteComments = async (req, res) => {
 
     const comments = video.comments;
 
-    if (req.body.id && !req.body.parentId) {
-      console.log(req.body.id);
-      const comment = findParent(comments, req.body.id);
-      console.log(comment);
-      await Videos.findOneAndUpdate(
-        {
-          _id: req.params.id,
-        },
-        { $pull: { comments: comment } }
-      );
-      return res.json({ status: "ok", msg: "deleted comment" });
-    } else if (req.body.parentId) {
-      const replyParent = findParent(comments, req.body.parentId);
+    const index = comments.findIndex(
+      (comment) => comment._id.toString() === req.body.id
+    );
 
-      const index = replyParent.replies.findIndex(
-        (reply) => reply._id.toString() === req.body.id
-      );
+    comments.splice(index, 1);
 
-      console.log(index);
+    await video.save();
 
-      replyParent.replies.splice(index, 1);
-
-      await video.save();
-
-      return res.json({ status: "ok", msg: "reply deleted" });
-    }
+    res.json({ status: "ok", msg: "deleted comment" });
   } catch (error) {
     console.log(error.message);
     res
@@ -394,4 +406,5 @@ module.exports = {
   addLikes,
   removeLikes,
   deleteComments,
+  deleteReply,
 };

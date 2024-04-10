@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./CommentsModal.module.css";
 
 const Comments = (props) => {
@@ -62,21 +62,52 @@ const Comments = (props) => {
           </form>
         </>
       )}
-      <button onClick={() => props.handleDeleteComments(props.id)}>
-        delete
-      </button>
+
+      {!props.isReply && (
+        <button
+          style={{
+            backgroundColor: "transparent",
+            borderColor: "transparent",
+            color: "whitesmoke",
+          }}
+          onClick={() => {
+            props.handleDeleteComments(props.id, props.parentId);
+          }}
+        >
+          delete comment
+        </button>
+      )}
+
+      {props.isReply && (
+        <button
+          style={{
+            backgroundColor: "transparent",
+            borderColor: "transparent",
+            color: "whitesmoke",
+          }}
+          onClick={() => {
+            props.handleDeleteReplies(props.id, props.parentId);
+          }}
+        >
+          delete reply
+        </button>
+      )}
 
       <div style={{ paddingLeft: 25 }}>
         {props.comments.replies?.map((item) => {
           return (
-            <Comments
-              handleSubmitReply={props.handleSubmitReply}
-              comments={item}
-              commentRef={props.commentRef}
-              key={item._id}
-              id={item._id}
-              handleDeleteComments={props.handleDeleteComments}
-            />
+            <>
+              <Comments
+                handleSubmitReply={props.handleSubmitReply}
+                comments={item}
+                commentRef={props.commentRef}
+                key={item._id}
+                id={item._id}
+                handleDeleteReplies={props.handleDeleteReplies}
+                isReply={true}
+                parentId={item.parentId}
+              ></Comments>
+            </>
           );
         })}
       </div>
