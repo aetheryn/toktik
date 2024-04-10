@@ -5,6 +5,7 @@ const {
   PutObjectCommand,
   GetObjectCommand,
 } = require("@aws-sdk/client-s3");
+
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 
 const bucketName = process.env.BUCKET_NAME;
@@ -179,8 +180,6 @@ const getSpecificVideo = async (req, res) => {
 
 const uploadFile = async (req, res) => {
   try {
-    console.log("req.body", req.body);
-    console.log("req.file", req.file);
     req.file.buffer;
 
     const fileName = req.file.originalname;
@@ -243,8 +242,6 @@ const addComments = async (req, res) => {
       { $push: { comments: req.body } }
     );
 
-    console.log(req.body.replies.parentId);
-
     res.status(200).json({ status: "ok", msg: "added comments" });
   } catch (error) {
     console.log(error.message);
@@ -254,6 +251,33 @@ const addComments = async (req, res) => {
   }
 };
 
+const deleteComments = async (req, res) => {
+  try {
+    const video = await Videos.findOne({
+      _id: req.params.id,
+    });
+
+    const comments = video.comments;
+
+    const comment = findParent(comments, req.body.id);
+
+    const delComment = await Videos.findOneAndUpdate(
+      {
+        _id: req.params.id,
+      },
+      { $pull: { comments: comment } }
+    );
+
+    res.json(delComment);
+  } catch (error) {
+    console.log(error.message);
+    res
+      .status(400)
+      .json({ status: "error", msg: "unable to delete comment :( " });
+  }
+};
+
+// FN TO FIND PARENT ID
 const findParent = (commentsobj, parentId) => {
   // while loop to loop through everything in the comments
   let commentsTotal = [...commentsobj]; // to create a shallow copy of the comments -
@@ -285,8 +309,6 @@ const addReplies = async (req, res) => {
     const comments = check.comments; // only displays the comments subdoc in the video document
 
     const parent = findParent(comments, req.body.parentId);
-
-    console.log(parent.replies);
 
     const addReply = {
       username: req.body.username,
@@ -355,4 +377,5 @@ module.exports = {
   addReplies,
   addLikes,
   removeLikes,
+  deleteComments,
 };
