@@ -118,7 +118,6 @@ const Video = (props) => {
 
       if (res.ok) {
         setVideoLiked(true);
-
         getSpecificVideo();
       }
     } else if (videoLiked === true) {
@@ -130,7 +129,6 @@ const Video = (props) => {
       );
       if (res.ok) {
         setVideoLiked(false);
-
         getSpecificVideo();
       }
     }

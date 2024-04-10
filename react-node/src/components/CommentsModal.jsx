@@ -17,6 +17,7 @@ const OverLay = (props) => {
   const [showInput, setShowInput] = useState(false);
   const [likes, setLikes] = useState([]);
   const [color, setColor] = useState("white");
+  const [videoLiked, setVideoLiked] = useState(false);
 
   const commentRef = useRef("");
   const modalRef = useRef(null);
@@ -45,7 +46,6 @@ const OverLay = (props) => {
       setComments(res.data.comments);
       getUserDetails();
     }
-    console.log(data);
   };
 
   const getUserDetails = async () => {
@@ -110,16 +110,20 @@ const OverLay = (props) => {
     commentRef.current.value = "";
   };
 
-  const colorChangeFavourite = () => {
-    setColor((prevColor) => (prevColor === "white" ? "red" : "white"));
-    console.log("change color");
-  };
-
   // click outside and close modal
   useEffect(() => {
     getProfileData();
     modalRef.current.value = document.querySelector("#outside");
   }, []);
+
+  useEffect(() => {
+    if (likes.includes(userCtx.username)) {
+      setVideoLiked(true);
+      setColor("red");
+    } else {
+      setColor("white");
+    }
+  }, [likes]);
 
   const handleCloseModal = () => {
     if (modalRef) {
@@ -136,6 +140,52 @@ const OverLay = (props) => {
     addReply(id);
     setShowInput(false);
     commentRef.current.value = "";
+  };
+
+  const reportVideo = async (flaggedId) => {
+    const res = await fetchData(
+      "/videos/flagged/" + flaggedId,
+      "PATCH",
+      {
+        reported: !reported,
+      },
+      undefined
+    );
+    if (res.ok) {
+      setReported(reported);
+      // to change color
+      colorChange();
+    }
+    // to update source of truth in parent (homepage)
+    props.handleReportChange(flaggedId, !reported);
+  };
+
+  const handleLikeClick = async (likeId) => {
+    if (videoLiked === false) {
+      const res = await fetchData(
+        "/videos/likes/" + likeId,
+        "PUT",
+        { username: userCtx.username },
+        undefined
+      );
+
+      if (res.ok) {
+        console.log("am i here");
+        setVideoLiked(true);
+        getProfileData();
+      }
+    } else if (videoLiked === true) {
+      const res = await fetchData(
+        "/videos/likes/remove/" + likeId,
+        "PUT",
+        { username: userCtx.username },
+        undefined
+      );
+      if (res.ok) {
+        setVideoLiked(false);
+        getProfileData();
+      }
+    }
   };
 
   return (
@@ -159,15 +209,15 @@ const OverLay = (props) => {
                 borderColor: "transparent",
                 height: "3rem",
               }}
-              onClick={colorChangeFavourite}
             >
               <FavoriteIcon
                 style={{ fill: color, zIndex: 1000000 }}
                 onClick={(e) => {
                   e.preventDefault();
+                  handleLikeClick(props.id);
                 }}
               ></FavoriteIcon>
-              <p>{props.likes}</p>
+              <p>{likes.length > 0 ? likes.length : props.likes.length}</p>
             </button>
 
             <button
@@ -184,7 +234,9 @@ const OverLay = (props) => {
               onClick={() => handleCommentsClick()}
             >
               <CommentIcon></CommentIcon>
-              <p>{comments.length > 0 ? comments.length : props.comments}</p>
+              <p>
+                {comments.length > 0 ? comments.length : props.comments.length}
+              </p>
             </button>
 
             <button
