@@ -53,7 +53,7 @@ router.get("/flagged", getFlaggedVideos);
 
 router.patch("/flagged/:id", updateFlaggedVideo);
 
-router.put("/comments/:id", addComments);
+router.put("/comments/:id", addComments); // redundant
 
 router.put("/getvideo", getSelectVideo);
 
