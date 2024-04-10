@@ -224,7 +224,7 @@ const OverLay = (props) => {
                   handleLikeClick(props.id);
                 }}
               ></FavoriteIcon>
-              <p>{likes.length > 0 ? likes.length : props.likes.length}</p>
+              <p>{likes.length}</p>
             </button>
 
             <button
