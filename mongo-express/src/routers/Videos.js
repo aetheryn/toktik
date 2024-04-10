@@ -24,10 +24,11 @@ const {
 } = require("../validators/videos");
 const { errorCheck } = require("../validators/errorCheck");
 const { uploadSingleFile } = require("../middleware/videos");
+const { authUser, authContentModerator } = require("../middleware/auth");
 
 const router = express.Router();
 
-router.get("/seed", seedVideo);
+router.get("/seed", authContentModerator, seedVideo);
 
 router.get("/", getVideos);
 
@@ -45,20 +46,20 @@ router.delete("/:id", validateIdInParam, errorCheck, deleteVideo);
 
 router.post("/", validateIdInBody, errorCheck, getSpecificVideo);
 
-router.post("/videoupload", uploadSingleFile, uploadFile);
+router.post("/videoupload", authUser, uploadSingleFile, uploadFile);
 
-router.post("/:username", getVideoByUser);
+router.post("/:username", authUser, getVideoByUser);
 
-router.get("/flagged", getFlaggedVideos);
+router.get("/flagged", authContentModerator, getFlaggedVideos);
 
-router.patch("/flagged/:id", updateFlaggedVideo);
+router.patch("/flagged/:id", authUser, updateFlaggedVideo);
 
-router.put("/comments/:id", addComments);
+router.put("/comments/:id", authUser, addComments);
 
 router.put("/getvideo", getSelectVideo);
 
-router.put("/likes/:id", addLikes);
+router.put("/likes/:id", authUser, addLikes);
 
-router.put("/likes/remove/:id", removeLikes);
+router.put("/likes/remove/:id", authUser, removeLikes);
 
 module.exports = router;
