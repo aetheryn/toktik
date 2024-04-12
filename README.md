@@ -9,12 +9,23 @@ In a world .populated() by millions of short-form contents, Toktik ATTEMPTS to b
 Homepage:
 <img width="1470" alt="image" src="https://github.com/aetheryn/toktik/assets/158001887/0840b7ec-714f-4872-a3ef-9ff771c53000">
 
-Profile Page
+Profile Page:
 
-<img width="1470" alt="image" src="https://github.com/aetheryn/toktik/assets/158001887/afa81c34-af18-4309-af71-54b1af748380">
+![image](https://github.com/aetheryn/toktik/assets/158001887/8fd6b2bf-70bd-47fa-9c86-7b6638e1fd16)
+
 
 Direct Messages:
 <img width="1470" alt="image" src="https://github.com/aetheryn/toktik/assets/158001887/79b43bdf-67d5-4af6-91c3-ed671ee5d712">
+
+
+Comments:
+
+![image](https://github.com/aetheryn/toktik/assets/158001887/9a235cae-e630-4b4c-acec-78c59919fcb6)
+
+
+Content Moderator Page:
+
+![image](https://github.com/aetheryn/toktik/assets/158001887/ca0c2cea-ad18-4b3e-bede-f52260fd80e7)
 
 
 # Technologies Used
@@ -23,9 +34,11 @@ Direct Messages:
 - React
 - HTML
 - CSS
-- MongoDB
+- MongoDB - Atlas
 - Socket.io
 - AWS S3
+- JWT Authentication
+- Express
 
 # Getting Started
 
@@ -81,4 +94,7 @@ Storing Refresh Tokens in LocalStorage =>
 
 React intersection observer
 - https://www.npmjs.com/package/react-intersection-observer
+
+Tiktok
+- https://tiktok.com
 
